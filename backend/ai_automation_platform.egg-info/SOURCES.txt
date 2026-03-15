@@ -1,0 +1,9 @@
+pyproject.toml
+ai_automation_platform.egg-info/PKG-INFO
+ai_automation_platform.egg-info/SOURCES.txt
+ai_automation_platform.egg-info/dependency_links.txt
+ai_automation_platform.egg-info/requires.txt
+ai_automation_platform.egg-info/top_level.txt
+app/__init__.py
+app/config.py
+app/main.py
