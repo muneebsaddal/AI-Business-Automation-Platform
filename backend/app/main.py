@@ -1,22 +1,26 @@
 """FastAPI application entry point."""
 
+import logging
+import traceback
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 
 from app.config import settings
+from app.routers import auth as auth_router
+
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    """Startup and shutdown events."""
-    # Startup
-    print(f"Starting AI Automation Platform [{settings.ENVIRONMENT}]")
-    print(f"LLM: {'OpenAI ' + settings.OPENAI_MODEL if settings.USE_OPENAI else 'Ollama ' + settings.OLLAMA_MODEL}")
+    logger.info(f"Starting AI Automation Platform [{settings.ENVIRONMENT}]")
+    logger.info(f"LLM: {'OpenAI ' + settings.OPENAI_MODEL if settings.USE_OPENAI else 'Ollama ' + settings.OLLAMA_MODEL}")
     yield
-    # Shutdown
-    print("Shutting down...")
+    logger.info("Shutting down...")
 
 
 app = FastAPI(
@@ -37,9 +41,18 @@ app.add_middleware(
 )
 
 
+@app.exception_handler(Exception)
+async def global_exception_handler(request: Request, exc: Exception):
+    """Log full traceback for any unhandled exception."""
+    logger.error(f"Unhandled error on {request.method} {request.url}:\n{traceback.format_exc()}")
+    return JSONResponse(status_code=500, content={"detail": str(exc)})
+
+
+app.include_router(auth_router.router)
+
+
 @app.get("/health", tags=["system"])
 async def health_check():
-    """Health check endpoint."""
     return {
         "status": "ok",
         "environment": settings.ENVIRONMENT,
