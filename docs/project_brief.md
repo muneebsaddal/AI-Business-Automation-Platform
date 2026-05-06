@@ -38,10 +38,10 @@ Completed:
 - Step 6 graph foundation: master LangGraph skeleton, conditional task-type routing, and `IntentClassifier`.
 - Step 7 IR pattern: compact IR schemas, full task output schemas, IR generator, IR validator, and schema resolver.
 - Step 8 execution core: planner, executor, validator, retry routing, escalation routing, and graph continuation after schema resolution.
+- Step 9 simulated tools: lead, contract, onboarding, and custom workflow tool modules plus central `TOOL_REGISTRY`.
 
 Not yet implemented:
 
-- Task tools for lead, contract, onboarding, and custom workflows.
 - Task CRUD, execute endpoint, Celery worker.
 - WebSocket task stream.
 - Frontend React dashboard.
@@ -174,6 +174,25 @@ What Step 8 adds:
 - `Validator`, which validates `final_output` against full task schemas.
 - A confidence heuristic that can pass, escalate, or fail outputs.
 - Retry routing from `Validator` back to `IRGenerator` when schema validation fails and retry budget remains.
+
+Step 9 is complete: simulated task tools.
+
+Files created:
+
+- `backend/app/tools/__init__.py`
+- `backend/app/tools/lead_tools.py`
+- `backend/app/tools/contract_tools.py`
+- `backend/app/tools/onboarding_tools.py`
+- `backend/app/tools/custom_tools.py`
+
+What Step 9 adds:
+
+- Central `TOOL_REGISTRY` used by the Executor.
+- Lead tools for company/contact extraction, intent signal extraction, lead scoring, and routing.
+- Contract tools for parties, dates, obligations, risks, and missing fields.
+- Onboarding tools for steps, account setup, welcome email, and resource provisioning.
+- Custom workflow tools for parsing and simulated step execution.
+- Strongest demo path is still lead qualification; other tools are useful simulated placeholders.
 
 ## Suggested Client Demo Scenarios
 
