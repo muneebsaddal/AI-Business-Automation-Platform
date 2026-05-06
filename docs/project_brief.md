@@ -37,10 +37,10 @@ Completed:
 - Step 5 state layer: `TaskState`, execution log models, plan/result/validation models, and Redis helpers.
 - Step 6 graph foundation: master LangGraph skeleton, conditional task-type routing, and `IntentClassifier`.
 - Step 7 IR pattern: compact IR schemas, full task output schemas, IR generator, IR validator, and schema resolver.
+- Step 8 execution core: planner, executor, validator, retry routing, escalation routing, and graph continuation after schema resolution.
 
 Not yet implemented:
 
-- Planner, executor, validator nodes.
 - Task tools for lead, contract, onboarding, and custom workflows.
 - Task CRUD, execute endpoint, Celery worker.
 - WebSocket task stream.
@@ -157,6 +157,23 @@ What Step 7 adds:
 - `IRValidator`, which Pydantic-validates the IR and records field-level errors.
 - `SchemaResolver`, which expands validated IR into a draft `final_output`.
 - Graph wiring from task-type branch stubs into `IRGenerator -> IRValidator -> SchemaResolver`.
+
+Step 8 is complete: Planner, Executor, and Validator agents.
+
+Files created:
+
+- `backend/app/agents/nodes/planner.py`
+- `backend/app/agents/nodes/executor.py`
+- `backend/app/agents/nodes/validator.py`
+- `docs/langgraph_step8.md`
+
+What Step 8 adds:
+
+- `Planner`, which asks the LLM for up to 8 ordered `PlanStep` records.
+- `Executor`, which runs planned tool names through `TOOL_REGISTRY` when Step 9 tools exist.
+- `Validator`, which validates `final_output` against full task schemas.
+- A confidence heuristic that can pass, escalate, or fail outputs.
+- Retry routing from `Validator` back to `IRGenerator` when schema validation fails and retry budget remains.
 
 ## Suggested Client Demo Scenarios
 

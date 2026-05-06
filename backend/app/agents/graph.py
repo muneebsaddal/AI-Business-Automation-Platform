@@ -4,10 +4,13 @@ from __future__ import annotations
 
 from langgraph.graph import END, StateGraph
 
+from app.agents.nodes.executor import executor
 from app.agents.nodes.intent_classifier import intent_classifier
 from app.agents.nodes.ir_generator import ir_generator
 from app.agents.nodes.ir_validator import ir_validator
+from app.agents.nodes.planner import planner
 from app.agents.nodes.schema_resolver import schema_resolver
+from app.agents.nodes.validator import route_after_validation, validator
 from app.agents.state import LogEntry, TaskState
 
 
@@ -44,6 +47,13 @@ def route_after_ir_validation(state: TaskState) -> str:
     return "schema_resolver"
 
 
+def route_after_node(state: TaskState) -> str:
+    """Continue to the next node unless the current node failed."""
+    if state.status == "failed":
+        return "end"
+    return "continue"
+
+
 graph = StateGraph(TaskState)
 graph.add_node("intent_classifier", intent_classifier)
 graph.add_node("lead_pipeline", _stub_pipeline("LeadPipeline"))
@@ -53,6 +63,9 @@ graph.add_node("custom_pipeline", _stub_pipeline("CustomPipeline"))
 graph.add_node("ir_generator", ir_generator)
 graph.add_node("ir_validator", ir_validator)
 graph.add_node("schema_resolver", schema_resolver)
+graph.add_node("planner", planner)
+graph.add_node("executor", executor)
+graph.add_node("validator", validator)
 
 graph.set_entry_point("intent_classifier")
 graph.add_conditional_edges(
@@ -79,6 +92,39 @@ graph.add_conditional_edges(
         "end": END,
     },
 )
-graph.add_edge("schema_resolver", END)
+graph.add_conditional_edges(
+    "schema_resolver",
+    route_after_node,
+    {
+        "continue": "planner",
+        "end": END,
+    },
+)
+graph.add_conditional_edges(
+    "planner",
+    route_after_node,
+    {
+        "continue": "executor",
+        "end": END,
+    },
+)
+graph.add_conditional_edges(
+    "executor",
+    route_after_node,
+    {
+        "continue": "validator",
+        "end": END,
+    },
+)
+graph.add_conditional_edges(
+    "validator",
+    route_after_validation,
+    {
+        "pass": END,
+        "retry": "ir_generator",
+        "escalate": END,
+        "fail": END,
+    },
+)
 
 compiled_graph = graph.compile()
