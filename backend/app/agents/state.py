@@ -2,11 +2,10 @@
 
 from __future__ import annotations
 
-from datetime import datetime, timezone
+from datetime import UTC, datetime
 from typing import Any, Literal
 
 from pydantic import BaseModel, Field
-
 
 TaskType = Literal["lead", "contract", "onboard", "custom"]
 TaskTypeHint = Literal["auto", "lead", "contract", "onboard", "custom"]
@@ -16,7 +15,7 @@ StepStatus = Literal["pending", "running", "done", "failed"]
 
 def utc_now() -> datetime:
     """Return a timezone-aware UTC timestamp."""
-    return datetime.now(timezone.utc)
+    return datetime.now(UTC)
 
 
 class LogEntry(BaseModel):

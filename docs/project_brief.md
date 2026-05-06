@@ -34,12 +34,11 @@ Completed:
 - Auth: register, login, refresh, logout, and `/auth/me` with JWT.
 - Password hashing: direct `bcrypt`, not `passlib`.
 - LLM client: unified async client for Ollama dev mode and OpenAI production mode.
+- Step 5 state layer: `TaskState`, execution log models, plan/result/validation models, and Redis helpers.
+- Step 6 graph foundation: master LangGraph skeleton, conditional task-type routing, and `IntentClassifier`.
 
 Not yet implemented:
 
-- Redis live state layer.
-- TaskState Pydantic models.
-- LangGraph agent graph.
 - IR generation, validation, and schema resolution.
 - Planner, executor, validator nodes.
 - Task tools for lead, contract, onboarding, and custom workflows.
@@ -96,9 +95,9 @@ Agent flow:
 - Use direct `bcrypt`; do not add `passlib`.
 - Keep development order step-by-step from the handover.
 
-## Next Build Step
+## Build Progress
 
-Step 5 is next: TaskState schema and Redis client.
+Step 5 is complete: TaskState schema and Redis client.
 
 Files to create:
 
@@ -123,6 +122,21 @@ Redis service functions:
 - `publish_event(task_id, event_dict)`
 - `subscribe_task_events(task_id)`
 - `ping()`
+
+Step 6 is complete: LangGraph graph and IntentClassifier.
+
+Files created:
+
+- `backend/app/agents/graph.py`
+- `backend/app/agents/nodes/intent_classifier.py`
+
+What Step 6 adds:
+
+- A compiled LangGraph object exposed as `compiled_graph`.
+- The first real graph node: `IntentClassifier`.
+- A validated LLM output contract: `task_type`, `confidence`, `reasoning`.
+- Conditional routing to `lead_pipeline`, `contract_pipeline`, `onboard_pipeline`, or `custom_pipeline`.
+- Temporary branch stubs so the graph compiles before later nodes exist.
 
 ## Suggested Client Demo Scenarios
 

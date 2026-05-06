@@ -2,7 +2,6 @@
 
 from pydantic import BaseModel, EmailStr
 
-
 # ── Auth ──────────────────────────────────────────────────────────────────────
 
 class RegisterRequest(BaseModel):

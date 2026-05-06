@@ -18,7 +18,12 @@ logger = logging.getLogger(__name__)
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     logger.info(f"Starting AI Automation Platform [{settings.ENVIRONMENT}]")
-    logger.info(f"LLM: {'OpenAI ' + settings.OPENAI_MODEL if settings.USE_OPENAI else 'Ollama ' + settings.OLLAMA_MODEL}")
+    llm_name = (
+        f"OpenAI {settings.OPENAI_MODEL}"
+        if settings.USE_OPENAI
+        else f"Ollama {settings.OLLAMA_MODEL}"
+    )
+    logger.info(f"LLM: {llm_name}")
     yield
     logger.info("Shutting down...")
 
