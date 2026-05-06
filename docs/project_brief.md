@@ -36,10 +36,10 @@ Completed:
 - LLM client: unified async client for Ollama dev mode and OpenAI production mode.
 - Step 5 state layer: `TaskState`, execution log models, plan/result/validation models, and Redis helpers.
 - Step 6 graph foundation: master LangGraph skeleton, conditional task-type routing, and `IntentClassifier`.
+- Step 7 IR pattern: compact IR schemas, full task output schemas, IR generator, IR validator, and schema resolver.
 
 Not yet implemented:
 
-- IR generation, validation, and schema resolution.
 - Planner, executor, validator nodes.
 - Task tools for lead, contract, onboarding, and custom workflows.
 - Task CRUD, execute endpoint, Celery worker.
@@ -137,6 +137,26 @@ What Step 6 adds:
 - A validated LLM output contract: `task_type`, `confidence`, `reasoning`.
 - Conditional routing to `lead_pipeline`, `contract_pipeline`, `onboard_pipeline`, or `custom_pipeline`.
 - Temporary branch stubs so the graph compiles before later nodes exist.
+
+Step 7 is complete: IR pattern nodes and schemas.
+
+Files created:
+
+- `backend/app/schemas/ir_schemas.py`
+- `backend/app/schemas/task_schemas.py`
+- `backend/app/agents/nodes/ir_generator.py`
+- `backend/app/agents/nodes/ir_validator.py`
+- `backend/app/agents/nodes/schema_resolver.py`
+- `docs/langgraph_step7.md`
+
+What Step 7 adds:
+
+- Compact task-specific IR schemas for lead, contract, onboarding, and custom workflows.
+- Versioned task output schemas for the fuller business result.
+- `IRGenerator`, which asks the LLM for compact IR only.
+- `IRValidator`, which Pydantic-validates the IR and records field-level errors.
+- `SchemaResolver`, which expands validated IR into a draft `final_output`.
+- Graph wiring from task-type branch stubs into `IRGenerator -> IRValidator -> SchemaResolver`.
 
 ## Suggested Client Demo Scenarios
 
