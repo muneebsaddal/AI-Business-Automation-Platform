@@ -24,9 +24,11 @@ apiClient.interceptors.response.use(
     if (status === 401 && !originalRequest._retry && store.refreshToken) {
       originalRequest._retry = true
       try {
-        const response = await axios.post('/auth/refresh', {
-          refresh_token: store.refreshToken,
-        })
+        const response = await axios.post(
+          '/auth/refresh',
+          { refresh_token: store.refreshToken },
+          { baseURL: apiClient.defaults.baseURL },
+        )
         store.setAuth(response.data, store.user)
         originalRequest.headers.Authorization = `Bearer ${response.data.access_token}`
         return apiClient(originalRequest)

@@ -42,10 +42,11 @@ Completed:
 - Step 10 execution API: task service, task CRUD, `/execute`, analytics, trace export, rerun, and Celery graph runner.
 - Step 11 WebSocket stream: `/ws/{task_id}` authenticates via query token, checks task ownership, and forwards Redis task events.
 - Step 12 frontend setup: Vite React app, Tailwind, router, query client, Axios API client, Zustand auth store, protected route, and placeholder pages.
+- Step 13 auth pages: real login/register forms, validation, token persistence, `/auth/me` hydration, and automatic login after registration.
 
 Not yet implemented:
 
-- Auth pages, task pages, dashboard, settings, and live frontend components.
+- Task pages, dashboard, settings, and live frontend components.
 - Docker Compose, CI, and deployment.
 
 ## Current File Map
@@ -251,6 +252,24 @@ What Step 12 adds:
 - Axios client with JWT attach and refresh-token retry behavior.
 - Zustand auth persistence in localStorage.
 - Vite proxy for backend HTTP and WebSocket routes.
+
+Step 13 is complete: Auth pages.
+
+Files updated:
+
+- `frontend/src/pages/Login.jsx`
+- `frontend/src/pages/Register.jsx`
+- `frontend/src/hooks/useAuth.js`
+- `frontend/src/api/client.js`
+
+What Step 13 adds:
+
+- Real email/password login form with React Hook Form and Zod validation.
+- Real registration form with name, email, and password validation.
+- Register then auto-login behavior.
+- `/auth/me` hydration after login/register.
+- JWT storage through Zustand/localStorage.
+- Refresh-token retry flow uses the configured API base URL.
 
 ## Suggested Client Demo Scenarios
 
