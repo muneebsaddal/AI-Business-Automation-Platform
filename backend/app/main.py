@@ -12,6 +12,7 @@ from app.config import settings
 from app.routers import auth as auth_router
 from app.routers import execute as execute_router
 from app.routers import tasks as tasks_router
+from app.routers import ws as ws_router
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -58,6 +59,7 @@ async def global_exception_handler(request: Request, exc: Exception):
 app.include_router(auth_router.router)
 app.include_router(execute_router.router)
 app.include_router(tasks_router.router)
+app.include_router(ws_router.router)
 
 
 @app.get("/health", tags=["system"])

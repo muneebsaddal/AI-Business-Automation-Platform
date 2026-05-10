@@ -40,10 +40,10 @@ Completed:
 - Step 8 execution core: planner, executor, validator, retry routing, escalation routing, and graph continuation after schema resolution.
 - Step 9 simulated tools: lead, contract, onboarding, and custom workflow tool modules plus central `TOOL_REGISTRY`.
 - Step 10 execution API: task service, task CRUD, `/execute`, analytics, trace export, rerun, and Celery graph runner.
+- Step 11 WebSocket stream: `/ws/{task_id}` authenticates via query token, checks task ownership, and forwards Redis task events.
 
 Not yet implemented:
 
-- WebSocket task stream.
 - Frontend React dashboard.
 - Docker Compose, CI, and deployment.
 
@@ -211,6 +211,20 @@ What Step 10 adds:
 - `GET /tasks/{task_id}/export`, which exports task detail and trace JSON.
 - `GET /analytics`, which returns dashboard metrics.
 - `run_pipeline`, a Celery task that runs `compiled_graph.ainvoke(...)` and stores results.
+
+Step 11 is complete: WebSocket endpoint.
+
+Files created:
+
+- `backend/app/routers/ws.py`
+
+What Step 11 adds:
+
+- `GET /ws/{task_id}` WebSocket endpoint.
+- Auth via `?token=` because WebSocket handshakes do not use normal Bearer headers reliably.
+- Task ownership check before the socket is accepted.
+- Immediate final snapshot for already-completed tasks.
+- Redis pub/sub forwarding from `task_events:{task_id}` to browser JSON frames.
 
 ## Suggested Client Demo Scenarios
 
