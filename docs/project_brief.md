@@ -39,10 +39,10 @@ Completed:
 - Step 7 IR pattern: compact IR schemas, full task output schemas, IR generator, IR validator, and schema resolver.
 - Step 8 execution core: planner, executor, validator, retry routing, escalation routing, and graph continuation after schema resolution.
 - Step 9 simulated tools: lead, contract, onboarding, and custom workflow tool modules plus central `TOOL_REGISTRY`.
+- Step 10 execution API: task service, task CRUD, `/execute`, analytics, trace export, rerun, and Celery graph runner.
 
 Not yet implemented:
 
-- Task CRUD, execute endpoint, Celery worker.
 - WebSocket task stream.
 - Frontend React dashboard.
 - Docker Compose, CI, and deployment.
@@ -193,6 +193,24 @@ What Step 9 adds:
 - Onboarding tools for steps, account setup, welcome email, and resource provisioning.
 - Custom workflow tools for parsing and simulated step execution.
 - Strongest demo path is still lead qualification; other tools are useful simulated placeholders.
+
+Step 10 is complete: Task CRUD, Execute endpoint, and Celery runner.
+
+Files created:
+
+- `backend/app/services/task_service.py`
+- `backend/app/routers/tasks.py`
+- `backend/app/routers/execute.py`
+- `backend/app/celery_app.py`
+
+What Step 10 adds:
+
+- `POST /execute`, which creates a task and queues the Celery pipeline.
+- `GET /tasks`, `GET /tasks/{task_id}`, `DELETE /tasks/{task_id}`.
+- `POST /tasks/{task_id}/rerun`, which creates a new task from an old one.
+- `GET /tasks/{task_id}/export`, which exports task detail and trace JSON.
+- `GET /analytics`, which returns dashboard metrics.
+- `run_pipeline`, a Celery task that runs `compiled_graph.ainvoke(...)` and stores results.
 
 ## Suggested Client Demo Scenarios
 
