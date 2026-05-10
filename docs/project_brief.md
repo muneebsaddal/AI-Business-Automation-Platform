@@ -41,10 +41,11 @@ Completed:
 - Step 9 simulated tools: lead, contract, onboarding, and custom workflow tool modules plus central `TOOL_REGISTRY`.
 - Step 10 execution API: task service, task CRUD, `/execute`, analytics, trace export, rerun, and Celery graph runner.
 - Step 11 WebSocket stream: `/ws/{task_id}` authenticates via query token, checks task ownership, and forwards Redis task events.
+- Step 12 frontend setup: Vite React app, Tailwind, router, query client, Axios API client, Zustand auth store, protected route, and placeholder pages.
 
 Not yet implemented:
 
-- Frontend React dashboard.
+- Auth pages, task pages, dashboard, settings, and live frontend components.
 - Docker Compose, CI, and deployment.
 
 ## Current File Map
@@ -225,6 +226,31 @@ What Step 11 adds:
 - Task ownership check before the socket is accepted.
 - Immediate final snapshot for already-completed tasks.
 - Redis pub/sub forwarding from `task_events:{task_id}` to browser JSON frames.
+
+Step 12 is complete: Frontend setup.
+
+Files created:
+
+- `frontend/`
+- `frontend/src/main.jsx`
+- `frontend/src/router.jsx`
+- `frontend/src/App.jsx`
+- `frontend/src/api/client.js`
+- `frontend/src/api/tasks.js`
+- `frontend/src/store/authStore.js`
+- `frontend/src/hooks/useAuth.js`
+- `frontend/src/components/ProtectedRoute.jsx`
+- Placeholder pages under `frontend/src/pages/`
+
+What Step 12 adds:
+
+- React 18 + Vite 5 frontend scaffold.
+- Tailwind CSS 3 configuration.
+- React Router 6 routes for login, register, dashboard, new task, history, task detail, and settings.
+- TanStack Query provider.
+- Axios client with JWT attach and refresh-token retry behavior.
+- Zustand auth persistence in localStorage.
+- Vite proxy for backend HTTP and WebSocket routes.
 
 ## Suggested Client Demo Scenarios
 
