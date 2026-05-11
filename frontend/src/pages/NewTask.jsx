@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
 import { submitTask } from '../api/tasks'
+import { useSettingsStore } from '../store/settingsStore'
 
 const demoLead =
   'Qualify this inbound lead: Acme Logistics, contact Sarah Khan, operations director. They need workflow automation for quote follow-ups and customer onboarding. Budget mentioned is around $8k, timeline is this quarter, and they asked for a technical demo next week.'
@@ -31,6 +32,7 @@ function fileToBase64(file) {
 
 export default function NewTask() {
   const navigate = useNavigate()
+  const defaultTaskType = useSettingsStore((state) => state.defaultTaskType)
   const [fileName, setFileName] = useState('')
   const [fileBase64, setFileBase64] = useState(null)
   const {
@@ -44,7 +46,7 @@ export default function NewTask() {
     defaultValues: {
       title: 'Qualify Acme Logistics inbound lead',
       description: demoLead,
-      task_type_hint: 'lead',
+      task_type_hint: defaultTaskType,
     },
   })
 

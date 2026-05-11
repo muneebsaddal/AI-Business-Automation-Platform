@@ -1,9 +1,10 @@
-import { useQuery, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { formatDistanceToNow } from 'date-fns'
-import { ArrowLeft, RefreshCcw } from 'lucide-react'
-import { Link, useParams } from 'react-router-dom'
+import { ArrowLeft, FileDown, RefreshCcw, Repeat2 } from 'lucide-react'
+import toast from 'react-hot-toast'
+import { Link, useNavigate, useParams } from 'react-router-dom'
 
-import { getTask } from '../api/tasks'
+import { exportTrace, getTask, rerunTask } from '../api/tasks'
 import AgentGraph from '../components/AgentGraph/AgentGraph'
 import ExecutionTrace from '../components/ExecutionTrace/ExecutionTrace'
 import OutputPanel from '../components/OutputPanel/OutputPanel'
@@ -19,8 +20,19 @@ function statusClass(status) {
   return 'bg-paper text-steel'
 }
 
+function downloadJson(filename, data) {
+  const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
+  const url = URL.createObjectURL(blob)
+  const link = document.createElement('a')
+  link.href = url
+  link.download = filename
+  link.click()
+  URL.revokeObjectURL(url)
+}
+
 export default function TaskDetail() {
   const { id } = useParams()
+  const navigate = useNavigate()
   const queryClient = useQueryClient()
   const taskQuery = useQuery({
     queryKey: ['task', id],
@@ -40,6 +52,25 @@ export default function TaskDetail() {
   const validationErrors = task?.validation_errors || []
   const traceEvents = [...(task?.execution_trace || []), ...events]
   const status = completeEvent?.status || task?.status || 'pending'
+
+  const rerunMutation = useMutation({
+    mutationFn: rerunTask,
+    onSuccess: (data) => {
+      toast.success('Replay queued')
+      navigate(`/tasks/${data.task_id}`)
+    },
+  })
+
+  const handleExport = async () => {
+    const data = await exportTrace(id)
+    downloadJson(`${id}_trace.json`, data)
+  }
+
+  const handleReplay = () => {
+    if (window.confirm(`Replay "${task.title}" as a new task?`)) {
+      rerunMutation.mutate(task.id)
+    }
+  }
 
   if (taskQuery.isLoading) {
     return <p className="text-sm text-steel">Loading task...</p>
@@ -74,14 +105,33 @@ export default function TaskDetail() {
           </p>
         </div>
 
-        <button
-          className="inline-flex items-center justify-center gap-2 rounded border border-line bg-white px-4 py-2 text-sm font-semibold text-ink"
-          type="button"
-          onClick={() => taskQuery.refetch()}
-        >
-          <RefreshCcw size={16} />
-          Refresh
-        </button>
+        <div className="flex flex-wrap gap-2">
+          <button
+            className="inline-flex items-center justify-center gap-2 rounded border border-line bg-white px-4 py-2 text-sm font-semibold text-ink"
+            type="button"
+            onClick={() => taskQuery.refetch()}
+          >
+            <RefreshCcw size={16} />
+            Refresh
+          </button>
+          <button
+            className="inline-flex items-center justify-center gap-2 rounded border border-line bg-white px-4 py-2 text-sm font-semibold text-ink"
+            type="button"
+            onClick={handleExport}
+          >
+            <FileDown size={16} />
+            Export
+          </button>
+          <button
+            className="inline-flex items-center justify-center gap-2 rounded bg-ink px-4 py-2 text-sm font-semibold text-paper disabled:opacity-60"
+            type="button"
+            disabled={rerunMutation.isPending}
+            onClick={handleReplay}
+          >
+            <Repeat2 size={16} />
+            Replay
+          </button>
+        </div>
       </div>
 
       <div className="grid gap-4 md:grid-cols-4">

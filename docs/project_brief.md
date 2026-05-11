@@ -47,10 +47,11 @@ Completed:
 - Step 15 task detail page: REST task fetch, WebSocket event hook, agent graph, execution trace, output panel, and validation errors.
 - Step 16 task history page: search/filter controls, paginated table, view/rerun/delete/export row actions.
 - Step 17 dashboard page: analytics stats, recent volume chart, task type breakdown, and recent task list.
+- Step 18 settings/export/replay: local settings, optional OpenAI key header, default task type, notifications, logout, task detail export and replay.
 
 Not yet implemented:
 
-- Settings and remaining live frontend polish.
+- Docker Compose and deployment.
 - Docker Compose, CI, and deployment.
 
 ## Current File Map
@@ -340,6 +341,29 @@ What Step 17 adds:
 - Recent task volume bar chart using Recharts.
 - Task type breakdown pie chart using Recharts.
 - Recent task list linking to task detail pages.
+
+Step 18 is complete: Settings page plus export/replay.
+
+Files created:
+
+- `frontend/src/store/settingsStore.js`
+
+Files updated:
+
+- `frontend/src/pages/Settings.jsx`
+- `frontend/src/pages/TaskDetail.jsx`
+- `frontend/src/pages/NewTask.jsx`
+- `frontend/src/api/client.js`
+
+What Step 18 adds:
+
+- Local settings persisted in localStorage.
+- Optional OpenAI key sent as `X-OpenAI-Key` for future backend support.
+- Default task type preference used by New Task.
+- Notification preference toggles.
+- Logout account action.
+- Task Detail export button for trace JSON.
+- Task Detail replay button that calls rerun and navigates to the new task.
 
 ## Suggested Client Demo Scenarios
 
