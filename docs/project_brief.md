@@ -46,10 +46,11 @@ Completed:
 - Step 14 new task page: validated task submission form, task type hint, optional PDF base64 upload, demo lead loader, and redirect to task detail.
 - Step 15 task detail page: REST task fetch, WebSocket event hook, agent graph, execution trace, output panel, and validation errors.
 - Step 16 task history page: search/filter controls, paginated table, view/rerun/delete/export row actions.
+- Step 17 dashboard page: analytics stats, recent volume chart, task type breakdown, and recent task list.
 
 Not yet implemented:
 
-- Dashboard, settings, and remaining live frontend polish.
+- Settings and remaining live frontend polish.
 - Docker Compose, CI, and deployment.
 
 ## Current File Map
@@ -325,6 +326,20 @@ What Step 16 adds:
 - Rerun action using `POST /tasks/{task_id}/rerun`.
 - Delete action using `DELETE /tasks/{task_id}`.
 - Export action using `GET /tasks/{task_id}/export` and browser JSON download.
+
+Step 17 is complete: Dashboard page.
+
+Files updated:
+
+- `frontend/src/pages/Dashboard.jsx`
+
+What Step 17 adds:
+
+- Dashboard metrics from `GET /analytics`.
+- Stats for total tasks, success rate, average duration, and total cost.
+- Recent task volume bar chart using Recharts.
+- Task type breakdown pie chart using Recharts.
+- Recent task list linking to task detail pages.
 
 ## Suggested Client Demo Scenarios
 
