@@ -48,10 +48,11 @@ Completed:
 - Step 16 task history page: search/filter controls, paginated table, view/rerun/delete/export row actions.
 - Step 17 dashboard page: analytics stats, recent volume chart, task type breakdown, and recent task list.
 - Step 18 settings/export/replay: local settings, optional OpenAI key header, default task type, notifications, logout, task detail export and replay.
+- Step 19 Docker Compose: backend/frontend Dockerfiles plus Postgres, Redis, FastAPI, Celery, and Vite services.
 
 Not yet implemented:
 
-- Docker Compose and deployment.
+- Deployment.
 - Docker Compose, CI, and deployment.
 
 ## Current File Map
@@ -364,6 +365,23 @@ What Step 18 adds:
 - Logout account action.
 - Task Detail export button for trace JSON.
 - Task Detail replay button that calls rerun and navigates to the new task.
+
+Step 19 is complete: Docker Compose.
+
+Files created:
+
+- `docker-compose.yml`
+- `backend/Dockerfile`
+- `frontend/Dockerfile`
+
+What Step 19 adds:
+
+- Postgres 15 service with persistent volume and healthcheck.
+- Redis 7 service with healthcheck.
+- Backend FastAPI service that runs Alembic migrations before Uvicorn.
+- Celery worker service using the same backend image.
+- Frontend Vite service on port 5173.
+- Local Ollama support through `host.docker.internal:11434`.
 
 ## Suggested Client Demo Scenarios
 
