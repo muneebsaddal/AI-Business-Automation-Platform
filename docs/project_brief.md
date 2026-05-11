@@ -44,10 +44,11 @@ Completed:
 - Step 12 frontend setup: Vite React app, Tailwind, router, query client, Axios API client, Zustand auth store, protected route, and placeholder pages.
 - Step 13 auth pages: real login/register forms, validation, token persistence, `/auth/me` hydration, and automatic login after registration.
 - Step 14 new task page: validated task submission form, task type hint, optional PDF base64 upload, demo lead loader, and redirect to task detail.
+- Step 15 task detail page: REST task fetch, WebSocket event hook, agent graph, execution trace, output panel, and validation errors.
 
 Not yet implemented:
 
-- Task detail/history pages, dashboard, settings, and live frontend components.
+- Task history page, dashboard, settings, and remaining live frontend polish.
 - Docker Compose, CI, and deployment.
 
 ## Current File Map
@@ -286,6 +287,28 @@ What Step 14 adds:
 - Demo lead loader for the portfolio story.
 - Calls `POST /execute` through `submitTask`.
 - Redirects to `/tasks/{task_id}` after the backend queues the job.
+
+Step 15 is complete: Task Detail page.
+
+Files created:
+
+- `frontend/src/hooks/useWebSocket.js`
+- `frontend/src/components/AgentGraph/AgentGraph.jsx`
+- `frontend/src/components/ExecutionTrace/ExecutionTrace.jsx`
+- `frontend/src/components/OutputPanel/OutputPanel.jsx`
+- `frontend/src/components/ValidationErrors/ValidationErrors.jsx`
+
+Files updated:
+
+- `frontend/src/pages/TaskDetail.jsx`
+
+What Step 15 adds:
+
+- Fetches persisted task detail through `GET /tasks/{task_id}`.
+- Connects to `/ws/{task_id}?token=...` while a task is still running.
+- Refetches task detail when a complete event arrives.
+- Shows agent node progress, live trace events, final JSON output, and validation errors.
+- Shows operational metadata: status, retry count, duration, cost, task type, and connection state.
 
 ## Suggested Client Demo Scenarios
 
