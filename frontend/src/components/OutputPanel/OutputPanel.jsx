@@ -10,7 +10,7 @@ export default function OutputPanel({ output }) {
   }
 
   return (
-    <section className="border border-line bg-white p-5 shadow-panel">
+    <section className="min-w-0 border border-line bg-white p-5 shadow-panel">
       <div className="flex items-center justify-between gap-3">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">Output</p>
@@ -25,10 +25,9 @@ export default function OutputPanel({ output }) {
           Copy
         </button>
       </div>
-      <pre className="mt-4 max-h-[420px] overflow-auto border border-line bg-paper p-4 text-xs leading-5 text-ink">
+      <pre className="mt-4 max-h-[420px] max-w-full overflow-auto whitespace-pre-wrap break-words border border-line bg-paper p-4 text-xs leading-5 text-ink">
         {text}
       </pre>
     </section>
   )
 }
-

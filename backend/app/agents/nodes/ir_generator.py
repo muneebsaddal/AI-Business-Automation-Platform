@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from time import perf_counter
 
 from app.agents.state import LogEntry, TaskState, utc_now
@@ -47,6 +48,36 @@ def _build_messages(state: TaskState) -> list[dict[str, str]]:
     ]
 
 
+def _fallback_ir(state: TaskState) -> dict[str, object]:
+    """Build a compact local IR when the dev LLM emits malformed JSON."""
+    task_type = state.task_type or "custom"
+    text = state.raw_input
+    keywords = [
+        word.lower()
+        for word in re.findall(r"[A-Za-z][A-Za-z-]{3,}", text)
+        if word.lower()
+        not in {
+            "this",
+            "that",
+            "they",
+            "with",
+            "from",
+            "need",
+            "task",
+            "automation",
+        }
+    ][:8]
+    if task_type == "lead":
+        confidence = "high" if re.search(r"\b(demo|budget|\$|timeline|quarter|week)\b", text, re.I) else "medium"
+        return {"task": "qualify_lead", "fields": keywords, "confidence": confidence, "flags": []}
+    if task_type == "contract":
+        risk_level = "high" if re.search(r"\b(termination|liability|penalty|breach)\b", text, re.I) else "medium"
+        return {"task": "analyze_contract", "fields": keywords, "risk_level": risk_level, "flags": []}
+    if task_type == "onboard":
+        return {"task": "onboard_client", "steps": keywords or ["review request"], "completable": True, "flags": []}
+    return {"task": "custom_workflow", "steps": keywords or ["review request"], "flags": []}
+
+
 async def ir_generator(state: TaskState) -> TaskState:
     """Generate compact IR for the classified task."""
     started = perf_counter()
@@ -68,10 +99,15 @@ async def ir_generator(state: TaskState) -> TaskState:
                 "timestamp": utc_now().isoformat(),
             },
         )
-        state.ir = await chat_complete_json(_build_messages(state))
+        try:
+            state.ir = await chat_complete_json(_build_messages(state))
+            decision = "Generated compact IR for schema validation"
+        except Exception:
+            state.ir = _fallback_ir(state)
+            decision = "Generated compact IR with local fallback because the dev LLM returned invalid JSON"
         entry = log.with_output(
             {"ir": state.ir},
-            decision="Generated compact IR for schema validation",
+            decision=decision,
             duration_ms=int((perf_counter() - started) * 1000),
         )
         state.logs.append(entry)
@@ -94,4 +130,3 @@ async def ir_generator(state: TaskState) -> TaskState:
             log.with_error(state.error, duration_ms=int((perf_counter() - started) * 1000))
         )
         return state
-

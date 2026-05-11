@@ -82,6 +82,21 @@ def _normalize_steps(raw_steps: list[dict[str, Any]]) -> list[dict[str, Any]]:
     return normalized
 
 
+def _fallback_steps(task_type: str) -> list[dict[str, Any]]:
+    tools = _allowed_tools_for_task_type(task_type)
+    return [
+        {
+            "step_number": index,
+            "name": tool.replace("_", " ").title(),
+            "description": f"Run {tool} against the submitted task context.",
+            "tool": tool,
+            "estimated_cost_usd": 0.0,
+            "status": "pending",
+        }
+        for index, tool in enumerate(tools[:4], start=1)
+    ]
+
+
 async def planner(state: TaskState) -> TaskState:
     """Create an ordered execution plan from the validated IR."""
     started = perf_counter()
@@ -105,14 +120,21 @@ async def planner(state: TaskState) -> TaskState:
                 "timestamp": utc_now().isoformat(),
             },
         )
-        raw_result = await chat_complete_json(_build_messages(state))
-        raw_steps = raw_result.get("steps", [])
+        try:
+            raw_result = await chat_complete_json(_build_messages(state))
+            raw_steps = raw_result.get("steps", [])
+            if not raw_steps:
+                raise ValueError("Planner returned no steps")
+            decision = None
+        except Exception:
+            raw_steps = _fallback_steps(task_type)
+            decision = "Created execution plan with local fallback because the dev LLM returned invalid JSON"
         plan = PlannerOutput.model_validate({"steps": _normalize_steps(raw_steps)})
         state.plan = plan.steps
 
         entry = log.with_output(
             {"plan": [step.model_dump() for step in state.plan]},
-            decision=f"Created {len(state.plan)} execution steps",
+            decision=decision or f"Created {len(state.plan)} execution steps",
             duration_ms=int((perf_counter() - started) * 1000),
         )
         state.logs.append(entry)
@@ -135,4 +157,3 @@ async def planner(state: TaskState) -> TaskState:
             log.with_error(state.error, duration_ms=int((perf_counter() - started) * 1000))
         )
         return state
-

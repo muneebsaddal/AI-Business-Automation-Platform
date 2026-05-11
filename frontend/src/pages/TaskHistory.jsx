@@ -176,7 +176,9 @@ export default function TaskHistory() {
                 <tr key={task.id} className="border-t border-line">
                   <td className="max-w-md px-4 py-4">
                     <p className="font-semibold">{task.title}</p>
-                    <p className="mt-1 truncate text-xs text-steel">{task.description}</p>
+                    <p className="mt-1 max-w-md overflow-hidden text-ellipsis whitespace-nowrap text-xs text-steel">
+                      {task.description}
+                    </p>
                   </td>
                   <td className="px-4 py-4">{task.task_type || task.task_type_hint}</td>
                   <td className="px-4 py-4">

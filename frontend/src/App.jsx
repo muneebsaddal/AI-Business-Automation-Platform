@@ -1,4 +1,4 @@
-import { NavLink, Outlet } from 'react-router-dom'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
 import { Activity, History, PlusCircle, Settings, ShieldCheck } from 'lucide-react'
 
 const navItems = [
@@ -9,8 +9,17 @@ const navItems = [
 ]
 
 export default function App() {
+  const location = useLocation()
+
+  const isActiveRoute = (to, isActive) => {
+    if (to === '/tasks') {
+      return location.pathname === '/tasks' || /^\/tasks\/(?!new$)[^/]+$/.test(location.pathname)
+    }
+    return isActive
+  }
+
   return (
-    <div className="min-h-screen bg-paper text-ink">
+    <div className="min-h-screen overflow-x-hidden bg-paper text-ink">
       <aside className="fixed inset-y-0 left-0 hidden w-64 border-r border-line bg-[#fbf8f0] px-5 py-6 lg:block">
         <div className="flex items-center gap-3">
           <div className="grid h-10 w-10 place-items-center rounded bg-ink text-paper">
@@ -31,7 +40,7 @@ export default function App() {
               className={({ isActive }) =>
                 [
                   'flex items-center gap-3 rounded px-3 py-2 text-sm font-medium transition',
-                  isActive
+                  isActiveRoute(item.to, isActive)
                     ? 'bg-ink text-paper'
                     : 'text-steel hover:bg-white hover:text-ink',
                 ].join(' ')
@@ -44,8 +53,8 @@ export default function App() {
         </nav>
       </aside>
 
-      <main className="min-h-screen lg:pl-64">
-        <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 px-5 py-5 sm:px-8 lg:px-10">
+      <main className="min-h-screen min-w-0 lg:pl-64">
+        <div className="mx-auto flex w-full min-w-0 max-w-6xl flex-col gap-6 px-5 py-5 sm:px-8 lg:px-10">
           <Outlet />
         </div>
       </main>

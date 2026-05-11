@@ -168,12 +168,14 @@ export default function Dashboard() {
           {analytics.recent_tasks.map((task) => (
             <Link
               key={task.id}
-              className="grid gap-3 py-4 text-sm hover:bg-paper md:grid-cols-[1fr_120px_120px]"
+              className="grid min-w-0 gap-3 py-4 text-sm hover:bg-paper md:grid-cols-[minmax(0,1fr)_120px_120px]"
               to={`/tasks/${task.id}`}
             >
-              <div>
+              <div className="min-w-0">
                 <p className="font-semibold">{task.title}</p>
-                <p className="mt-1 truncate text-xs text-steel">{task.description}</p>
+                <p className="mt-1 max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-xs text-steel">
+                  {task.description}
+                </p>
               </div>
               <span>{task.task_type || task.task_type_hint}</span>
               <span className={`w-fit rounded px-2 py-1 text-xs font-semibold ${statusClass(task.status)}`}>

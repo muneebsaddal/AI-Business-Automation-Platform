@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import re
 from time import perf_counter
 from typing import Literal
 
@@ -43,6 +44,35 @@ def _build_messages(state: TaskState) -> list[dict[str, str]]:
     ]
 
 
+def _fallback_classification(state: TaskState) -> IntentClassifierOutput:
+    """Classify locally when the dev LLM returns unusable JSON."""
+    if state.task_type_hint != "auto":
+        return IntentClassifierOutput(
+            task_type=state.task_type_hint,
+            confidence=0.9,
+            reasoning="Used the explicit task type hint because local LLM output was unavailable.",
+        )
+
+    text = state.raw_input.lower()
+    patterns = {
+        "lead": r"\b(lead|prospect|sales|demo|budget|quote)\b",
+        "contract": r"\b(contract|agreement|clause|legal|obligation|risk)\b",
+        "onboard": r"\b(onboard|setup|welcome|provision|new client)\b",
+    }
+    for task_type, pattern in patterns.items():
+        if re.search(pattern, text):
+            return IntentClassifierOutput(
+                task_type=task_type,
+                confidence=0.75,
+                reasoning="Used local keyword classification because local LLM output was unavailable.",
+            )
+    return IntentClassifierOutput(
+        task_type="custom",
+        confidence=0.6,
+        reasoning="Used the local fallback classifier.",
+    )
+
+
 async def intent_classifier(state: TaskState) -> TaskState:
     """Classify the raw user task and set the route for the graph."""
     started = perf_counter()
@@ -67,14 +97,19 @@ async def intent_classifier(state: TaskState) -> TaskState:
             },
         )
 
-        raw_result = await chat_complete_json(_build_messages(state))
-        result = IntentClassifierOutput.model_validate(raw_result)
+        try:
+            raw_result = await chat_complete_json(_build_messages(state))
+            result = IntentClassifierOutput.model_validate(raw_result)
+            decision = f"Route task to {result.task_type} pipeline"
+        except Exception:
+            result = _fallback_classification(state)
+            decision = f"Route task to {result.task_type} pipeline using local fallback"
         state.task_type = result.task_type
 
         output = result.model_dump()
         entry = log.with_output(
             output,
-            decision=f"Route task to {result.task_type} pipeline",
+            decision=decision,
             duration_ms=int((perf_counter() - started) * 1000),
         )
         state.logs.append(entry)

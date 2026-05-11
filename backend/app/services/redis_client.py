@@ -3,6 +3,7 @@
 from __future__ import annotations
 
 import json
+from asyncio import get_running_loop
 from collections.abc import AsyncGenerator
 from typing import Any
 
@@ -11,15 +12,17 @@ from redis.exceptions import RedisError
 
 from app.config import settings
 
-_redis: Redis | None = None
+_redis_by_loop: dict[int, Redis] = {}
 
 
 async def get_redis() -> Redis:
-    """Return a singleton async Redis connection."""
-    global _redis
-    if _redis is None:
-        _redis = Redis.from_url(settings.REDIS_URL, decode_responses=True)
-    return _redis
+    """Return a Redis connection bound to the current asyncio event loop."""
+    loop_id = id(get_running_loop())
+    redis = _redis_by_loop.get(loop_id)
+    if redis is None:
+        redis = Redis.from_url(settings.REDIS_URL, decode_responses=True)
+        _redis_by_loop[loop_id] = redis
+    return redis
 
 
 def _task_state_key(task_id: str) -> str:
@@ -77,4 +80,3 @@ async def ping() -> bool:
         return bool(await redis.ping())
     except RedisError:
         return False
-

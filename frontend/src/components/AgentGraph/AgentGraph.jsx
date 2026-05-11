@@ -11,8 +11,15 @@ const nodes = [
   'Output',
 ]
 
-function nodeState(node, activeNode, completedNodes, failed) {
-  if (failed && node === activeNode) return 'failed'
+const terminalStatuses = new Set(['success', 'failed', 'escalated'])
+
+function eventNode(event) {
+  return event.node || event.agent || null
+}
+
+function nodeState(node, activeNode, completedNodes, failedNode, isComplete) {
+  if (isComplete && completedNodes.has(node)) return 'done'
+  if (failedNode && node === failedNode) return 'failed'
   if (node === activeNode) return 'active'
   if (completedNodes.has(node)) return 'done'
   return 'pending'
@@ -26,17 +33,33 @@ function StatusIcon({ state }) {
 }
 
 export default function AgentGraph({ events = [], taskStatus }) {
-  const nodeEvents = events.filter((event) => event.event === 'node_start')
+  const normalizedStatus = String(taskStatus || '').trim().toLowerCase()
+  const completeEventStatus = String(
+    [...events].reverse().find((event) => event.event === 'complete')?.status || '',
+  )
+    .trim()
+    .toLowerCase()
+  const effectiveStatus = completeEventStatus || normalizedStatus
+  const nodeEvents = events.filter((event) => event.event === 'node_start' && event.node)
+  const loggedNodes = events.map(eventNode).filter(Boolean)
   const activeNode = nodeEvents.at(-1)?.node || null
-  const completedNodes = new Set(nodeEvents.slice(0, -1).map((event) => event.node))
-  if (['success', 'failed', 'escalated'].includes(taskStatus)) {
+  const completedNodes = new Set(loggedNodes.filter((node) => nodes.includes(node)))
+  const isTerminal = terminalStatuses.has(effectiveStatus)
+  const isComplete = effectiveStatus === 'success' || effectiveStatus === 'escalated'
+  const failedEvent = [...events].reverse().find((event) => event.error)
+  const failedNode = effectiveStatus === 'failed' ? eventNode(failedEvent) || activeNode : null
+
+  if (isTerminal) {
+    completedNodes.add('IntentClassifier')
     nodeEvents.forEach((event) => completedNodes.add(event.node))
+  }
+  if (isComplete) {
+    nodes.forEach((node) => completedNodes.add(node))
     completedNodes.add('Output')
   }
-  const failed = taskStatus === 'failed'
 
   return (
-    <section className="border border-line bg-white p-5 shadow-panel">
+    <section className="min-w-0 border border-line bg-white p-5 shadow-panel">
       <div className="flex items-center justify-between">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">Agent graph</p>
@@ -47,14 +70,14 @@ export default function AgentGraph({ events = [], taskStatus }) {
         </span>
       </div>
 
-      <div className="mt-5 grid gap-3 md:grid-cols-2 xl:grid-cols-4">
+      <div className="mt-5 grid min-w-0 gap-3 md:grid-cols-2 xl:grid-cols-4">
         {nodes.map((node, index) => {
-          const state = nodeState(node, activeNode, completedNodes, failed)
+          const state = nodeState(node, activeNode, completedNodes, failedNode, isComplete)
           return (
             <div
               key={node}
               className={[
-                'min-h-20 border p-3 transition',
+                'min-h-20 min-w-0 border p-3 transition',
                 state === 'active' ? 'border-signal bg-signal/10' : 'border-line bg-paper',
                 state === 'failed' ? 'border-ember bg-ember/10' : '',
                 state === 'done' ? 'border-signal/40 bg-white' : '',
@@ -72,4 +95,3 @@ export default function AgentGraph({ events = [], taskStatus }) {
     </section>
   )
 }
-

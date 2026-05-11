@@ -6,6 +6,7 @@ import json
 from datetime import datetime
 from typing import Any
 
+from pydantic import BaseModel
 from sqlalchemy import Select, delete, func, or_, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
@@ -22,9 +23,44 @@ def parse_json_field(value: str | None, default: Any) -> Any:
         return default
 
 
+def _json_safe(value: Any) -> Any:
+    """Convert Pydantic and datetime values into JSON-native structures."""
+    if isinstance(value, BaseModel):
+        return value.model_dump(mode="json")
+    if isinstance(value, datetime):
+        return value.isoformat()
+    if isinstance(value, dict):
+        return {key: _json_safe(item) for key, item in value.items()}
+    if isinstance(value, list):
+        return [_json_safe(item) for item in value]
+    if isinstance(value, tuple):
+        return [_json_safe(item) for item in value]
+    return value
+
+
 def serialize_json(value: Any) -> str:
     """Serialize a value for Task text-backed JSON columns."""
-    return json.dumps(value, default=str)
+    return json.dumps(_json_safe(value))
+
+
+def _coerce_dict_list(value: Any) -> list[dict[str, Any]]:
+    """Return API-safe dict entries, including compatibility for old string traces."""
+    if not isinstance(value, list):
+        return []
+    entries: list[dict[str, Any]] = []
+    for item in value:
+        if isinstance(item, dict):
+            entries.append(item)
+        elif isinstance(item, str):
+            entries.append(
+                {
+                    "event": "legacy_log",
+                    "agent": "System",
+                    "action": "legacy_serialized_log",
+                    "output_snapshot": {"raw": item},
+                }
+            )
+    return entries
 
 
 def task_to_summary(task: Task) -> dict[str, Any]:
@@ -51,8 +87,8 @@ def task_to_detail(task: Task) -> dict[str, Any]:
     data.update(
         {
             "final_output": parse_json_field(task.final_output, None),
-            "execution_trace": parse_json_field(task.execution_trace, []),
-            "validation_errors": parse_json_field(task.validation_errors, []),
+            "execution_trace": _coerce_dict_list(parse_json_field(task.execution_trace, [])),
+            "validation_errors": _coerce_dict_list(parse_json_field(task.validation_errors, [])),
             "confidence_scores": parse_json_field(task.confidence_scores, {}),
             "failure_reason": task.failure_reason,
             "has_file": task.has_file,
@@ -214,4 +250,3 @@ async def get_analytics(db: AsyncSession, user_id: str) -> dict[str, Any]:
         "by_type": by_type,
         "recent_tasks": [task_to_summary(task) for task in tasks[:10]],
     }
-

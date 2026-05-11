@@ -2,6 +2,69 @@
 
 A full-stack, production-ready multi-agent AI operations platform. Businesses submit any operational task in plain English — the platform classifies it, plans execution, runs each step with the appropriate tool, validates output against a strict schema, and streams the entire process live to a professional dashboard UI. This is not a chatbot; it is a deterministic AI operations layer with full execution transparency.
 
+For a non-technical overview, read [`docs/layman_explanation.md`](docs/layman_explanation.md).
+
+---
+
+## Example Use Cases
+
+Use the platform for operational work that benefits from classification, repeatable execution steps, validation, and an auditable trace.
+
+### 1. Qualify inbound sales leads
+
+**Input**
+
+> Qualify this inbound lead: Acme Logistics, contact Sarah Khan, operations director. They need workflow automation for quote follow-ups and customer onboarding. Budget is around $8k, timeline is this quarter, and they asked for a technical demo next week.
+
+**What the platform does**
+
+- Classifies the request as a lead qualification task.
+- Extracts company, contact, buying signals, budget, timeline, and requested services.
+- Scores the lead and routes it as hot, warm, cold, or disqualified.
+- Returns a validated lead summary with the full execution trace.
+
+### 2. Review contracts for business risk
+
+**Input**
+
+> Review this vendor agreement for renewal dates, termination clauses, liability exposure, missing party details, and any obligations our operations team needs to track.
+
+**What the platform does**
+
+- Classifies the request as a contract analysis task.
+- Extracts parties, effective dates, expiry dates, obligations, and risk flags.
+- Produces a structured risk level and missing-fields list.
+- Keeps every extraction and validation decision visible in the trace.
+
+### 3. Plan client onboarding work
+
+**Input**
+
+> Onboard Northstar Clinics as a new customer. They need workspace setup, welcome email, analytics dashboard access, and a checklist for the first implementation call.
+
+**What the platform does**
+
+- Classifies the request as a client onboarding task.
+- Breaks the work into setup, communication, and provisioning steps.
+- Simulates execution through registered tools.
+- Returns completed steps, failed steps, provisioned resources, and notes.
+
+### 4. Run custom operations workflows
+
+**Input**
+
+> Turn this messy support handoff into a clean internal action list, identify blockers, assign priorities, and produce a final summary for the ops lead.
+
+**What the platform does**
+
+- Falls back to the custom workflow path when the task is not clearly lead, contract, or onboarding.
+- Creates a compact intermediate representation, plans steps, executes available tools, and validates the final output.
+- Preserves the full trace so the result can be reviewed, replayed, or exported.
+
+### 5. Demo safely with local models first
+
+For local demos, run with Ollama before connecting paid API keys. The app includes local fallbacks so common demo flows can complete even when a small local model returns imperfect JSON.
+
 ---
 
 ## Architecture

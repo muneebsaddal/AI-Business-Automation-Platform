@@ -1,6 +1,7 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { formatDistanceToNow } from 'date-fns'
 import { ArrowLeft, FileDown, RefreshCcw, Repeat2 } from 'lucide-react'
+import { useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { Link, useNavigate, useParams } from 'react-router-dom'
 
@@ -38,13 +39,19 @@ export default function TaskDetail() {
     queryKey: ['task', id],
     queryFn: () => getTask(id),
     enabled: Boolean(id),
+    refetchInterval: (query) =>
+      terminalStatuses.has(query.state.data?.status) ? false : 3000,
   })
 
   const task = taskQuery.data
   const isTerminal = terminalStatuses.has(task?.status)
+  const handleComplete = useCallback(
+    () => queryClient.invalidateQueries({ queryKey: ['task', id] }),
+    [id, queryClient],
+  )
   const { events, connectionState } = useWebSocket(id, {
     enabled: Boolean(id && task && !isTerminal),
-    onComplete: () => queryClient.invalidateQueries({ queryKey: ['task', id] }),
+    onComplete: handleComplete,
   })
 
   const completeEvent = [...events].reverse().find((event) => event.event === 'complete')
@@ -92,13 +99,13 @@ export default function TaskDetail() {
             <ArrowLeft size={15} />
             Back to history
           </Link>
-          <div className="mt-4 flex flex-wrap items-center gap-3">
-            <h2 className="text-3xl font-semibold">{task.title}</h2>
+          <div className="mt-4 flex min-w-0 flex-wrap items-center gap-3">
+            <h2 className="min-w-0 max-w-full break-words text-3xl font-semibold">{task.title}</h2>
             <span className={`rounded px-3 py-1 text-xs font-semibold uppercase ${statusClass(status)}`}>
               {status}
             </span>
           </div>
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-steel">{task.description}</p>
+          <p className="mt-2 max-w-3xl break-words text-sm leading-6 text-steel">{task.description}</p>
           <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-steel">
             Created {formatDistanceToNow(new Date(task.created_at), { addSuffix: true })} · Type{' '}
             {task.task_type || task.task_type_hint}
@@ -137,7 +144,7 @@ export default function TaskDetail() {
       <div className="grid gap-4 md:grid-cols-4">
         <div className="border border-line bg-white p-4">
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-steel">Connection</p>
-          <p className="mt-2 text-lg font-semibold">{connectionState}</p>
+          <p className="mt-2 truncate text-lg font-semibold capitalize">{connectionState}</p>
         </div>
         <div className="border border-line bg-white p-4">
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-steel">Retries</p>
