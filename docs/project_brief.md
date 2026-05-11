@@ -45,10 +45,11 @@ Completed:
 - Step 13 auth pages: real login/register forms, validation, token persistence, `/auth/me` hydration, and automatic login after registration.
 - Step 14 new task page: validated task submission form, task type hint, optional PDF base64 upload, demo lead loader, and redirect to task detail.
 - Step 15 task detail page: REST task fetch, WebSocket event hook, agent graph, execution trace, output panel, and validation errors.
+- Step 16 task history page: search/filter controls, paginated table, view/rerun/delete/export row actions.
 
 Not yet implemented:
 
-- Task history page, dashboard, settings, and remaining live frontend polish.
+- Dashboard, settings, and remaining live frontend polish.
 - Docker Compose, CI, and deployment.
 
 ## Current File Map
@@ -309,6 +310,21 @@ What Step 15 adds:
 - Refetches task detail when a complete event arrives.
 - Shows agent node progress, live trace events, final JSON output, and validation errors.
 - Shows operational metadata: status, retry count, duration, cost, task type, and connection state.
+
+Step 16 is complete: Task History page.
+
+Files updated:
+
+- `frontend/src/pages/TaskHistory.jsx`
+
+What Step 16 adds:
+
+- Paginated task list backed by `GET /tasks`.
+- Search, status filter, and task type filter.
+- View action to open task detail.
+- Rerun action using `POST /tasks/{task_id}/rerun`.
+- Delete action using `DELETE /tasks/{task_id}`.
+- Export action using `GET /tasks/{task_id}/export` and browser JSON download.
 
 ## Suggested Client Demo Scenarios
 
