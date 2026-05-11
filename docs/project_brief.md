@@ -52,8 +52,7 @@ Completed:
 
 Not yet implemented:
 
-- Deployment.
-- Docker Compose, CI, and deployment.
+- Nothing from the current handover build plan. Next work should be demo hardening, real integrations, tests, or deployment to a chosen host.
 
 ## Current File Map
 
@@ -382,6 +381,27 @@ What Step 19 adds:
 - Celery worker service using the same backend image.
 - Frontend Vite service on port 5173.
 - Local Ollama support through `host.docker.internal:11434`.
+
+Step 20 is complete: Deployment packaging.
+
+Files created:
+
+- `.github/workflows/ci.yml`
+- `docs/deployment.md`
+- `backend/.env.production.example`
+- `frontend/.env.production.example`
+
+Files updated:
+
+- `.gitignore`
+- `README.md`
+
+What Step 20 adds:
+
+- GitHub Actions checks for backend lint/compile, frontend lint/build, and Docker Compose config.
+- Production env templates for backend and frontend hosting.
+- Deployment guide for split hosting: frontend static site, backend API service, Celery worker, managed Postgres, and managed Redis.
+- Client demo checklist centered on the lead qualification workflow.
 
 ## Suggested Client Demo Scenarios
 

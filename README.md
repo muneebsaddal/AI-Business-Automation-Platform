@@ -106,6 +106,8 @@ IntentClassifier  (LLM — detects task type)
 - Ollama with `mistral:latest` pulled (`ollama pull mistral`)
 - Docker + Docker Compose (for full local stack)
 
+Production deployment notes live in [`docs/deployment.md`](docs/deployment.md).
+
 ---
 
 ## Setup
@@ -151,6 +153,11 @@ USE_OPENAI=true
 OPENAI_API_KEY=sk-...
 # Restart backend — zero code changes required
 ```
+
+Production env templates:
+
+- `backend/.env.production.example`
+- `frontend/.env.production.example`
 
 ---
 
