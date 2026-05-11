@@ -154,7 +154,6 @@ Files created:
 - `backend/app/agents/nodes/ir_generator.py`
 - `backend/app/agents/nodes/ir_validator.py`
 - `backend/app/agents/nodes/schema_resolver.py`
-- `docs/langgraph_step7.md`
 
 What Step 7 adds:
 
@@ -172,7 +171,6 @@ Files created:
 - `backend/app/agents/nodes/planner.py`
 - `backend/app/agents/nodes/executor.py`
 - `backend/app/agents/nodes/validator.py`
-- `docs/langgraph_step8.md`
 
 What Step 8 adds:
 

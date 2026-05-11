@@ -38,44 +38,59 @@ A full-stack, production-ready multi-agent AI operations platform. Businesses su
 
 ## Agent Graph
 
-```
-Input
-  │
-  ▼
-IntentClassifier  (LLM — detects task type)
-  │
-  ▼ ConditionalEdge
-  ├──▶ LeadPipeline
-  ├──▶ ContractPipeline
-  ├──▶ OnboardPipeline
-  └──▶ CustomPipeline
-         │
-         ▼
-       IRGenerator        (LLM outputs compact IR only)
-         │
-         ▼
-       IRValidator         (Pydantic check on IR structure)
-         │
-         ▼
-       SchemaResolver      (maps IR → full Pydantic output model)
-         │
-         ▼
-       Planner Agent       (breaks task into ordered steps)
-         │
-         ▼
-       Executor Agent      (runs each step · retry logic)
-         │
-         ▼
-       Validator Agent     (schema-checks final output · field-level errors)
-         │
-         ▼ ConditionalEdge
-         ├──▶ Pass
-         ├──▶ Retry (max 2, error context injected)
-         ├──▶ Escalate (below confidence threshold)
-         └──▶ Fail (structured error, no silent pass)
-              │
-              ▼
-         Output + Execution Trace + Logs
+See [`docs/workflow_graph.md`](docs/workflow_graph.md) for final Mermaid workflow diagrams and instructions for exporting the actual compiled LangGraph graph.
+
+```mermaid
+flowchart TD
+    Input(["Plain-English business task"]):::entry
+    Intent["IntentClassifier<br/>Detect task type and confidence"]:::agent
+    Branch{"Route by task type"}:::decision
+
+    Lead["Lead pipeline<br/>Qualification workflow"]:::route
+    Contract["Contract pipeline<br/>Review workflow"]:::route
+    Onboard["Onboarding pipeline<br/>Client setup workflow"]:::route
+    Custom["Custom pipeline<br/>Generic operations workflow"]:::route
+
+    IRGen["IRGenerator<br/>LLM creates compact IR"]:::llm
+    IRVal["IRValidator<br/>Pydantic validates IR"]:::guard
+    Resolver["SchemaResolver<br/>Map IR to full output schema"]:::agent
+    Planner["Planner<br/>Create ordered execution steps"]:::agent
+    Executor["Executor<br/>Run simulated tools"]:::tool
+    Validator["Validator<br/>Schema, confidence, retry decision"]:::guard
+
+    Decision{"Validation result"}:::decision
+    Done(["Complete<br/>Persist output, trace, cost, duration"]):::success
+    Retry["Retry<br/>Inject validation errors as context"]:::warning
+    Escalate(["Escalate<br/>Low confidence or needs review"]):::warning
+    Fail(["Fail<br/>Structured error, no silent pass"]):::failure
+
+    Input --> Intent --> Branch
+    Branch -->|"lead"| Lead
+    Branch -->|"contract"| Contract
+    Branch -->|"onboard"| Onboard
+    Branch -->|"custom"| Custom
+    Lead --> IRGen
+    Contract --> IRGen
+    Onboard --> IRGen
+    Custom --> IRGen
+    IRGen --> IRVal
+    IRVal -->|"valid"| Resolver --> Planner --> Executor --> Validator --> Decision
+    IRVal -->|"invalid"| Fail
+    Decision -->|"pass"| Done
+    Decision -->|"retry, max 2"| Retry --> IRGen
+    Decision -->|"escalate"| Escalate
+    Decision -->|"fail"| Fail
+
+    classDef entry fill:#ecfeff,stroke:#0891b2,color:#164e63,stroke-width:2px
+    classDef agent fill:#eef2ff,stroke:#4f46e5,color:#312e81,stroke-width:2px
+    classDef llm fill:#f5f3ff,stroke:#7c3aed,color:#4c1d95,stroke-width:2px
+    classDef route fill:#f0fdf4,stroke:#16a34a,color:#14532d,stroke-width:2px
+    classDef tool fill:#fff7ed,stroke:#ea580c,color:#7c2d12,stroke-width:2px
+    classDef guard fill:#fefce8,stroke:#ca8a04,color:#713f12,stroke-width:2px
+    classDef decision fill:#ffffff,stroke:#334155,color:#0f172a,stroke-width:2px
+    classDef success fill:#dcfce7,stroke:#15803d,color:#14532d,stroke-width:3px
+    classDef warning fill:#ffedd5,stroke:#f97316,color:#7c2d12,stroke-width:2px
+    classDef failure fill:#fee2e2,stroke:#dc2626,color:#7f1d1d,stroke-width:2px
 ```
 
 ---

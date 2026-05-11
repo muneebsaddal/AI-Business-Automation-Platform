@@ -51,8 +51,10 @@ Agent flow:
 
 - `docs/project_brief.md`: compact source of truth for project context and build history.
 - `docs/deployment.md`: production hosting guide.
+- `docs/workflow_graph.md`: final workflow diagrams and LangGraph export instructions.
 - `docker-compose.yml`: full local stack with Postgres, Redis, backend, Celery, and frontend.
 - `backend/app/agents/graph.py`: LangGraph wiring.
+- `backend/scripts/export_graph.py`: exports the compiled LangGraph graph as Mermaid.
 - `backend/app/agents/state.py`: shared task state model.
 - `backend/app/agents/nodes/`: agent node implementations.
 - `backend/app/tools/`: simulated tool registry and task-specific tools.
