@@ -43,10 +43,11 @@ Completed:
 - Step 11 WebSocket stream: `/ws/{task_id}` authenticates via query token, checks task ownership, and forwards Redis task events.
 - Step 12 frontend setup: Vite React app, Tailwind, router, query client, Axios API client, Zustand auth store, protected route, and placeholder pages.
 - Step 13 auth pages: real login/register forms, validation, token persistence, `/auth/me` hydration, and automatic login after registration.
+- Step 14 new task page: validated task submission form, task type hint, optional PDF base64 upload, demo lead loader, and redirect to task detail.
 
 Not yet implemented:
 
-- Task pages, dashboard, settings, and live frontend components.
+- Task detail/history pages, dashboard, settings, and live frontend components.
 - Docker Compose, CI, and deployment.
 
 ## Current File Map
@@ -270,6 +271,21 @@ What Step 13 adds:
 - `/auth/me` hydration after login/register.
 - JWT storage through Zustand/localStorage.
 - Refresh-token retry flow uses the configured API base URL.
+
+Step 14 is complete: New Task page.
+
+Files updated:
+
+- `frontend/src/pages/NewTask.jsx`
+
+What Step 14 adds:
+
+- Real task submission form using React Hook Form and Zod.
+- Fields for title, description, task type hint, and optional PDF attachment.
+- PDF attachments are converted to base64 before submission.
+- Demo lead loader for the portfolio story.
+- Calls `POST /execute` through `submitTask`.
+- Redirects to `/tasks/{task_id}` after the backend queues the job.
 
 ## Suggested Client Demo Scenarios
 
