@@ -56,8 +56,17 @@ def _fallback_output(state: TaskState) -> dict[str, Any]:
     task_type = state.task_type or "custom"
     text = state.raw_input
     if task_type == "lead":
-        company = _match(r"(?:lead:|company|from|at)\s+([A-Z][A-Za-z0-9&.,\-\s]{2,60}?)(?:,| contact| needs|$)", text, "Unknown company")
-        contact = _match(r"(?:contact|name)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})", text, "Unknown contact")
+        company = _match(
+            r"(?:lead:|company|from|at)\s+([A-Z][A-Za-z0-9&.,\-\s]{2,60}?)"
+            r"(?:,| contact| needs|$)",
+            text,
+            "Unknown company",
+        )
+        contact = _match(
+            r"(?:contact|name)\s+([A-Z][a-z]+(?:\s+[A-Z][a-z]+){0,2})",
+            text,
+            "Unknown contact",
+        )
         score = 40
         if re.search(r"\b(demo|technical demo|meeting|call)\b", text, re.I):
             score += 20
@@ -68,7 +77,14 @@ def _fallback_output(state: TaskState) -> dict[str, Any]:
         if re.search(r"\b(director|founder|owner|vp|head)\b", text, re.I):
             score += 10
         score = min(score, 100)
-        routing = "hot" if score >= 80 else "warm" if score >= 60 else "cold" if score >= 35 else "disqualify"
+        if score >= 80:
+            routing = "hot"
+        elif score >= 60:
+            routing = "warm"
+        elif score >= 35:
+            routing = "cold"
+        else:
+            routing = "disqualify"
         return {
             "schema_version": "1.0",
             "company": company,
@@ -90,7 +106,11 @@ def _fallback_output(state: TaskState) -> dict[str, Any]:
             "risk_level": "medium",
         }
     if task_type == "onboard":
-        client = _match(r"(?:client|customer|company)\s+([A-Z][A-Za-z0-9&.,\-\s]{2,60})", text, "Unknown client")
+        client = _match(
+            r"(?:client|customer|company)\s+([A-Z][A-Za-z0-9&.,\-\s]{2,60})",
+            text,
+            "Unknown client",
+        )
         return {
             "schema_version": "1.0",
             "client_name": client,
@@ -137,7 +157,10 @@ async def schema_resolver(state: TaskState) -> TaskState:
             decision = "Resolved validated IR into draft final output"
         except Exception:
             draft_output = _fallback_output(state)
-            decision = "Resolved validated IR with local fallback because the dev LLM returned invalid JSON"
+            decision = (
+                "Resolved validated IR with local fallback because the dev LLM "
+                "returned invalid JSON"
+            )
         state.final_output = draft_output
         entry = log.with_output(
             {"final_output": draft_output},

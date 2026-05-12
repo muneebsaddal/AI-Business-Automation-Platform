@@ -14,7 +14,7 @@ from app.agents.state import TaskState, utc_now
 from app.config import settings
 from app.database import AsyncSessionLocal
 from app.models.task import Task
-from app.models.user import User  # noqa: F401 - registers users table for Task.user_id FK resolution
+from app.models.user import User  # noqa: F401
 from app.services.task_service import update_task_from_state, update_task_status
 
 celery_app = Celery(
@@ -38,7 +38,9 @@ async def _run_pipeline_async(task_id: str, user_id: str) -> dict[str, Any]:
     async with AsyncSessionLocal() as db:
         task: Task | None = None
         try:
-            result = await db.execute(select(Task).where(Task.id == task_id, Task.user_id == user_id))
+            result = await db.execute(
+                select(Task).where(Task.id == task_id, Task.user_id == user_id)
+            )
             task = result.scalar_one_or_none()
             if task is None:
                 return {"status": "failed", "error": "Task not found"}

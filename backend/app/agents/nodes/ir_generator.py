@@ -68,13 +68,31 @@ def _fallback_ir(state: TaskState) -> dict[str, object]:
         }
     ][:8]
     if task_type == "lead":
-        confidence = "high" if re.search(r"\b(demo|budget|\$|timeline|quarter|week)\b", text, re.I) else "medium"
+        confidence = (
+            "high"
+            if re.search(r"\b(demo|budget|\$|timeline|quarter|week)\b", text, re.I)
+            else "medium"
+        )
         return {"task": "qualify_lead", "fields": keywords, "confidence": confidence, "flags": []}
     if task_type == "contract":
-        risk_level = "high" if re.search(r"\b(termination|liability|penalty|breach)\b", text, re.I) else "medium"
-        return {"task": "analyze_contract", "fields": keywords, "risk_level": risk_level, "flags": []}
+        risk_level = (
+            "high"
+            if re.search(r"\b(termination|liability|penalty|breach)\b", text, re.I)
+            else "medium"
+        )
+        return {
+            "task": "analyze_contract",
+            "fields": keywords,
+            "risk_level": risk_level,
+            "flags": [],
+        }
     if task_type == "onboard":
-        return {"task": "onboard_client", "steps": keywords or ["review request"], "completable": True, "flags": []}
+        return {
+            "task": "onboard_client",
+            "steps": keywords or ["review request"],
+            "completable": True,
+            "flags": [],
+        }
     return {"task": "custom_workflow", "steps": keywords or ["review request"], "flags": []}
 
 
@@ -104,7 +122,9 @@ async def ir_generator(state: TaskState) -> TaskState:
             decision = "Generated compact IR for schema validation"
         except Exception:
             state.ir = _fallback_ir(state)
-            decision = "Generated compact IR with local fallback because the dev LLM returned invalid JSON"
+            decision = (
+                "Generated compact IR with local fallback because the dev LLM returned invalid JSON"
+            )
         entry = log.with_output(
             {"ir": state.ir},
             decision=decision,

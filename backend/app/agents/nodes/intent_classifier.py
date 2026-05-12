@@ -64,7 +64,9 @@ def _fallback_classification(state: TaskState) -> IntentClassifierOutput:
             return IntentClassifierOutput(
                 task_type=task_type,
                 confidence=0.75,
-                reasoning="Used local keyword classification because local LLM output was unavailable.",
+                reasoning=(
+                    "Used local keyword classification because local LLM output was unavailable."
+                ),
             )
     return IntentClassifierOutput(
         task_type="custom",

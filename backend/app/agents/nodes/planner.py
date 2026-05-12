@@ -128,7 +128,10 @@ async def planner(state: TaskState) -> TaskState:
             decision = None
         except Exception:
             raw_steps = _fallback_steps(task_type)
-            decision = "Created execution plan with local fallback because the dev LLM returned invalid JSON"
+            decision = (
+                "Created execution plan with local fallback because the dev LLM "
+                "returned invalid JSON"
+            )
         plan = PlannerOutput.model_validate({"steps": _normalize_steps(raw_steps)})
         state.plan = plan.steps
 
