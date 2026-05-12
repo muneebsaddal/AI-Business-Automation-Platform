@@ -115,14 +115,14 @@ export default function Settings() {
             </button>
           </section>
 
-          <section className="border border-line bg-[#fbf8f0] p-5">
+          <section className="border border-line bg-panel p-5">
             <h3 className="font-semibold">Export and replay</h3>
             <p className="mt-2 text-sm leading-6 text-steel">
               Task export and replay are available on each task detail page and in history rows.
             </p>
           </section>
 
-          <button className="w-full rounded bg-ink px-4 py-3 text-sm font-semibold text-paper" type="submit">
+          <button className="w-full rounded bg-signal px-4 py-3 text-sm font-semibold text-white" type="submit">
             Save settings
           </button>
         </aside>

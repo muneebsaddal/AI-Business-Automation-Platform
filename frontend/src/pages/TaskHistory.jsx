@@ -105,7 +105,7 @@ export default function TaskHistory() {
             records.
           </p>
         </div>
-        <Link className="rounded bg-ink px-4 py-2 text-sm font-semibold text-paper" to="/tasks/new">
+        <Link className="rounded bg-signal px-4 py-2 text-sm font-semibold text-white" to="/tasks/new">
           New task
         </Link>
       </div>
@@ -147,7 +147,7 @@ export default function TaskHistory() {
       <div className="overflow-hidden border border-line bg-white shadow-panel">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[920px] border-collapse text-left text-sm">
-            <thead className="bg-[#fbf8f0] text-xs uppercase tracking-[0.12em] text-steel">
+            <thead className="bg-panel text-xs uppercase tracking-[0.12em] text-steel">
               <tr>
                 <th className="px-4 py-3">Task</th>
                 <th className="px-4 py-3">Type</th>

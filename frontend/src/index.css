@@ -3,8 +3,8 @@
 @tailwind utilities;
 
 :root {
-  color: #15110d;
-  background: #f7f3ea;
+  color: #06235f;
+  background: #f8fbff;
   font-family:
     ui-sans-serif, 'Aptos', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
   font-synthesis: none;

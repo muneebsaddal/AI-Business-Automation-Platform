@@ -84,7 +84,7 @@ export default function Login() {
           )}
 
           <button
-            className="inline-flex w-full items-center justify-center gap-2 rounded bg-ink px-4 py-2.5 text-sm font-semibold text-paper disabled:opacity-60"
+            className="inline-flex w-full items-center justify-center gap-2 rounded bg-signal px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
             type="submit"
             disabled={isLoading}
           >

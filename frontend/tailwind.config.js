@@ -4,15 +4,16 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#15110d',
-        paper: '#f7f3ea',
-        steel: '#53616f',
-        line: '#d8d0c2',
-        signal: '#0f766e',
+        ink: '#06235f',
+        paper: '#f8fbff',
+        steel: '#5d6f8f',
+        line: '#bfd4ff',
+        signal: '#1f5cff',
+        panel: '#eef5ff',
         ember: '#b45309',
       },
       boxShadow: {
-        panel: '0 18px 50px rgba(21, 17, 13, 0.08)',
+        panel: '0 18px 50px rgba(31, 92, 255, 0.09)',
       },
     },
   },

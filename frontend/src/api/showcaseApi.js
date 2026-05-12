@@ -1,43 +1,177 @@
 const STORAGE_KEY = 'ai_ops_showcase_tasks'
+const STORAGE_VERSION = 2
 
-const demoLead =
-  'Qualify this inbound lead: Acme Logistics, contact Sarah Khan, operations director. They need workflow automation for quote follow-ups and customer onboarding. Budget mentioned is around $8k, timeline is this quarter, and they asked for a technical demo next week.'
-
-const nodeSummaries = [
-  ['IntentClassifier', 'Classified the request as lead qualification with high confidence.'],
-  ['IRGenerator', 'Extracted company, contact, budget, timeline, pain points, and requested next step.'],
-  ['IRValidator', 'Confirmed the intermediate representation has the required lead fields.'],
-  ['SchemaResolver', 'Selected the lead qualification output schema.'],
-  ['Planner', 'Built a scored qualification plan and follow-up sequence.'],
-  ['Executor', 'Ran simulated CRM enrichment, scoring, and next-action tools.'],
-  ['Validator', 'Validated the final JSON against the lead qualification schema.'],
+export const showcaseTemplates = [
+  {
+    id: 'lead-qualification',
+    title: 'Qualify Acme Logistics inbound lead',
+    label: 'Lead Qualification',
+    task_type_hint: 'lead',
+    description:
+      'Qualify this inbound lead: Acme Logistics, contact Sarah Khan, operations director. They need workflow automation for quote follow-ups and customer onboarding. Budget mentioned is around $8k, timeline is this quarter, and they asked for a technical demo next week.',
+    customer_value:
+      'Turns a messy inbound request into a scored opportunity, buying-signal summary, and next action.',
+    expected_result_summary:
+      'Lead score, fit, risks, recommended follow-up, confidence, and validated JSON.',
+    recommended: true,
+  },
+  {
+    id: 'contract-analyzer',
+    title: 'Review renewal terms for Atlas Field Services',
+    label: 'Contract Analyzer',
+    task_type_hint: 'contract',
+    description:
+      'Review this service agreement renewal for Atlas Field Services. Pull out renewal dates, payment terms, operational obligations, missing details, and any clauses that should be reviewed before signature.',
+    customer_value:
+      'Finds contract risk and missing business details before a team signs or renews.',
+    expected_result_summary:
+      'Risk level, key clauses, missing fields, obligations, and review recommendations.',
+    recommended: false,
+  },
+  {
+    id: 'client-onboarding',
+    title: 'Prepare onboarding runbook for Northstar Studio',
+    label: 'Client Onboarding',
+    task_type_hint: 'onboard',
+    description:
+      'Create an onboarding runbook for Northstar Studio. They need kickoff prep, workspace setup, stakeholder approvals, first-week milestones, and a client-facing welcome sequence.',
+    customer_value:
+      'Converts a client brief into a repeatable onboarding checklist and launch plan.',
+    expected_result_summary:
+      'Milestones, setup steps, owner handoffs, welcome actions, and launch confidence.',
+    recommended: false,
+  },
+  {
+    id: 'custom-ops',
+    title: 'Turn support handoff notes into an action plan',
+    label: 'Custom Operations Workflow',
+    task_type_hint: 'custom',
+    description:
+      'Turn these support handoff notes into a clean action plan: customer is waiting on account access, billing needs to confirm invoice status, implementation needs a timeline update, and the account manager wants a concise customer reply.',
+    customer_value:
+      'Transforms loose operations notes into visible steps that can be assigned, reviewed, and replayed.',
+    expected_result_summary:
+      'Structured plan, step status, owner suggestions, customer reply draft, and validation trace.',
+    recommended: false,
+  },
 ]
 
+const nodeSummaries = {
+  lead: [
+    ['IntentClassifier', 'Classified the request as lead qualification with high confidence.'],
+    ['IRGenerator', 'Extracted company, contact, budget, timeline, pain points, and requested next step.'],
+    ['IRValidator', 'Confirmed the intermediate representation has the required lead fields.'],
+    ['SchemaResolver', 'Selected the lead qualification output schema.'],
+    ['Planner', 'Built a scored qualification plan and follow-up sequence.'],
+    ['Executor', 'Ran simulated CRM enrichment, scoring, and next-action tools.'],
+    ['Validator', 'Validated the final lead result and confidence fields.'],
+  ],
+  contract: [
+    ['IntentClassifier', 'Classified the request as contract analysis.'],
+    ['IRGenerator', 'Extracted parties, renewal timing, obligations, terms, and risk signals.'],
+    ['IRValidator', 'Checked that the contract review fields were complete enough to analyze.'],
+    ['SchemaResolver', 'Selected the contract risk output schema.'],
+    ['Planner', 'Planned clause extraction, obligation review, and risk scoring steps.'],
+    ['Executor', 'Ran simulated clause, date, obligation, and missing-field tools.'],
+    ['Validator', 'Validated the risk level, flags, and review recommendations.'],
+  ],
+  onboard: [
+    ['IntentClassifier', 'Classified the request as client onboarding.'],
+    ['IRGenerator', 'Extracted client goals, setup needs, stakeholders, and launch milestones.'],
+    ['IRValidator', 'Confirmed the onboarding checklist has the required setup fields.'],
+    ['SchemaResolver', 'Selected the onboarding runbook output schema.'],
+    ['Planner', 'Planned kickoff, workspace setup, approvals, and first-week delivery steps.'],
+    ['Executor', 'Ran simulated setup, welcome sequence, and milestone planning tools.'],
+    ['Validator', 'Validated the onboarding plan and readiness confidence.'],
+  ],
+  custom: [
+    ['IntentClassifier', 'Classified the request as a custom operations workflow.'],
+    ['IRGenerator', 'Extracted stakeholders, constraints, requested outputs, and action items.'],
+    ['IRValidator', 'Checked that the custom workflow can be planned and reviewed.'],
+    ['SchemaResolver', 'Selected the generic operations plan output schema.'],
+    ['Planner', 'Planned visible work steps with review points and handoffs.'],
+    ['Executor', 'Ran simulated parsing, assignment, and customer-response tools.'],
+    ['Validator', 'Validated the final action plan and review notes.'],
+  ],
+}
+
 const seededTasks = [
-  {
-    title: 'Qualify Acme Logistics inbound lead',
-    description: demoLead,
-    task_type_hint: 'lead',
-  },
-  {
-    title: 'Review Master Services Agreement',
-    description:
-      'Analyze a draft MSA for renewal risk, termination terms, payment exposure, and operational handoff requirements.',
-    task_type_hint: 'contract',
-  },
-  {
-    title: 'Prepare onboarding runbook for Northstar Studio',
-    description:
-      'Create a client onboarding checklist for kickoff, workspace setup, stakeholder approvals, and first-week automation milestones.',
-    task_type_hint: 'onboard',
-  },
+  { ...showcaseTemplates[0], minutesAgo: 8 },
+  { ...showcaseTemplates[1], minutesAgo: 44 },
+  { ...showcaseTemplates[2], minutesAgo: 86 },
+  { ...showcaseTemplates[3], minutesAgo: 128 },
   {
     title: 'Score two agency operations leads',
     description:
-      'Compare two inbound agency leads and recommend which should get a technical demo this week based on urgency and fit.',
+      'Compare two inbound agency leads and recommend which should get a technical demo this week based on urgency, fit, budget signal, and workflow pain.',
     task_type_hint: 'lead',
+    minutesAgo: 180,
+  },
+  {
+    title: 'Check vendor onboarding packet for missing details',
+    description:
+      'Review a vendor onboarding packet and identify missing tax, security, billing, and account-owner details before the finance team approves it.',
+    task_type_hint: 'onboard',
+    minutesAgo: 230,
+  },
+  {
+    title: 'Analyze payment terms in a draft statement of work',
+    description:
+      'Extract payment milestones, late-fee exposure, acceptance criteria, and ambiguous delivery terms from a draft SOW.',
+    task_type_hint: 'contract',
+    minutesAgo: 310,
+  },
+  {
+    title: 'Escalate unclear enterprise lead handoff',
+    description:
+      'Qualify an enterprise lead where the budget and decision maker are unclear, but the customer mentioned urgent integration issues and requested pricing.',
+    task_type_hint: 'lead',
+    status: 'escalated',
+    minutesAgo: 390,
+    validation_errors: [
+      { field: 'decision_maker', message: 'Decision maker was not explicit in the request.' },
+      { field: 'budget_usd', message: 'Budget signal was too vague for automatic routing.' },
+    ],
+  },
+  {
+    title: 'Recover stalled implementation handoff',
+    description:
+      'Convert a stalled implementation handoff into next steps for customer success, engineering, billing, and the account owner.',
+    task_type_hint: 'custom',
+    minutesAgo: 460,
+  },
+  {
+    title: 'Review cancellation clause for operations risk',
+    description:
+      'Review a cancellation clause and identify operational notice periods, refund exposure, and clauses that need legal review.',
+    task_type_hint: 'contract',
+    minutesAgo: 525,
+  },
+  {
+    title: 'Plan kickoff for BrightPath Analytics',
+    description:
+      'Create a kickoff plan for BrightPath Analytics covering access requests, data sources, approval cadence, and first automation milestone.',
+    task_type_hint: 'onboard',
+    minutesAgo: 610,
+  },
+  {
+    title: 'Parse incomplete support escalation notes',
+    description:
+      'Turn incomplete support escalation notes into an action plan. The notes omit account ID, owner, and customer priority.',
+    task_type_hint: 'custom',
+    status: 'failed',
+    retry_count: 2,
+    minutesAgo: 720,
+    validation_errors: [
+      { field: 'account_id', message: 'Required identifier missing after retry.' },
+      { field: 'priority', message: 'Priority could not be inferred safely.' },
+    ],
   },
 ]
+
+export function getRecommendedShowcaseTemplate() {
+  return showcaseTemplates.find((template) => template.recommended) || showcaseTemplates[0]
+}
 
 function timestamp(minutesAgo = 0) {
   return new Date(Date.now() - minutesAgo * 60 * 1000).toISOString()
@@ -48,61 +182,87 @@ function taskTypeFromHint(hint) {
   return hint || 'custom'
 }
 
-function buildLeadOutput() {
+function buildLeadOutput(data) {
   return {
     lead: {
-      company: 'Acme Logistics',
-      contact: 'Sarah Khan',
-      role: 'Operations Director',
-      budget_usd: 8000,
-      timeline: 'This quarter',
-      requested_next_step: 'Technical demo next week',
+      company: data.title.includes('Acme') ? 'Acme Logistics' : 'Enterprise prospect',
+      contact: data.title.includes('Acme') ? 'Sarah Khan' : 'Unknown buyer',
+      role: data.title.includes('Acme') ? 'Operations Director' : 'Operations stakeholder',
+      budget_usd: data.title.includes('Acme') ? 8000 : null,
+      timeline: data.title.includes('Acme') ? 'This quarter' : 'Needs confirmation',
+      requested_next_step: 'Technical discovery follow-up',
     },
     qualification: {
-      score: 91,
-      fit: 'high',
-      confidence: 0.94,
+      score: data.status === 'escalated' ? 68 : 91,
+      fit: data.status === 'escalated' ? 'needs_review' : 'high',
+      confidence: data.status === 'escalated' ? 0.72 : 0.94,
       reasons: [
-        'Clear operational pain around quote follow-ups and onboarding',
-        'Budget is realistic for an automation pilot',
-        'Timeline is near-term and tied to a requested demo',
+        'Clear operational pain around follow-up work',
+        'Specific automation need is visible in the request',
+        'A human can review the trace before routing',
       ],
-      risks: ['Confirm CRM and email platform access before scoping integrations'],
+      risks:
+        data.status === 'escalated'
+          ? ['Decision maker and budget need human confirmation before routing']
+          : ['Confirm CRM and email platform access before scoping integrations'],
     },
-    recommended_actions: [
-      'Book a 45-minute technical discovery demo',
-      'Prepare examples for quote follow-up automation and onboarding status tracking',
-      'Send a one-page pilot proposal with success metrics',
-    ],
+    recommended_actions:
+      data.status === 'escalated'
+        ? ['Ask for decision maker, budget, and integration stack before booking a demo']
+        : [
+            'Book a 45-minute technical discovery demo',
+            'Prepare examples for quote follow-up automation and onboarding status tracking',
+            'Send a one-page pilot proposal with success metrics',
+          ],
   }
 }
 
-function buildGenericOutput(taskType) {
-  const outputs = {
-    contract: {
-      summary: 'The contract is demo-scored as moderate risk with review required before signature.',
-      risk_level: 'medium',
-      confidence: 0.87,
-      flags: ['Termination language needs confirmation', 'Payment timing should be clarified'],
-      recommended_actions: ['Route to legal review', 'Ask client to confirm renewal and SLA terms'],
-    },
-    onboard: {
-      summary: 'The onboarding workflow is ready for a structured kickoff sequence.',
-      confidence: 0.9,
-      milestones: ['Workspace setup', 'Stakeholder map', 'Automation inventory', 'First workflow demo'],
-      recommended_actions: ['Schedule kickoff', 'Collect system access', 'Create shared launch tracker'],
-    },
-    custom: {
-      summary: 'The request was converted into a traceable automation plan.',
-      confidence: 0.82,
-      recommended_actions: ['Confirm inputs', 'Run a scoped pilot', 'Review output with an operator'],
-    },
+function buildContractOutput(data) {
+  return {
+    summary: `${data.title} is ready for business review with several terms highlighted.`,
+    risk_level: data.title.toLowerCase().includes('cancellation') ? 'medium-high' : 'medium',
+    confidence: 0.87,
+    key_terms: ['Renewal timing', 'Payment obligations', 'Notice periods', 'Acceptance criteria'],
+    flags: ['Confirm termination language', 'Clarify payment timing', 'Route ambiguous clauses to legal'],
+    recommended_actions: ['Send flagged clauses to legal review', 'Ask the client to confirm operating dates'],
   }
-  return outputs[taskType] || outputs.custom
 }
 
-function buildTrace(finalOutput) {
-  const events = nodeSummaries.map(([node, summary], index) => ({
+function buildOnboardingOutput(data) {
+  return {
+    summary: `${data.title} has been converted into a launch-ready onboarding runbook.`,
+    confidence: 0.9,
+    milestones: ['Kickoff prep', 'Workspace setup', 'Stakeholder map', 'First workflow demo'],
+    setup_steps: ['Confirm owners', 'Collect system access', 'Create shared launch tracker'],
+    recommended_actions: ['Schedule kickoff', 'Assign internal owners', 'Send welcome sequence'],
+  }
+}
+
+function buildCustomOutput(data) {
+  return {
+    summary: `${data.title} was converted into a traceable operations plan.`,
+    confidence: data.status === 'failed' ? 0.42 : 0.82,
+    workflow_steps: ['Extract request', 'Identify owners', 'Plan next actions', 'Prepare review summary'],
+    review_notes:
+      data.status === 'failed'
+        ? ['Missing account ID and priority prevented safe automation after retry']
+        : ['Ready for operator review before customer-facing follow-up'],
+    recommended_actions:
+      data.status === 'failed'
+        ? ['Ask the requester for account ID, priority, and owner before rerunning']
+        : ['Confirm inputs', 'Run the scoped workflow', 'Review output with an operator'],
+  }
+}
+
+function buildOutput(taskType, data) {
+  if (taskType === 'lead') return buildLeadOutput(data)
+  if (taskType === 'contract') return buildContractOutput(data)
+  if (taskType === 'onboard') return buildOnboardingOutput(data)
+  return buildCustomOutput(data)
+}
+
+function buildTrace(taskType, finalOutput, status = 'success') {
+  const events = (nodeSummaries[taskType] || nodeSummaries.custom).map(([node, summary], index) => ({
     event: 'node_start',
     node,
     action: summary,
@@ -110,7 +270,7 @@ function buildTrace(finalOutput) {
   }))
   events.push({
     event: 'complete',
-    status: 'success',
+    status,
     output: finalOutput,
   })
   return events
@@ -118,7 +278,8 @@ function buildTrace(finalOutput) {
 
 export function createShowcaseTask(data, index = 0) {
   const taskType = taskTypeFromHint(data.task_type_hint)
-  const finalOutput = taskType === 'lead' ? buildLeadOutput() : buildGenericOutput(taskType)
+  const status = data.status || 'success'
+  const finalOutput = buildOutput(taskType, { ...data, status })
   const id = `demo-${Date.now()}-${Math.random().toString(16).slice(2, 8)}`
 
   return {
@@ -127,14 +288,14 @@ export function createShowcaseTask(data, index = 0) {
     description: data.description,
     task_type_hint: data.task_type_hint || taskType,
     task_type: taskType,
-    status: 'success',
-    retry_count: 0,
-    duration_ms: 1840 + index * 310,
-    cost_usd: 0.0042 + index * 0.0007,
-    created_at: timestamp(index * 42),
-    execution_trace: buildTrace(finalOutput),
+    status,
+    retry_count: data.retry_count || 0,
+    duration_ms: 1840 + index * 260,
+    cost_usd: 0.0042 + index * 0.0006,
+    created_at: timestamp(data.minutesAgo ?? index * 42),
+    execution_trace: buildTrace(taskType, finalOutput, status),
     final_output: finalOutput,
-    validation_errors: [],
+    validation_errors: data.validation_errors || [],
   }
 }
 
@@ -142,18 +303,25 @@ export function seedShowcaseTasks() {
   return seededTasks.map((task, index) => createShowcaseTask(task, index))
 }
 
-function readTasks() {
-  if (typeof localStorage === 'undefined') return seedShowcaseTasks()
+function readStoredTasks() {
+  if (typeof localStorage === 'undefined') return null
   const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null')
-  if (Array.isArray(stored) && stored.length > 0) return stored
+  if (stored?.version === STORAGE_VERSION && Array.isArray(stored.tasks)) return stored.tasks
+  if (Array.isArray(stored) && stored.length >= 10) return stored
+  return null
+}
+
+function readTasks() {
+  const stored = readStoredTasks()
+  if (stored) return stored
   const seeded = seedShowcaseTasks()
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(seeded))
+  writeTasks(seeded)
   return seeded
 }
 
 function writeTasks(tasks) {
   if (typeof localStorage !== 'undefined') {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(tasks))
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ version: STORAGE_VERSION, tasks }))
   }
 }
 

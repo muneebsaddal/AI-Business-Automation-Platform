@@ -20,9 +20,9 @@ export default function App() {
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-paper text-ink">
-      <aside className="fixed inset-y-0 left-0 hidden w-64 border-r border-line bg-[#fbf8f0] px-5 py-6 lg:block">
+      <aside className="fixed inset-y-0 left-0 hidden w-64 border-r border-line bg-white px-5 py-6 lg:block">
         <div className="flex items-center gap-3">
-          <div className="grid h-10 w-10 place-items-center rounded bg-ink text-paper">
+          <div className="grid h-10 w-10 place-items-center rounded bg-signal text-white">
             <ShieldCheck size={21} />
           </div>
           <div>
@@ -41,8 +41,8 @@ export default function App() {
                 [
                   'flex items-center gap-3 rounded px-3 py-2 text-sm font-medium transition',
                   isActiveRoute(item.to, isActive)
-                    ? 'bg-ink text-paper'
-                    : 'text-steel hover:bg-white hover:text-ink',
+                    ? 'bg-signal text-white'
+                    : 'text-steel hover:bg-panel hover:text-ink',
                 ].join(' ')
               }
             >

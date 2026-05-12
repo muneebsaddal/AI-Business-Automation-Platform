@@ -1,7 +1,7 @@
-import { useQuery } from '@tanstack/react-query'
+import { useMutation, useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns'
-import { ArrowRight, BadgeCheck, Clock3, DollarSign, Layers3 } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { ArrowRight, BadgeCheck, Clock3, DollarSign, Layers3, Play, Sparkles } from 'lucide-react'
+import { Link, useNavigate } from 'react-router-dom'
 import {
   Bar,
   BarChart,
@@ -15,9 +15,11 @@ import {
   YAxis,
 } from 'recharts'
 
-import { getAnalytics } from '../api/tasks'
+import { getAnalytics, submitTask } from '../api/tasks'
+import { getRecommendedShowcaseTemplate, showcaseTemplates } from '../api/showcaseApi'
+import { isShowcaseMode } from '../config/showcase'
 
-const typeColors = ['#0f766e', '#b45309', '#53616f', '#15110d', '#94a3b8']
+const typeColors = ['#1f5cff', '#7aa7ff', '#17325f', '#5d6f8f', '#b45309']
 
 function buildVolumeData(tasks = []) {
   const grouped = {}
@@ -49,6 +51,29 @@ function StatCard({ label, value, icon: Icon }) {
   )
 }
 
+function TemplateCard({ template }) {
+  return (
+    <Link
+      className="group flex min-h-44 flex-col justify-between border border-line bg-white p-5 shadow-panel transition hover:-translate-y-0.5 hover:border-signal"
+      to={`/tasks/new?template=${template.id}`}
+    >
+      <div>
+        <div className="mb-4 flex items-start justify-between gap-3">
+          <span className="rounded-full border border-line bg-panel px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-signal">
+            {template.task_type_hint}
+          </span>
+          {template.recommended && <Sparkles className="text-signal" size={18} />}
+        </div>
+        <h3 className="text-lg font-semibold">{template.label}</h3>
+        <p className="mt-2 text-sm leading-6 text-steel">{template.customer_value}</p>
+      </div>
+      <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-signal">
+        Use template <ArrowRight size={15} />
+      </span>
+    </Link>
+  )
+}
+
 const emptyAnalytics = {
   total_tasks: 0,
   success_rate: 0,
@@ -67,6 +92,7 @@ const statConfig = [
 ]
 
 export default function Dashboard() {
+  const navigate = useNavigate()
   const analyticsQuery = useQuery({
     queryKey: ['analytics'],
     queryFn: getAnalytics,
@@ -81,9 +107,55 @@ export default function Dashboard() {
     avg_duration_ms: `${Math.round(analytics.avg_duration_ms || 0)} ms`,
     total_cost_usd: `$${Number(analytics.total_cost_usd || 0).toFixed(4)}`,
   }
+  const recommendedTemplate = getRecommendedShowcaseTemplate()
+  const recommendedMutation = useMutation({
+    mutationFn: () => submitTask(recommendedTemplate),
+    onSuccess: (data) => navigate(`/tasks/${data.task_id}`),
+  })
 
   return (
     <section className="space-y-6">
+      {isShowcaseMode && (
+        <section className="overflow-hidden border border-line bg-white shadow-panel">
+          <div className="border-t-4 border-signal p-6 sm:p-8">
+            <div className="grid gap-6 lg:grid-cols-[1fr_280px] lg:items-end">
+              <div>
+                <p className="w-fit rounded-full border border-line bg-panel px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-signal">
+                  Public showcase
+                </p>
+                <h2 className="mt-5 max-w-3xl text-4xl font-semibold leading-tight">
+                  Turn messy business requests into traceable automation runs
+                </h2>
+                <p className="mt-4 max-w-3xl text-sm leading-7 text-steel">
+                  Choose a real workflow, run it instantly, then inspect how each agent classified,
+                  structured, planned, executed, and validated the result.
+                </p>
+              </div>
+              <button
+                className="inline-flex items-center justify-center gap-2 rounded bg-signal px-5 py-3 text-sm font-semibold text-white shadow-panel disabled:opacity-60"
+                type="button"
+                disabled={recommendedMutation.isPending}
+                onClick={() => recommendedMutation.mutate()}
+              >
+                {recommendedMutation.isPending ? 'Running demo...' : 'Run recommended demo'}
+                <Play size={16} />
+              </button>
+            </div>
+
+            <div className="mt-7">
+              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">
+                Start with a workflow
+              </p>
+              <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
+                {showcaseTemplates.map((template) => (
+                  <TemplateCard key={template.id} template={template} />
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
+
       <div className="flex flex-col gap-4 border-b border-line pb-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">
@@ -97,7 +169,7 @@ export default function Dashboard() {
         </div>
         <Link
           to="/tasks/new"
-          className="inline-flex items-center gap-2 rounded bg-ink px-4 py-2 text-sm font-semibold text-paper"
+          className="inline-flex items-center gap-2 rounded bg-signal px-4 py-2 text-sm font-semibold text-white"
         >
           New task <ArrowRight size={16} />
         </Link>
@@ -123,11 +195,11 @@ export default function Dashboard() {
           <div className="mt-5 h-72">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={volumeData}>
-                <CartesianGrid stroke="#e6ded1" vertical={false} />
+                <CartesianGrid stroke="#bfd4ff" vertical={false} />
                 <XAxis dataKey="date" tickLine={false} axisLine={false} />
                 <YAxis allowDecimals={false} tickLine={false} axisLine={false} />
                 <Tooltip />
-                <Bar dataKey="count" fill="#0f766e" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="count" fill="#1f5cff" radius={[4, 4, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>

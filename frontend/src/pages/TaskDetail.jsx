@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { formatDistanceToNow } from 'date-fns'
-import { ArrowLeft, FileDown, RefreshCcw, Repeat2 } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, FileDown, RefreshCcw, Repeat2 } from 'lucide-react'
 import { useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -31,6 +31,14 @@ function downloadJson(filename, data) {
   link.click()
   URL.revokeObjectURL(url)
 }
+
+const pipelineSteps = [
+  'Classify request',
+  'Structure details',
+  'Plan work',
+  'Execute tools',
+  'Validate output',
+]
 
 export default function TaskDetail() {
   const { id } = useParams()
@@ -131,7 +139,7 @@ export default function TaskDetail() {
             Export
           </button>
           <button
-            className="inline-flex items-center justify-center gap-2 rounded bg-ink px-4 py-2 text-sm font-semibold text-paper disabled:opacity-60"
+            className="inline-flex items-center justify-center gap-2 rounded bg-signal px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
             type="button"
             disabled={rerunMutation.isPending}
             onClick={handleReplay}
@@ -141,6 +149,30 @@ export default function TaskDetail() {
           </button>
         </div>
       </div>
+
+      {isShowcaseMode && (
+        <section className="border border-line bg-panel p-5">
+          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">
+            How to read this
+          </p>
+          <h3 className="mt-2 text-xl font-semibold">This is the audit trail for the automation</h3>
+          <p className="mt-2 max-w-3xl text-sm leading-6 text-steel">
+            The platform does more than return an answer. It records the path from messy request to
+            validated business output so a human can inspect, export, and replay the work.
+          </p>
+          <div className="mt-4 flex flex-wrap gap-2">
+            {pipelineSteps.map((step) => (
+              <span
+                key={step}
+                className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3 py-1 text-xs font-semibold text-ink"
+              >
+                <CheckCircle2 className="text-signal" size={14} />
+                {step}
+              </span>
+            ))}
+          </div>
+        </section>
+      )}
 
       <div className="grid gap-4 md:grid-cols-4">
         <div className="border border-line bg-white p-4">
