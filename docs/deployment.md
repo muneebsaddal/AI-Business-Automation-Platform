@@ -1,5 +1,36 @@
 # Deployment Guide
 
+## Free Public Portfolio Showcase
+
+For the most reliable no-cost portfolio link, deploy only the frontend to Netlify in showcase
+mode. This serves a static Vite bundle, bypasses backend auth, and uses in-browser demo data for
+the dashboard, task history, trace export, replay, agent graph, and validated lead output.
+
+The root `netlify.toml` is already configured for this:
+
+```toml
+[build]
+  base = "frontend"
+  command = "npm ci && npm run build"
+  publish = "dist"
+
+[build.environment]
+  NODE_VERSION = "20"
+  VITE_SHOWCASE_MODE = "true"
+```
+
+Deploy steps:
+
+1. Push this repository to GitHub.
+2. In Netlify, choose **Add new project** and import the GitHub repository.
+3. Keep the detected settings from `netlify.toml`.
+4. Deploy. The public Netlify URL is the portfolio showcase link.
+
+This mode does not require `VITE_API_URL`, Postgres, Redis, Celery, or an OpenAI key. Use the
+split-service production setup below when you want the real backend live.
+
+## Full Production Deployment
+
 This project is easiest to demo locally with Docker Compose and easiest to host as split services:
 
 - Frontend: Vercel or Netlify static build.

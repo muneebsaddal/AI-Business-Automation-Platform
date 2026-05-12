@@ -10,6 +10,7 @@ import AgentGraph from '../components/AgentGraph/AgentGraph'
 import ExecutionTrace from '../components/ExecutionTrace/ExecutionTrace'
 import OutputPanel from '../components/OutputPanel/OutputPanel'
 import ValidationErrors from '../components/ValidationErrors/ValidationErrors'
+import { isShowcaseMode } from '../config/showcase'
 import { useWebSocket } from '../hooks/useWebSocket'
 
 const terminalStatuses = new Set(['success', 'failed', 'escalated'])
@@ -50,7 +51,7 @@ export default function TaskDetail() {
     [id, queryClient],
   )
   const { events, connectionState } = useWebSocket(id, {
-    enabled: Boolean(id && task && !isTerminal),
+    enabled: Boolean(!isShowcaseMode && id && task && !isTerminal),
     onComplete: handleComplete,
   })
 
@@ -144,7 +145,9 @@ export default function TaskDetail() {
       <div className="grid gap-4 md:grid-cols-4">
         <div className="border border-line bg-white p-4">
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-steel">Connection</p>
-          <p className="mt-2 truncate text-lg font-semibold capitalize">{connectionState}</p>
+          <p className="mt-2 truncate text-lg font-semibold capitalize">
+            {isShowcaseMode ? 'showcase' : connectionState}
+          </p>
         </div>
         <div className="border border-line bg-white p-4">
           <p className="text-xs font-semibold uppercase tracking-[0.14em] text-steel">Retries</p>

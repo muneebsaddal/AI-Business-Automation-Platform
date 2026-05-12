@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
+import { isShowcaseMode } from '../config/showcase'
 import { useAuth } from '../hooks/useAuth'
 
 const loginSchema = z.object({
@@ -22,7 +23,10 @@ export default function Login() {
     formState: { errors },
   } = useForm({
     resolver: zodResolver(loginSchema),
-    defaultValues: { email: '', password: '' },
+    defaultValues: {
+      email: isShowcaseMode ? 'demo@portfolio.local' : '',
+      password: isShowcaseMode ? 'showcase-demo' : '',
+    },
   })
 
   const onSubmit = async (values) => {
@@ -42,7 +46,9 @@ export default function Login() {
         <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">Sign in</p>
         <h1 className="mt-3 text-3xl font-semibold text-ink">AI Automation Platform</h1>
         <p className="mt-3 text-sm leading-6 text-steel">
-          Access the operations cockpit and continue building live agent workflows.
+          {isShowcaseMode
+            ? 'Open the portfolio demo and explore the agent workflow without a backend server.'
+            : 'Access the operations cockpit and continue building live agent workflows.'}
         </p>
 
         <form className="mt-8 space-y-5" onSubmit={handleSubmit(onSubmit)}>
@@ -82,7 +88,7 @@ export default function Login() {
             type="submit"
             disabled={isLoading}
           >
-            {isLoading ? 'Signing in...' : 'Sign in'} <ArrowRight size={16} />
+            {isLoading ? 'Opening...' : isShowcaseMode ? 'Open showcase' : 'Sign in'} <ArrowRight size={16} />
           </button>
         </form>
 

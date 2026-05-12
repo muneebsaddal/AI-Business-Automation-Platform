@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 
 import { apiClient } from '../api/client'
+import { isShowcaseMode } from '../config/showcase'
 import { useAuthStore } from '../store/authStore'
 
 async function fetchCurrentUser(accessToken) {
@@ -20,11 +21,23 @@ export function useAuth() {
       setUser(response.data)
       return response.data
     },
-    enabled: Boolean(accessToken),
+    enabled: Boolean(accessToken && !isShowcaseMode),
   })
 
   const loginMutation = useMutation({
     mutationFn: async (credentials) => {
+      if (isShowcaseMode) {
+        const currentUser = { id: 'showcase-user', name: 'Portfolio Visitor', email: credentials.email }
+        setAuth(
+          {
+            access_token: 'showcase-access-token',
+            refresh_token: 'showcase-refresh-token',
+          },
+          currentUser,
+        )
+        return currentUser
+      }
+
       const tokenResponse = await apiClient.post('/auth/login', credentials)
       const currentUser = await fetchCurrentUser(tokenResponse.data.access_token)
       setAuth(tokenResponse.data, currentUser)
@@ -34,6 +47,18 @@ export function useAuth() {
 
   const registerMutation = useMutation({
     mutationFn: async (data) => {
+      if (isShowcaseMode) {
+        const currentUser = { id: 'showcase-user', name: data.name, email: data.email }
+        setAuth(
+          {
+            access_token: 'showcase-access-token',
+            refresh_token: 'showcase-refresh-token',
+          },
+          currentUser,
+        )
+        return currentUser
+      }
+
       await apiClient.post('/auth/register', data)
       const tokenResponse = await apiClient.post('/auth/login', {
         email: data.email,

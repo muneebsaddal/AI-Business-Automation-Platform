@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom'
 import { z } from 'zod'
 
 import { submitTask } from '../api/tasks'
+import { isShowcaseMode } from '../config/showcase'
 import { useSettingsStore } from '../store/settingsStore'
 
 const demoLead =
@@ -94,8 +95,9 @@ export default function NewTask() {
           <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">New task</p>
           <h2 className="mt-2 text-3xl font-semibold">Lead qualification intake</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-steel">
-            Describe the business work in plain English. The backend will classify, plan, execute,
-            validate, and stream the trace.
+            {isShowcaseMode
+              ? 'Describe the business work in plain English. The showcase will generate a traceable agent run instantly.'
+              : 'Describe the business work in plain English. The backend will classify, plan, execute, validate, and stream the trace.'}
           </p>
         </div>
         <button
@@ -172,9 +174,19 @@ export default function NewTask() {
           <div className="border border-line bg-[#fbf8f0] p-5">
             <h3 className="font-semibold">What happens next</h3>
             <ol className="mt-3 space-y-2 text-sm leading-6 text-steel">
-              <li>1. FastAPI creates a task record.</li>
-              <li>2. Celery runs the LangGraph pipeline.</li>
-              <li>3. Redis streams node events to the detail page.</li>
+              {isShowcaseMode ? (
+                <>
+                  <li>1. Demo mode creates a task record in this browser.</li>
+                  <li>2. The agent graph is populated with realistic pipeline events.</li>
+                  <li>3. The detail page shows validated output, export, and replay.</li>
+                </>
+              ) : (
+                <>
+                  <li>1. FastAPI creates a task record.</li>
+                  <li>2. Celery runs the LangGraph pipeline.</li>
+                  <li>3. Redis streams node events to the detail page.</li>
+                </>
+              )}
             </ol>
           </div>
 
