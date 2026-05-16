@@ -59,13 +59,13 @@ export default function AgentGraph({ events = [], taskStatus }) {
   }
 
   return (
-    <section className="min-w-0 border border-line bg-white p-5 shadow-panel">
+    <section className="surface min-w-0 p-5">
       <div className="flex items-center justify-between">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">Agent graph</p>
-          <h3 className="mt-1 text-xl font-semibold">Execution path</h3>
+          <p className="eyebrow">Agent graph</p>
+          <h3 className="mt-1 text-xl font-normal">Execution topology</h3>
         </div>
-        <span className="rounded bg-paper px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-steel">
+        <span className="rounded-full bg-paper px-3 py-1 text-xs font-medium uppercase tracking-[0.12em] text-steel">
           {taskStatus || 'pending'}
         </span>
       </div>
@@ -77,17 +77,17 @@ export default function AgentGraph({ events = [], taskStatus }) {
             <div
               key={node}
               className={[
-                'min-h-20 min-w-0 border p-3 transition',
-                state === 'active' ? 'border-signal bg-signal/10' : 'border-line bg-paper',
+                'min-h-20 min-w-0 rounded-xl border p-3 transition',
+                state === 'active' ? 'border-signal/50 bg-signal/10' : 'border-line bg-paper/80',
                 state === 'failed' ? 'border-ember bg-ember/10' : '',
                 state === 'done' ? 'border-signal/40 bg-white' : '',
               ].join(' ')}
             >
               <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold text-steel">{String(index + 1).padStart(2, '0')}</span>
+                <span className="font-mono text-xs font-medium text-steel">{String(index + 1).padStart(2, '0')}</span>
                 <StatusIcon state={state} />
               </div>
-              <p className="mt-3 text-sm font-semibold">{node}</p>
+              <p className="mt-3 text-sm font-medium">{node}</p>
             </div>
           )
         })}

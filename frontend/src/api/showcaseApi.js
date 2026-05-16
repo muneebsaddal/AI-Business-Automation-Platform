@@ -1,5 +1,5 @@
 const STORAGE_KEY = 'ai_ops_showcase_tasks'
-const STORAGE_VERSION = 3
+const STORAGE_VERSION = 4
 
 export const showcaseTemplates = [
   {
@@ -97,9 +97,59 @@ const nodeSummaries = {
 
 const seededTasks = [
   { ...showcaseTemplates[0], minutesAgo: 8 },
-  { ...showcaseTemplates[1], minutesAgo: 44 },
-  { ...showcaseTemplates[2], minutesAgo: 86 },
-  { ...showcaseTemplates[3], minutesAgo: 128 },
+  {
+    ...showcaseTemplates[1],
+    title: 'Review renewal terms for Atlas Field Services',
+    minutesAgo: 52,
+  },
+  {
+    ...showcaseTemplates[2],
+    title: 'Prepare onboarding runbook for Northstar Studio',
+    minutesAgo: 184,
+  },
+  {
+    ...showcaseTemplates[3],
+    title: 'Resolve Priority Freight support handoff',
+    description:
+      'Turn these support handoff notes into an action plan: Priority Freight is waiting on account access, billing needs invoice confirmation, implementation owes a delivery date, and the account manager needs a concise customer update.',
+    minutesAgo: 920,
+  },
+  {
+    ...showcaseTemplates[0],
+    title: 'Score inbound demo request from Meridian Clinics',
+    description:
+      'Qualify this inbound lead: Meridian Clinics, contact Elena Park, revenue operations lead. They want automation for referral intake, appointment follow-up, and weekly operations reporting. Budget is not confirmed, but they asked for integration details.',
+    status: 'escalated',
+    minutesAgo: 1260,
+  },
+  {
+    ...showcaseTemplates[1],
+    title: 'Extract risk flags from NovaBuild vendor MSA',
+    description:
+      'Review the NovaBuild vendor master services agreement. Identify renewal language, support obligations, payment terms, cancellation notice, missing attachments, and clauses that need legal review.',
+    minutesAgo: 1640,
+  },
+  {
+    ...showcaseTemplates[2],
+    title: 'Launch onboarding checklist for BluePeak Finance',
+    description:
+      'Create an onboarding runbook for BluePeak Finance covering kickoff prep, sandbox access, stakeholder approvals, compliance review, data import, and first workflow acceptance criteria.',
+    minutesAgo: 2540,
+  },
+  {
+    ...showcaseTemplates[3],
+    title: 'Convert warehouse exception notes into owner actions',
+    description:
+      'Turn warehouse exception notes into a structured operations plan: delayed pallet scan, inventory mismatch, carrier update needed, and finance wants the chargeback risk summarized before noon.',
+    minutesAgo: 3110,
+  },
+  {
+    ...showcaseTemplates[0],
+    title: 'Qualify procurement automation lead at Harbor Retail',
+    description:
+      'Qualify this inbound lead: Harbor Retail, contact Jonah Miles, procurement director. They need purchase order exception handling, supplier follow-up, and audit-ready approval logs for a pilot next month.',
+    minutesAgo: 3890,
+  },
 ]
 
 export function getRecommendedShowcaseTemplate() {
@@ -279,7 +329,7 @@ export function getShowcaseAnalytics(tasks = readTasks()) {
     total_cost_usd: totalCost,
     by_status: byStatus,
     by_type: byType,
-    recent_tasks: tasks.slice(0, 6),
+    recent_tasks: tasks.slice(0, 9),
   }
 }
 

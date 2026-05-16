@@ -1,5 +1,5 @@
 import { zodResolver } from '@hookform/resolvers/zod'
-import { CheckCircle2, FileText, Play, Sparkles } from 'lucide-react'
+import { CheckCircle2, FileJson, FileText, GitBranch, Play, Sparkles, Workflow } from 'lucide-react'
 import { useMemo, useState } from 'react'
 import { useForm } from 'react-hook-form'
 import toast from 'react-hot-toast'
@@ -100,16 +100,16 @@ export default function NewTask() {
     <section className="space-y-6">
       <div className="flex flex-col gap-4 border-b border-line pb-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">New task</p>
-          <h2 className="mt-2 text-3xl font-semibold">Choose a workflow to run</h2>
+          <p className="eyebrow">Workflow intake</p>
+          <h2 className="mt-2 text-3xl font-normal">Design an agent run from a business request</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-steel">
             {isShowcaseMode
-              ? 'Describe the business work in plain English. The showcase will generate a traceable agent run instantly.'
+              ? 'Pick a scenario, edit the brief, run the workflow.'
               : 'Describe the business work in plain English. The backend will classify, plan, execute, validate, and stream the trace.'}
           </p>
         </div>
         <button
-          className="inline-flex items-center gap-2 rounded border border-line bg-white px-4 py-2 text-sm font-semibold text-ink"
+          className="action-secondary"
           type="button"
           onClick={() => selectTemplate(getRecommendedShowcaseTemplate())}
         >
@@ -119,14 +119,11 @@ export default function NewTask() {
       </div>
 
       {isShowcaseMode && (
-        <section className="border border-line bg-white p-5 shadow-panel">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">
-            Template first
-          </p>
-          <h3 className="mt-2 text-xl font-semibold">Pick a business scenario</h3>
+        <section className="surface p-5">
+          <p className="eyebrow">Template first</p>
+          <h3 className="mt-2 text-xl font-normal">Pick a business scenario</h3>
           <p className="mt-2 max-w-3xl text-sm leading-6 text-steel">
-            Each template fills the request for you. You can run it immediately or edit the text
-            before launching the automation.
+            Prebuilt briefs for lead, contract, onboarding, and custom operations.
           </p>
 
           <div className="mt-5 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
@@ -136,19 +133,19 @@ export default function NewTask() {
                 <button
                   key={template.id}
                   className={[
-                    'min-h-48 border p-4 text-left transition hover:-translate-y-0.5',
-                    selected ? 'border-signal bg-panel shadow-panel' : 'border-line bg-white',
+                    'min-h-48 rounded-xl border p-4 text-left transition hover:-translate-y-0.5',
+                    selected ? 'border-signal/40 bg-signal/5 shadow-panel' : 'border-line bg-white/80',
                   ].join(' ')}
                   type="button"
                   onClick={() => selectTemplate(template)}
                 >
                   <div className="flex items-start justify-between gap-3">
-                    <span className="rounded-full border border-line bg-white px-2 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-signal">
+                    <span className="rounded-full border border-line bg-white px-2 py-1 text-xs font-medium uppercase tracking-[0.12em] text-signal">
                       {template.task_type_hint}
                     </span>
                     {selected && <CheckCircle2 className="text-signal" size={18} />}
                   </div>
-                  <h4 className="mt-4 font-semibold">{template.label}</h4>
+                  <h4 className="mt-4 font-medium">{template.label}</h4>
                   <p className="mt-2 text-sm leading-6 text-steel">{template.customer_value}</p>
                 </button>
               )
@@ -157,12 +154,25 @@ export default function NewTask() {
         </section>
       )}
 
-      <form className="grid gap-6 lg:grid-cols-[1fr_320px]" onSubmit={handleSubmit(onSubmit)}>
-        <div className="space-y-5 border border-line bg-white p-6 shadow-panel">
+      <form className="grid gap-6 lg:grid-cols-[1fr_360px]" onSubmit={handleSubmit(onSubmit)}>
+        <div className="surface space-y-5 p-6">
+          <div className="grid gap-3 border-b border-line pb-5 sm:grid-cols-3">
+            {[
+              [Workflow, 'Classify', 'Detect workflow type'],
+              [GitBranch, 'Orchestrate', 'Route agent/tool steps'],
+              [FileJson, 'Validate', 'Return typed output'],
+            ].map(([Icon, title, body]) => (
+              <div key={title} className="rounded-xl border border-line bg-panel/70 p-3">
+                <Icon className="text-signal" size={17} />
+                <p className="mt-3 text-sm font-medium">{title}</p>
+                <p className="mt-1 text-xs leading-5 text-steel">{body}</p>
+              </div>
+            ))}
+          </div>
           <label className="block">
             <span className="text-sm font-medium">Title</span>
             <input
-              className="mt-2 w-full rounded border border-line bg-paper px-3 py-2 outline-none focus:border-signal"
+              className="input-field mt-2"
               {...register('title')}
             />
             {errors.title && <span className="mt-1 block text-sm text-ember">{errors.title.message}</span>}
@@ -171,7 +181,7 @@ export default function NewTask() {
           <label className="block">
             <span className="text-sm font-medium">Task type</span>
             <select
-              className="mt-2 w-full rounded border border-line bg-paper px-3 py-2 outline-none focus:border-signal"
+              className="input-field mt-2"
               {...register('task_type_hint')}
             >
               <option value="auto">Auto detect</option>
@@ -185,7 +195,7 @@ export default function NewTask() {
           <label className="block">
             <span className="text-sm font-medium">Description</span>
             <textarea
-              className="mt-2 min-h-56 w-full resize-y rounded border border-line bg-paper px-3 py-2 leading-6 outline-none focus:border-signal"
+              className="input-field mt-2 min-h-64 resize-y leading-6"
               {...register('description')}
             />
             {errors.description && (
@@ -194,17 +204,17 @@ export default function NewTask() {
           </label>
 
           {errors.root && (
-            <div className="rounded border border-ember/30 bg-ember/10 p-3 text-sm text-ember">
+            <div className="rounded-lg border border-ember/30 bg-ember/10 p-3 text-sm text-ember">
               {errors.root.message}
             </div>
           )}
         </div>
 
         <aside className="space-y-5">
-          <div className="border border-line bg-white p-5 shadow-panel">
+          <div className="surface p-5">
             <div className="flex items-center gap-2">
               <Sparkles className="text-signal" size={18} />
-              <h3 className="font-semibold">What you will see</h3>
+              <h3 className="font-medium">Expected output contract</h3>
             </div>
             <p className="mt-2 text-sm leading-6 text-steel">
               {selectedTemplate.expected_result_summary}
@@ -212,16 +222,16 @@ export default function NewTask() {
           </div>
 
           {!isShowcaseMode && (
-            <div className="border border-line bg-white p-5 shadow-panel">
+            <div className="surface p-5">
               <div className="flex items-center gap-2">
                 <FileText className="text-signal" size={18} />
-                <h3 className="font-semibold">Attachment</h3>
+                <h3 className="font-medium">Attachment</h3>
               </div>
               <p className="mt-2 text-sm leading-6 text-steel">
                 Optional PDF upload. It is converted to base64 and sent with the task.
               </p>
               <input
-                className="mt-4 block w-full text-sm text-steel file:mr-3 file:rounded file:border-0 file:bg-signal file:px-3 file:py-2 file:text-sm file:font-semibold file:text-white"
+                className="mt-4 block w-full text-sm text-steel file:mr-3 file:rounded file:border-0 file:bg-signal file:px-3 file:py-2 file:text-sm file:font-medium file:text-white"
                 type="file"
                 accept="application/pdf"
                 onChange={handleFileChange}
@@ -230,8 +240,8 @@ export default function NewTask() {
             </div>
           )}
 
-          <div className="border border-line bg-panel p-5">
-            <h3 className="font-semibold">What happens next</h3>
+          <div className="surface-soft p-5">
+            <h3 className="font-medium">Runtime sequence</h3>
             <ol className="mt-3 space-y-2 text-sm leading-6 text-steel">
               {isShowcaseMode ? (
                 <>
@@ -250,7 +260,7 @@ export default function NewTask() {
           </div>
 
           <button
-            className="inline-flex w-full items-center justify-center gap-2 rounded bg-signal px-4 py-3 text-sm font-semibold text-white disabled:opacity-60"
+            className="action-primary w-full py-3"
             type="submit"
             disabled={isSubmitting}
           >

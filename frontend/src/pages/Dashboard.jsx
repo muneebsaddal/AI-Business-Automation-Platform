@@ -1,6 +1,18 @@
 import { useMutation, useQuery } from '@tanstack/react-query'
 import { format } from 'date-fns'
-import { ArrowRight, BadgeCheck, Clock3, DollarSign, Layers3, Play, Sparkles } from 'lucide-react'
+import {
+  ArrowRight,
+  BadgeCheck,
+  Clock3,
+  Database,
+  DollarSign,
+  FileCheck2,
+  GitBranch,
+  Layers3,
+  Play,
+  ShieldCheck,
+  Workflow,
+} from 'lucide-react'
 import { Link, useNavigate } from 'react-router-dom'
 import {
   Bar,
@@ -16,10 +28,16 @@ import {
 } from 'recharts'
 
 import { getAnalytics, submitTask } from '../api/tasks'
-import { getRecommendedShowcaseTemplate, showcaseTemplates } from '../api/showcaseApi'
+import { getRecommendedShowcaseTemplate } from '../api/showcaseApi'
 import { isShowcaseMode } from '../config/showcase'
 
-const typeColors = ['#1f5cff', '#7aa7ff', '#17325f', '#5d6f8f', '#b45309']
+const typeColors = [
+  'oklch(58% 0.18 255)',
+  'oklch(64% 0.14 245)',
+  'oklch(70% 0.11 235)',
+  'oklch(52% 0.15 265)',
+  'oklch(78% 0.08 225)',
+]
 
 function buildVolumeData(tasks = []) {
   const grouped = {}
@@ -43,36 +61,24 @@ function statusClass(status) {
 
 function StatCard({ label, value, icon: Icon }) {
   return (
-    <div className="border border-line bg-white p-5 shadow-panel">
-      <Icon className="text-signal" size={20} />
-      <p className="mt-4 text-2xl font-semibold">{value}</p>
+    <div className="surface p-5">
+      <div className="flex items-center justify-between">
+        <Icon className="text-signal" size={20} />
+        <span className="h-2 w-2 rounded-full bg-mint" />
+      </div>
+      <p className="metric-value mt-4 text-2xl">{value}</p>
       <p className="text-sm text-steel">{label}</p>
     </div>
   )
 }
 
-function TemplateCard({ template }) {
-  return (
-    <Link
-      className="group flex min-h-44 flex-col justify-between border border-line bg-white p-5 shadow-panel transition hover:-translate-y-0.5 hover:border-signal"
-      to={`/tasks/new?template=${template.id}`}
-    >
-      <div>
-        <div className="mb-4 flex items-start justify-between gap-3">
-          <span className="rounded-full border border-line bg-panel px-3 py-1 text-xs font-semibold uppercase tracking-[0.12em] text-signal">
-            {template.task_type_hint}
-          </span>
-          {template.recommended && <Sparkles className="text-signal" size={18} />}
-        </div>
-        <h3 className="text-lg font-semibold">{template.label}</h3>
-        <p className="mt-2 text-sm leading-6 text-steel">{template.customer_value}</p>
-      </div>
-      <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-signal">
-        Use template <ArrowRight size={15} />
-      </span>
-    </Link>
-  )
-}
+const contractSteps = [
+  ['Intake', 'Business request', Workflow],
+  ['Plan', 'Agent graph', GitBranch],
+  ['Execute', 'Tool events', Database],
+  ['Validate', 'Checked output', FileCheck2],
+  ['Deliver', 'Replay + export', ShieldCheck],
+]
 
 const emptyAnalytics = {
   total_tasks: 0,
@@ -116,23 +122,31 @@ export default function Dashboard() {
   return (
     <section className="space-y-6">
       {isShowcaseMode && (
-        <section className="overflow-hidden border border-line bg-white shadow-panel">
-          <div className="border-t-4 border-signal p-6 sm:p-8">
-            <div className="grid gap-6 lg:grid-cols-[1fr_280px] lg:items-end">
+        <section className="surface overflow-hidden border-line/80 bg-white/95">
+          <div className="grid gap-0 xl:grid-cols-[minmax(0,1fr)_470px]">
+            <div className="p-6 sm:p-8 lg:p-10">
               <div>
-                <p className="w-fit rounded-full border border-line bg-panel px-3 py-1 text-xs font-semibold uppercase tracking-[0.14em] text-signal">
-                  Public showcase
+                <p className="w-fit rounded-full border border-line bg-panel/80 px-3 py-1 text-xs font-medium uppercase tracking-[0.14em] text-steel">
+                  Agent orchestration platform
                 </p>
-                <h2 className="mt-5 max-w-3xl text-4xl font-semibold leading-tight">
-                  Turn messy business requests into traceable automation runs
+                <h2 className="mt-5 max-w-4xl text-4xl font-light leading-[1.04] text-ink sm:text-5xl lg:text-6xl">
+                  Enterprise control for multi-agent AI systems
                 </h2>
-                <p className="mt-4 max-w-3xl text-sm leading-7 text-steel">
-                  Choose a real workflow, run it instantly, then inspect how each agent classified,
-                  structured, planned, executed, and validated the result.
-                </p>
+                <div className="mt-7 grid max-w-3xl gap-3 sm:grid-cols-3">
+                  {[
+                    ['Brief', 'plain-language intake'],
+                    ['Graph', 'agent + tool path'],
+                    ['Replay', 'auditable reruns'],
+                  ].map(([value, label]) => (
+                    <div key={label} className="rounded-xl border border-line bg-panel/55 p-3">
+                      <p className="text-lg font-normal text-ink">{value}</p>
+                      <p className="mt-1 text-xs font-medium uppercase tracking-[0.12em] text-steel">{label}</p>
+                    </div>
+                  ))}
+                </div>
               </div>
               <button
-                className="inline-flex items-center justify-center gap-2 rounded bg-signal px-5 py-3 text-sm font-semibold text-white shadow-panel disabled:opacity-60"
+                className="action-primary mt-7 px-5 py-3"
                 type="button"
                 disabled={recommendedMutation.isPending}
                 onClick={() => recommendedMutation.mutate()}
@@ -142,14 +156,32 @@ export default function Dashboard() {
               </button>
             </div>
 
-            <div className="mt-7">
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">
-                Start with a workflow
-              </p>
-              <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-                {showcaseTemplates.map((template) => (
-                  <TemplateCard key={template.id} template={template} />
-                ))}
+            <div className="border-t border-line bg-panel/60 p-6 xl:border-l xl:border-t-0 sm:p-8">
+              <div className="flex items-center justify-between gap-3">
+                <p className="text-xs font-medium uppercase tracking-[0.16em] text-steel">Execution contract</p>
+                <span className="rounded-full border border-line bg-white px-2.5 py-1 text-xs text-steel">observable</span>
+              </div>
+              <div className="mt-6 rounded-2xl border border-line bg-white p-4">
+                <div className="space-y-3">
+                  {contractSteps.map(([step, detail, Icon], index) => (
+                    <div key={step} className="contract-step">
+                      <div className="grid h-9 w-9 place-items-center rounded-full border border-line bg-panel text-signal">
+                        <Icon size={16} />
+                      </div>
+                      <div className="min-w-0">
+                        <p className="text-sm font-medium text-ink">{step}</p>
+                        <p className="text-xs leading-5 text-steel">{detail}</p>
+                      </div>
+                      <span className="ml-auto font-mono text-[11px] text-steel">
+                        {String(index + 1).padStart(2, '0')}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-4 rounded-xl border border-dashed border-signal/25 bg-signal/5 p-3">
+                  <p className="text-sm font-medium text-ink">Customer sees the outcome.</p>
+                  <p className="mt-1 text-xs leading-5 text-steel">Your team can open the graph, payload, validation log, and replay controls.</p>
+                </div>
               </div>
             </div>
           </div>
@@ -158,18 +190,13 @@ export default function Dashboard() {
 
       <div className="flex flex-col gap-4 border-b border-line pb-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">
-            Operations cockpit
-          </p>
-          <h2 className="mt-2 text-3xl font-semibold">Live agent workbench</h2>
-          <p className="mt-2 max-w-2xl text-sm leading-6 text-steel">
-            Submit lead qualification work, watch the agent pipeline execute, and keep every
-            decision traceable.
-          </p>
+          <p className="eyebrow">Operations cockpit</p>
+          <h2 className="mt-2 text-3xl font-normal">Live orchestration command center</h2>
+          <p className="mt-2 max-w-2xl text-sm text-steel">Throughput, cost, workflow mix, and latest agent decisions.</p>
         </div>
         <Link
           to="/tasks/new"
-          className="inline-flex items-center gap-2 rounded bg-signal px-4 py-2 text-sm font-semibold text-white"
+          className="action-primary"
         >
           New task <ArrowRight size={16} />
         </Link>
@@ -182,32 +209,30 @@ export default function Dashboard() {
       </div>
 
       <div className="grid gap-6 xl:grid-cols-[1fr_360px]">
-        <section className="border border-line bg-white p-5 shadow-panel">
+        <section className="surface p-5">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">
-                Volume
-              </p>
-              <h3 className="mt-1 text-xl font-semibold">Recent task submissions</h3>
+              <p className="eyebrow">Volume</p>
+              <h3 className="mt-1 text-xl font-normal">Recent task submissions</h3>
             </div>
             {analyticsQuery.isFetching && <span className="text-xs text-steel">Refreshing</span>}
           </div>
           <div className="mt-5 h-72">
             <ResponsiveContainer width="100%" height="100%">
               <BarChart data={volumeData}>
-                <CartesianGrid stroke="#bfd4ff" vertical={false} />
+                <CartesianGrid stroke="oklch(92% 0.005 250)" vertical={false} />
                 <XAxis dataKey="date" tickLine={false} axisLine={false} />
                 <YAxis allowDecimals={false} tickLine={false} axisLine={false} />
                 <Tooltip />
-                <Bar dataKey="count" fill="#1f5cff" radius={[4, 4, 0, 0]} />
+                <Bar dataKey="count" fill="oklch(58% 0.18 255)" radius={[8, 8, 0, 0]} />
               </BarChart>
             </ResponsiveContainer>
           </div>
         </section>
 
-        <section className="border border-line bg-white p-5 shadow-panel">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">Types</p>
-          <h3 className="mt-1 text-xl font-semibold">Task breakdown</h3>
+        <section className="surface p-5">
+          <p className="eyebrow">Types</p>
+          <h3 className="mt-1 text-xl font-normal">Task breakdown</h3>
           <div className="mt-5 h-72">
             <ResponsiveContainer width="100%" height="100%">
               <PieChart>
@@ -223,13 +248,13 @@ export default function Dashboard() {
         </section>
       </div>
 
-      <section className="border border-line bg-white p-5 shadow-panel">
+      <section className="surface p-5">
         <div className="flex items-center justify-between">
           <div>
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">Recent</p>
-            <h3 className="mt-1 text-xl font-semibold">Latest tasks</h3>
+            <p className="eyebrow">Recent</p>
+            <h3 className="mt-1 text-xl font-normal">Latest orchestration runs</h3>
           </div>
-          <Link className="text-sm font-semibold text-ink underline" to="/tasks">
+          <Link className="text-sm font-medium text-ink underline" to="/tasks">
             View all
           </Link>
         </div>
@@ -244,13 +269,13 @@ export default function Dashboard() {
               to={`/tasks/${task.id}`}
             >
               <div className="min-w-0">
-                <p className="font-semibold">{task.title}</p>
+                <p className="font-medium">{task.title}</p>
                 <p className="mt-1 max-w-full overflow-hidden text-ellipsis whitespace-nowrap text-xs text-steel">
                   {task.description}
                 </p>
               </div>
-              <span>{task.task_type || task.task_type_hint}</span>
-              <span className={`w-fit rounded px-2 py-1 text-xs font-semibold ${statusClass(task.status)}`}>
+              <span className="text-xs uppercase text-steel">{task.task_type || task.task_type_hint}</span>
+              <span className={`status-pill ${statusClass(task.status)}`}>
                 {task.status}
               </span>
             </Link>

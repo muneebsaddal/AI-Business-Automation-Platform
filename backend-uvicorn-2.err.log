@@ -1,0 +1,276 @@
+INFO:     Started server process [23948]
+INFO:     Waiting for application startup.
+INFO:app.main:Starting AI Automation Platform [development]
+INFO:app.main:LLM: Ollama mistral:latest
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:8000 (Press CTRL+C to quit)
+INFO:sqlalchemy.engine.Engine:select pg_catalog.version()
+INFO:sqlalchemy.engine.Engine:[raw sql] ()
+INFO:sqlalchemy.engine.Engine:select current_schema()
+INFO:sqlalchemy.engine.Engine:[raw sql] ()
+INFO:sqlalchemy.engine.Engine:show standard_conforming_strings
+INFO:sqlalchemy.engine.Engine:[raw sql] ()
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[generated in 0.00062s] ('test_0@gmail.com',)
+INFO:sqlalchemy.engine.Engine:ROLLBACK
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 7.037s ago] ('test_0@gmail.com',)
+INFO:sqlalchemy.engine.Engine:ROLLBACK
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 21.44s ago] ('test1@gmail.com',)
+INFO:sqlalchemy.engine.Engine:INSERT INTO users (id, email, name, hashed_password, is_active) VALUES ($1::VARCHAR, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::BOOLEAN) RETURNING users.created_at, users.updated_at
+INFO:sqlalchemy.engine.Engine:[generated in 0.00065s] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc', 'test1@gmail.com', 'test1', '$2b$12$apjM/seUhMUj6nrThuc5xebUf5QSogKw4lY38FK79HaW9BXSgLm9u', True)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[generated in 0.00047s] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 22.18s ago] ('test1@gmail.com',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[generated in 0.00172s] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 0.4437s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 0.446s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[generated in 0.00064s] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 5.03s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:SELECT count(*) AS count_1 
+FROM (SELECT tasks.id AS id, tasks.user_id AS user_id, tasks.title AS title, tasks.description AS description, tasks.task_type_hint AS task_type_hint, tasks.task_type AS task_type, tasks.status AS status, tasks.final_output AS final_output, tasks.execution_trace AS execution_trace, tasks.validation_errors AS validation_errors, tasks.confidence_scores AS confidence_scores, tasks.failure_reason AS failure_reason, tasks.has_file AS has_file, tasks.file_content AS file_content, tasks.retry_count AS retry_count, tasks.cost_usd AS cost_usd, tasks.duration_ms AS duration_ms, tasks.created_at AS created_at, tasks.updated_at AS updated_at, tasks.completed_at AS completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR) AS anon_1
+INFO:sqlalchemy.engine.Engine:[generated in 0.00075s] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR ORDER BY tasks.created_at DESC 
+ LIMIT $2::INTEGER OFFSET $3::INTEGER
+INFO:sqlalchemy.engine.Engine:[generated in 0.00067s] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc', 10, 0)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 582.2s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 581.7s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 765.4s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 765s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 958.3s ago] ('first-demo@example.com',)
+INFO:sqlalchemy.engine.Engine:INSERT INTO users (id, email, name, hashed_password, is_active) VALUES ($1::VARCHAR, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::BOOLEAN) RETURNING users.created_at, users.updated_at
+INFO:sqlalchemy.engine.Engine:[cached since 936.9s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342', 'first-demo@example.com', 'First Demo Account', '$2b$12$Dsd6msT85rmmdVkJNNLGP.9t9U5QeIH/BvhW7j9GidtBw.me9/0hO', True)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 936.9s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 964.5s ago] ('first-demo@example.com',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1225s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1224s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1233s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:SELECT count(*) AS count_1 
+FROM (SELECT tasks.id AS id, tasks.user_id AS user_id, tasks.title AS title, tasks.description AS description, tasks.task_type_hint AS task_type_hint, tasks.task_type AS task_type, tasks.status AS status, tasks.final_output AS final_output, tasks.execution_trace AS execution_trace, tasks.validation_errors AS validation_errors, tasks.confidence_scores AS confidence_scores, tasks.failure_reason AS failure_reason, tasks.has_file AS has_file, tasks.file_content AS file_content, tasks.retry_count AS retry_count, tasks.cost_usd AS cost_usd, tasks.duration_ms AS duration_ms, tasks.created_at AS created_at, tasks.updated_at AS updated_at, tasks.completed_at AS completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR) AS anon_1
+INFO:sqlalchemy.engine.Engine:[cached since 1228s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR ORDER BY tasks.created_at DESC 
+ LIMIT $2::INTEGER OFFSET $3::INTEGER
+INFO:sqlalchemy.engine.Engine:[generated in 0.00098s] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc', 10, 0)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1234s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1343s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1343s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1360s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1688s ago] ('first-demo@example.com',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1878s ago] ('first-demo@example.com',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1856s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1856s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1856s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1855s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1966s ago] ('first-demo@example.com',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1944s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1944s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1944s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 1943s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 2328s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 2327s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 2495s ago] ('first-demo@example.com',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 2473s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 2473s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 2473s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 2473s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:COMMIT
+INFO:sqlalchemy.engine.Engine:BEGIN (implicit)
+INFO:sqlalchemy.engine.Engine:SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+INFO:sqlalchemy.engine.Engine:[cached since 2609s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+INFO:sqlalchemy.engine.Engine:COMMIT

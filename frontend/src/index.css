@@ -3,10 +3,20 @@
 @tailwind utilities;
 
 :root {
-  color: #06235f;
-  background: #f8fbff;
-  font-family:
-    ui-sans-serif, 'Aptos', 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  --bg: oklch(99% 0.002 240);
+  --surface: oklch(100% 0 0);
+  --fg: oklch(18% 0.012 250);
+  --muted: oklch(54% 0.012 250);
+  --border: oklch(92% 0.005 250);
+  --accent: oklch(56% 0.16 252);
+  --font-display: 'Segoe UI Variable Display', 'Aptos Display', 'SF Pro Display', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-body: 'Segoe UI Variable Text', 'Aptos', 'SF Pro Text', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-mono: 'Cascadia Code', 'JetBrains Mono', ui-monospace, Menlo, monospace;
+
+  color: var(--fg);
+  background: var(--bg);
+  font-family: var(--font-body);
+  font-weight: 400;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -30,4 +40,85 @@ input,
 select,
 textarea {
   font: inherit;
+}
+
+@layer base {
+  * {
+    border-color: theme('colors.line');
+  }
+
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 400;
+    letter-spacing: -0.025em;
+  }
+
+  code,
+  pre,
+  .font-mono {
+    font-family: var(--font-mono);
+    font-variant-numeric: tabular-nums;
+  }
+}
+
+@layer components {
+  .page-shell {
+    @apply min-h-screen overflow-x-hidden bg-paper text-ink;
+    background-image:
+      linear-gradient(90deg, oklch(92% 0.005 250 / 0.55) 1px, transparent 1px),
+      linear-gradient(180deg, oklch(92% 0.005 250 / 0.45) 1px, transparent 1px),
+      radial-gradient(circle at 70% 0%, oklch(88% 0.035 250 / 0.45), transparent 30%),
+      linear-gradient(180deg, oklch(100% 0 0 / 0.96), oklch(99% 0.002 240 / 0.98));
+    background-size: 44px 44px, 44px 44px, auto, auto;
+  }
+
+  .surface {
+    @apply rounded-2xl border border-line bg-white shadow-panel backdrop-blur;
+    background-color: oklch(100% 0 0 / 0.92);
+  }
+
+  .surface-soft {
+    @apply rounded-2xl border border-line bg-panel;
+    background-color: oklch(97% 0.004 250 / 0.8);
+  }
+
+  .eyebrow {
+    @apply text-xs font-medium uppercase tracking-[0.14em] text-signal;
+  }
+
+  .metric-value {
+    @apply font-mono font-normal tabular-nums;
+  }
+
+  .action-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-ink px-4 py-2.5 text-sm font-medium text-white shadow-focus transition hover:-translate-y-px hover:bg-signal disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .action-secondary {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border border-line bg-white/90 px-4 py-2.5 text-sm font-medium text-ink transition hover:border-signal hover:text-signal disabled:cursor-not-allowed disabled:opacity-50;
+  }
+
+  .input-field {
+    @apply w-full rounded-lg border border-line bg-white/95 px-3 py-2.5 text-ink outline-none transition placeholder:text-steel focus:border-signal focus:shadow-focus;
+  }
+
+  .status-pill {
+    @apply inline-flex w-fit items-center rounded-full px-2.5 py-1 text-xs font-medium uppercase tracking-[0.08em];
+  }
+
+  .contract-step {
+    @apply relative grid grid-cols-[36px_minmax(0,1fr)_32px] items-center gap-3 rounded-xl border border-line bg-white px-3 py-2.5;
+  }
+
+  .contract-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 30px;
+    bottom: -13px;
+    width: 1px;
+    height: 13px;
+    background: oklch(92% 0.005 250);
+  }
 }

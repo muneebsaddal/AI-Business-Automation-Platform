@@ -98,30 +98,30 @@ export default function TaskHistory() {
     <section className="space-y-6">
       <div className="flex flex-col gap-4 border-b border-line pb-6 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">History</p>
-          <h2 className="mt-2 text-3xl font-semibold">Task archive</h2>
+          <p className="eyebrow">Audit archive</p>
+          <h2 className="mt-2 text-3xl font-normal">Workflow run history</h2>
           <p className="mt-2 max-w-2xl text-sm leading-6 text-steel">
             Review previous agent runs, inspect traces, rerun useful workflows, or clean up old
             records.
           </p>
         </div>
-        <Link className="rounded bg-signal px-4 py-2 text-sm font-semibold text-white" to="/tasks/new">
+        <Link className="action-primary" to="/tasks/new">
           New task
         </Link>
       </div>
 
-      <div className="grid gap-3 border border-line bg-white p-4 shadow-panel lg:grid-cols-[1fr_180px_180px]">
+      <div className="surface grid gap-3 p-4 lg:grid-cols-[1fr_180px_180px]">
         <label className="relative block">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-steel" size={16} />
           <input
-            className="w-full rounded border border-line bg-paper py-2 pl-9 pr-3 outline-none focus:border-signal"
+            className="input-field py-2 pl-9"
             placeholder="Search title or description"
             value={filters.search}
             onChange={(event) => updateFilter('search', event.target.value)}
           />
         </label>
         <select
-          className="rounded border border-line bg-paper px-3 py-2 outline-none focus:border-signal"
+          className="input-field"
           value={filters.status}
           onChange={(event) => updateFilter('status', event.target.value)}
         >
@@ -132,7 +132,7 @@ export default function TaskHistory() {
           ))}
         </select>
         <select
-          className="rounded border border-line bg-paper px-3 py-2 outline-none focus:border-signal"
+          className="input-field"
           value={filters.task_type}
           onChange={(event) => updateFilter('task_type', event.target.value)}
         >
@@ -144,10 +144,10 @@ export default function TaskHistory() {
         </select>
       </div>
 
-      <div className="overflow-hidden border border-line bg-white shadow-panel">
+      <div className="surface overflow-hidden">
         <div className="overflow-x-auto">
           <table className="w-full min-w-[920px] border-collapse text-left text-sm">
-            <thead className="bg-panel text-xs uppercase tracking-[0.12em] text-steel">
+            <thead className="bg-panel/80 text-xs uppercase tracking-[0.12em] text-steel">
               <tr>
                 <th className="px-4 py-3">Task</th>
                 <th className="px-4 py-3">Type</th>
@@ -175,28 +175,28 @@ export default function TaskHistory() {
               {tasks.map((task) => (
                 <tr key={task.id} className="border-t border-line">
                   <td className="max-w-md px-4 py-4">
-                    <p className="font-semibold">{task.title}</p>
+                    <p className="font-medium">{task.title}</p>
                     <p className="mt-1 max-w-md overflow-hidden text-ellipsis whitespace-nowrap text-xs text-steel">
                       {task.description}
                     </p>
                   </td>
-                  <td className="px-4 py-4">{task.task_type || task.task_type_hint}</td>
+                  <td className="px-4 py-4 text-xs uppercase text-steel">{task.task_type || task.task_type_hint}</td>
                   <td className="px-4 py-4">
-                    <span className={`rounded px-2 py-1 text-xs font-semibold ${statusClass(task.status)}`}>
+                    <span className={`status-pill ${statusClass(task.status)}`}>
                       {task.status}
                     </span>
                   </td>
                   <td className="px-4 py-4 text-steel">
                     {format(new Date(task.created_at), 'MMM d, yyyy HH:mm')}
                   </td>
-                  <td className="px-4 py-4 text-steel">{task.duration_ms || 0} ms</td>
+                  <td className="metric-value px-4 py-4 text-steel">{task.duration_ms || 0} ms</td>
                   <td className="px-4 py-4">
                     <div className="flex justify-end gap-2">
-                      <Link className="rounded border border-line p-2" title="View" to={`/tasks/${task.id}`}>
+                      <Link className="rounded-lg border border-line p-2 transition hover:border-signal hover:text-signal" title="View" to={`/tasks/${task.id}`}>
                         <Eye size={16} />
                       </Link>
                       <button
-                        className="rounded border border-line p-2"
+                        className="rounded-lg border border-line p-2 transition hover:border-signal hover:text-signal"
                         title="Rerun"
                         type="button"
                         onClick={() => handleRerun(task)}
@@ -204,7 +204,7 @@ export default function TaskHistory() {
                         <RefreshCcw size={16} />
                       </button>
                       <button
-                        className="rounded border border-line p-2"
+                        className="rounded-lg border border-line p-2 transition hover:border-signal hover:text-signal"
                         title="Export"
                         type="button"
                         onClick={() => handleExport(task)}
@@ -212,7 +212,7 @@ export default function TaskHistory() {
                         <FileDown size={16} />
                       </button>
                       <button
-                        className="rounded border border-line p-2 text-ember"
+                        className="rounded-lg border border-line p-2 text-ember transition hover:border-ember"
                         title="Delete"
                         type="button"
                         onClick={() => handleDelete(task)}
@@ -234,7 +234,7 @@ export default function TaskHistory() {
         </p>
         <div className="flex gap-2">
           <button
-            className="rounded border border-line bg-white px-3 py-2 text-sm font-semibold disabled:opacity-40"
+            className="action-secondary px-3 py-2 disabled:opacity-40"
             type="button"
             disabled={filters.page <= 1}
             onClick={() => updateFilter('page', filters.page - 1)}
@@ -242,7 +242,7 @@ export default function TaskHistory() {
             Previous
           </button>
           <button
-            className="rounded border border-line bg-white px-3 py-2 text-sm font-semibold disabled:opacity-40"
+            className="action-secondary px-3 py-2 disabled:opacity-40"
             type="button"
             disabled={filters.page >= totalPages}
             onClick={() => updateFilter('page', filters.page + 1)}

@@ -4,16 +4,20 @@ export default {
   theme: {
     extend: {
       colors: {
-        ink: '#06235f',
-        paper: '#f8fbff',
-        steel: '#5d6f8f',
-        line: '#bfd4ff',
-        signal: '#1f5cff',
-        panel: '#eef5ff',
-        ember: '#b45309',
+        ink: 'oklch(18% 0.012 250)',
+        paper: 'oklch(99% 0.002 240)',
+        steel: 'oklch(54% 0.012 250)',
+        line: 'oklch(92% 0.005 250)',
+        signal: 'oklch(56% 0.16 252)',
+        panel: 'oklch(97% 0.004 250)',
+        ember: 'oklch(57% 0.18 35)',
+        cobalt: 'oklch(56% 0.16 252)',
+        amber: 'oklch(70% 0.14 82)',
+        mint: 'oklch(64% 0.13 170)',
       },
       boxShadow: {
-        panel: '0 18px 50px rgba(31, 92, 255, 0.09)',
+        panel: '0 18px 54px oklch(18% 0.012 250 / 0.055)',
+        focus: '0 0 0 4px oklch(56% 0.16 252 / 0.13)',
       },
     },
   },

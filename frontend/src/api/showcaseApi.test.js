@@ -27,13 +27,13 @@ test('creates a completed lead qualification task with traceable output', () => 
 test('summarizes seeded tasks for the dashboard', () => {
   const analytics = getShowcaseAnalytics(seedShowcaseTasks())
 
-  assert.equal(analytics.total_tasks, 4)
-  assert.equal(analytics.by_type.lead, 1)
-  assert.equal(analytics.by_type.contract, 1)
-  assert.equal(analytics.by_type.onboard, 1)
-  assert.equal(analytics.by_type.custom, 1)
-  assert.equal(analytics.success_rate, 1)
-  assert.equal(analytics.recent_tasks.length, 4)
+  assert.equal(analytics.total_tasks, 9)
+  assert.equal(analytics.by_type.lead, 3)
+  assert.equal(analytics.by_type.contract, 2)
+  assert.equal(analytics.by_type.onboard, 2)
+  assert.equal(analytics.by_type.custom, 2)
+  assert.equal(analytics.success_rate, 8 / 9)
+  assert.equal(analytics.recent_tasks.length, 9)
 })
 
 test('exposes a recommended template that creates a traceable task', () => {

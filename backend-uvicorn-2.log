@@ -1,0 +1,351 @@
+INFO:     127.0.0.1:14317 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:14317 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:14322 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6149 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:6149 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:6191 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13218 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2914 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13883 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:13891 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:2822 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3167 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:3167 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3185 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3193 - "GET /tasks/new HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:3199 - "GET /tasks/f95a9e2a-1445-4a7b-9d5c-4ec6a672ec76 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:3200 - "GET /tasks/ebd72750-0be2-4ef5-bfe5-a17eecb9948a HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:3201 - "GET /tasks/a483e0aa-1d3b-4071-86c4-ddea8faec9ca HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:3202 - "GET /tasks/9d9d33ea-2f85-45e9-87a0-ca42c9453ee9 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:3203 - "GET /tasks/87a9aaa1-29ec-4a40-9b99-496f7056bf98 HTTP/1.1" 403 Forbidden
+INFO:     127.0.0.1:1544 - "GET /analytics HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:1546 - "POST /auth/refresh HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:8168 - "GET /analytics HTTP/1.1" 401 Unauthorized
+INFO:     127.0.0.1:8170 - "POST /auth/refresh HTTP/1.1" 401 Unauthorized
+2026-05-17 02:41:03,531 INFO sqlalchemy.engine.Engine select pg_catalog.version()
+2026-05-17 02:41:03,533 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-05-17 02:41:03,533 INFO sqlalchemy.engine.Engine select current_schema()
+2026-05-17 02:41:03,533 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-05-17 02:41:03,543 INFO sqlalchemy.engine.Engine show standard_conforming_strings
+2026-05-17 02:41:03,543 INFO sqlalchemy.engine.Engine [raw sql] ()
+2026-05-17 02:41:03,548 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 02:41:03,552 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+2026-05-17 02:41:03,553 INFO sqlalchemy.engine.Engine [generated in 0.00062s] ('test_0@gmail.com',)
+2026-05-17 02:41:03,569 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:10073 - "POST /auth/login HTTP/1.1" 401 Unauthorized
+2026-05-17 02:41:10,589 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 02:41:10,590 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+2026-05-17 02:41:10,590 INFO sqlalchemy.engine.Engine [cached since 7.037s ago] ('test_0@gmail.com',)
+2026-05-17 02:41:10,595 INFO sqlalchemy.engine.Engine ROLLBACK
+INFO:     127.0.0.1:3755 - "POST /auth/login HTTP/1.1" 401 Unauthorized
+2026-05-17 02:41:24,991 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 02:41:24,991 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+2026-05-17 02:41:24,993 INFO sqlalchemy.engine.Engine [cached since 21.44s ago] ('test1@gmail.com',)
+2026-05-17 02:41:25,234 INFO sqlalchemy.engine.Engine INSERT INTO users (id, email, name, hashed_password, is_active) VALUES ($1::VARCHAR, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::BOOLEAN) RETURNING users.created_at, users.updated_at
+2026-05-17 02:41:25,234 INFO sqlalchemy.engine.Engine [generated in 0.00065s] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc', 'test1@gmail.com', 'test1', '$2b$12$apjM/seUhMUj6nrThuc5xebUf5QSogKw4lY38FK79HaW9BXSgLm9u', True)
+2026-05-17 02:41:25,249 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-17 02:41:25,326 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 02:41:25,327 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 02:41:25,327 INFO sqlalchemy.engine.Engine [generated in 0.00047s] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 02:41:25,331 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:14336 - "POST /auth/register HTTP/1.1" 201 Created
+2026-05-17 02:41:25,732 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 02:41:25,733 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+2026-05-17 02:41:25,733 INFO sqlalchemy.engine.Engine [cached since 22.18s ago] ('test1@gmail.com',)
+2026-05-17 02:41:25,971 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:6901 - "POST /auth/login HTTP/1.1" 200 OK
+2026-05-17 02:41:26,054 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 02:41:26,055 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 02:41:26,056 INFO sqlalchemy.engine.Engine [generated in 0.00172s] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 02:41:26,060 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:2210 - "GET /auth/me HTTP/1.1" 200 OK
+2026-05-17 02:41:26,497 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 02:41:26,498 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 02:41:26,498 INFO sqlalchemy.engine.Engine [cached since 0.4437s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 02:41:26,500 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 02:41:26,500 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 02:41:26,501 INFO sqlalchemy.engine.Engine [cached since 0.446s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 02:41:26,504 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-17 02:41:26,507 INFO sqlalchemy.engine.Engine SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+2026-05-17 02:41:26,508 INFO sqlalchemy.engine.Engine [generated in 0.00064s] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+INFO:     127.0.0.1:9812 - "GET /auth/me HTTP/1.1" 200 OK
+2026-05-17 02:41:26,514 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:7704 - "GET /analytics HTTP/1.1" 200 OK
+2026-05-17 02:41:31,079 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 02:41:31,079 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 02:41:31,079 INFO sqlalchemy.engine.Engine [cached since 5.03s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 02:41:31,092 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT tasks.id AS id, tasks.user_id AS user_id, tasks.title AS title, tasks.description AS description, tasks.task_type_hint AS task_type_hint, tasks.task_type AS task_type, tasks.status AS status, tasks.final_output AS final_output, tasks.execution_trace AS execution_trace, tasks.validation_errors AS validation_errors, tasks.confidence_scores AS confidence_scores, tasks.failure_reason AS failure_reason, tasks.has_file AS has_file, tasks.file_content AS file_content, tasks.retry_count AS retry_count, tasks.cost_usd AS cost_usd, tasks.duration_ms AS duration_ms, tasks.created_at AS created_at, tasks.updated_at AS updated_at, tasks.completed_at AS completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR) AS anon_1
+2026-05-17 02:41:31,093 INFO sqlalchemy.engine.Engine [generated in 0.00075s] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 02:41:31,106 INFO sqlalchemy.engine.Engine SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR ORDER BY tasks.created_at DESC 
+ LIMIT $2::INTEGER OFFSET $3::INTEGER
+2026-05-17 02:41:31,107 INFO sqlalchemy.engine.Engine [generated in 0.00067s] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc', 10, 0)
+2026-05-17 02:41:31,115 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:2076 - "GET /tasks?page=1&limit=10 HTTP/1.1" 200 OK
+2026-05-17 02:51:08,233 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 02:51:08,233 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 02:51:08,233 INFO sqlalchemy.engine.Engine [cached since 582.2s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 02:51:08,247 INFO sqlalchemy.engine.Engine SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+2026-05-17 02:51:08,248 INFO sqlalchemy.engine.Engine [cached since 581.7s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 02:51:08,252 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:10971 - "GET /analytics HTTP/1.1" 200 OK
+2026-05-17 02:54:11,479 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 02:54:11,479 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 02:54:11,482 INFO sqlalchemy.engine.Engine [cached since 765.4s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 02:54:11,485 INFO sqlalchemy.engine.Engine SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+2026-05-17 02:54:11,485 INFO sqlalchemy.engine.Engine [cached since 765s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 02:54:11,485 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:3472 - "GET /analytics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:7010 - "GET /docs HTTP/1.1" 200 OK
+2026-05-17 02:57:01,884 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 02:57:01,884 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+2026-05-17 02:57:01,885 INFO sqlalchemy.engine.Engine [cached since 958.3s ago] ('first-demo@example.com',)
+2026-05-17 02:57:02,122 INFO sqlalchemy.engine.Engine INSERT INTO users (id, email, name, hashed_password, is_active) VALUES ($1::VARCHAR, $2::VARCHAR, $3::VARCHAR, $4::VARCHAR, $5::BOOLEAN) RETURNING users.created_at, users.updated_at
+2026-05-17 02:57:02,122 INFO sqlalchemy.engine.Engine [cached since 936.9s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342', 'first-demo@example.com', 'First Demo Account', '$2b$12$Dsd6msT85rmmdVkJNNLGP.9t9U5QeIH/BvhW7j9GidtBw.me9/0hO', True)
+2026-05-17 02:57:02,122 INFO sqlalchemy.engine.Engine COMMIT
+2026-05-17 02:57:02,211 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 02:57:02,212 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 02:57:02,212 INFO sqlalchemy.engine.Engine [cached since 936.9s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 02:57:02,216 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:7013 - "POST /auth/register HTTP/1.1" 201 Created
+2026-05-17 02:57:08,013 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 02:57:08,014 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+2026-05-17 02:57:08,014 INFO sqlalchemy.engine.Engine [cached since 964.5s ago] ('first-demo@example.com',)
+2026-05-17 02:57:08,261 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:7017 - "POST /auth/login HTTP/1.1" 200 OK
+2026-05-17 03:01:50,669 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:01:50,669 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:01:50,669 INFO sqlalchemy.engine.Engine [cached since 1225s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 03:01:50,675 INFO sqlalchemy.engine.Engine SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+2026-05-17 03:01:50,675 INFO sqlalchemy.engine.Engine [cached since 1224s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 03:01:50,675 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:9402 - "GET /analytics HTTP/1.1" 200 OK
+2026-05-17 03:01:58,767 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:01:58,768 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:01:58,769 INFO sqlalchemy.engine.Engine [cached since 1233s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 03:01:58,776 INFO sqlalchemy.engine.Engine SELECT count(*) AS count_1 
+FROM (SELECT tasks.id AS id, tasks.user_id AS user_id, tasks.title AS title, tasks.description AS description, tasks.task_type_hint AS task_type_hint, tasks.task_type AS task_type, tasks.status AS status, tasks.final_output AS final_output, tasks.execution_trace AS execution_trace, tasks.validation_errors AS validation_errors, tasks.confidence_scores AS confidence_scores, tasks.failure_reason AS failure_reason, tasks.has_file AS has_file, tasks.file_content AS file_content, tasks.retry_count AS retry_count, tasks.cost_usd AS cost_usd, tasks.duration_ms AS duration_ms, tasks.created_at AS created_at, tasks.updated_at AS updated_at, tasks.completed_at AS completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR) AS anon_1
+2026-05-17 03:01:58,777 INFO sqlalchemy.engine.Engine [cached since 1228s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 03:01:58,781 INFO sqlalchemy.engine.Engine SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR ORDER BY tasks.created_at DESC 
+ LIMIT $2::INTEGER OFFSET $3::INTEGER
+2026-05-17 03:01:58,782 INFO sqlalchemy.engine.Engine [generated in 0.00098s] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc', 10, 0)
+2026-05-17 03:01:58,783 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:6226 - "GET /tasks?page=1&limit=10 HTTP/1.1" 200 OK
+2026-05-17 03:02:00,504 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:02:00,504 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:02:00,510 INFO sqlalchemy.engine.Engine [cached since 1234s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 03:02:00,515 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:6229 - "GET /auth/me HTTP/1.1" 200 OK
+2026-05-17 03:03:49,319 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:03:49,321 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:03:49,321 INFO sqlalchemy.engine.Engine [cached since 1343s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 03:03:49,326 INFO sqlalchemy.engine.Engine SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+2026-05-17 03:03:49,326 INFO sqlalchemy.engine.Engine [cached since 1343s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 03:03:49,332 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:13754 - "GET /analytics HTTP/1.1" 200 OK
+2026-05-17 03:04:05,715 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:04:05,715 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:04:05,715 INFO sqlalchemy.engine.Engine [cached since 1360s ago] ('2a54a4d8-7680-4eba-b16a-21ced7a930cc',)
+2026-05-17 03:04:05,724 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:9858 - "GET /auth/me HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3263 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:3268 - "GET / HTTP/1.1" 404 Not Found
+2026-05-17 03:09:11,183 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:09:11,184 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+2026-05-17 03:09:11,185 INFO sqlalchemy.engine.Engine [cached since 1688s ago] ('first-demo@example.com',)
+2026-05-17 03:09:11,419 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:3278 - "POST /auth/login HTTP/1.1" 200 OK
+INFO:     127.0.0.1:1794 - "GET /auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:1790 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:1790 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:1808 - "GET /health HTTP/1.1" 200 OK
+2026-05-17 03:12:21,462 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:12:21,462 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+2026-05-17 03:12:21,462 INFO sqlalchemy.engine.Engine [cached since 1878s ago] ('first-demo@example.com',)
+2026-05-17 03:12:21,703 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:9632 - "POST /auth/login HTTP/1.1" 200 OK
+2026-05-17 03:12:21,785 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:12:21,785 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:12:21,785 INFO sqlalchemy.engine.Engine [cached since 1856s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 03:12:21,791 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:3073 - "GET /auth/me HTTP/1.1" 200 OK
+2026-05-17 03:12:21,885 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:12:21,886 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:12:21,886 INFO sqlalchemy.engine.Engine [cached since 1856s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 03:12:21,891 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:8291 - "GET /auth/me HTTP/1.1" 200 OK
+2026-05-17 03:12:21,957 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:12:21,958 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:12:21,958 INFO sqlalchemy.engine.Engine [cached since 1856s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 03:12:21,962 INFO sqlalchemy.engine.Engine SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+2026-05-17 03:12:21,963 INFO sqlalchemy.engine.Engine [cached since 1855s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 03:12:21,967 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:4640 - "GET /analytics HTTP/1.1" 200 OK
+2026-05-17 03:13:49,465 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:13:49,465 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+2026-05-17 03:13:49,465 INFO sqlalchemy.engine.Engine [cached since 1966s ago] ('first-demo@example.com',)
+2026-05-17 03:13:49,708 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:13056 - "POST /auth/login HTTP/1.1" 200 OK
+2026-05-17 03:13:49,792 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:13:49,792 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:13:49,792 INFO sqlalchemy.engine.Engine [cached since 1944s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 03:13:49,796 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:13059 - "GET /auth/me HTTP/1.1" 200 OK
+2026-05-17 03:13:49,923 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:13:49,924 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:13:49,925 INFO sqlalchemy.engine.Engine [cached since 1944s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 03:13:49,930 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:13062 - "GET /auth/me HTTP/1.1" 200 OK
+2026-05-17 03:13:49,995 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:13:49,995 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:13:49,995 INFO sqlalchemy.engine.Engine [cached since 1944s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 03:13:49,995 INFO sqlalchemy.engine.Engine SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+2026-05-17 03:13:49,995 INFO sqlalchemy.engine.Engine [cached since 1943s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 03:13:50,003 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:13065 - "GET /analytics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:5642 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:5642 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:5704 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:5704 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:5704 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:5642 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:5716 - "GET /auth/login HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:5642 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:5642 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:5704 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:10536 - "GET /auth/login HTTP/1.1" 405 Method Not Allowed
+2026-05-17 03:20:13,775 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:20:13,775 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:20:13,775 INFO sqlalchemy.engine.Engine [cached since 2328s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 03:20:13,778 INFO sqlalchemy.engine.Engine SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+2026-05-17 03:20:13,778 INFO sqlalchemy.engine.Engine [cached since 2327s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 03:20:13,778 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:1338 - "GET /analytics HTTP/1.1" 200 OK
+2026-05-17 03:22:38,632 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:22:38,632 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.email = $1::VARCHAR
+2026-05-17 03:22:38,632 INFO sqlalchemy.engine.Engine [cached since 2495s ago] ('first-demo@example.com',)
+2026-05-17 03:22:38,873 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:2732 - "POST /auth/login HTTP/1.1" 200 OK
+2026-05-17 03:22:38,957 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:22:38,957 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:22:38,957 INFO sqlalchemy.engine.Engine [cached since 2473s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 03:22:38,957 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:12332 - "GET /auth/me HTTP/1.1" 200 OK
+2026-05-17 03:22:39,077 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:22:39,077 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:22:39,077 INFO sqlalchemy.engine.Engine [cached since 2473s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 03:22:39,082 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:6483 - "GET /auth/me HTTP/1.1" 200 OK
+2026-05-17 03:22:39,155 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:22:39,155 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:22:39,155 INFO sqlalchemy.engine.Engine [cached since 2473s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 03:22:39,157 INFO sqlalchemy.engine.Engine SELECT tasks.id, tasks.user_id, tasks.title, tasks.description, tasks.task_type_hint, tasks.task_type, tasks.status, tasks.final_output, tasks.execution_trace, tasks.validation_errors, tasks.confidence_scores, tasks.failure_reason, tasks.has_file, tasks.file_content, tasks.retry_count, tasks.cost_usd, tasks.duration_ms, tasks.created_at, tasks.updated_at, tasks.completed_at 
+FROM tasks 
+WHERE tasks.user_id = $1::VARCHAR
+2026-05-17 03:22:39,157 INFO sqlalchemy.engine.Engine [cached since 2473s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 03:22:39,157 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:7929 - "GET /analytics HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8106 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:8106 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8149 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8149 - "GET / HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:8149 - "GET /docs HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8106 - "GET /health HTTP/1.1" 200 OK
+INFO:     127.0.0.1:8162 - "GET /auth/login HTTP/1.1" 405 Method Not Allowed
+2026-05-17 03:24:55,404 INFO sqlalchemy.engine.Engine BEGIN (implicit)
+2026-05-17 03:24:55,404 INFO sqlalchemy.engine.Engine SELECT users.id, users.email, users.name, users.hashed_password, users.is_active, users.created_at, users.updated_at 
+FROM users 
+WHERE users.id = $1::VARCHAR
+2026-05-17 03:24:55,405 INFO sqlalchemy.engine.Engine [cached since 2609s ago] ('29a86ec3-dba5-4f38-a62b-510cd686f342',)
+2026-05-17 03:24:55,410 INFO sqlalchemy.engine.Engine COMMIT
+INFO:     127.0.0.1:3975 - "GET /auth/me HTTP/1.1" 200 OK

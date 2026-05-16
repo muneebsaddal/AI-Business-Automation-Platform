@@ -1,0 +1,19 @@
+ 
+ -------------- celery@Muneebs-PC v5.6.3 (recovery)
+--- ***** ----- 
+-- ******* ---- Windows-11-10.0.26200-SP0 2026-05-17 02:38:22
+- *** --- * --- 
+- ** ---------- [config]
+- ** ---------- .> app:         ai_automation_platform:0x218b1d67680
+- ** ---------- .> transport:   redis://localhost:6379//
+- ** ---------- .> results:     redis://localhost:6379/
+- *** --- * --- .> concurrency: 12 (solo)
+-- ******* ---- .> task events: OFF (enable -E to monitor tasks in this worker)
+--- ***** ----- 
+ -------------- [queues]
+                .> celery           exchange=celery(direct) key=celery
+                
+
+[tasks]
+  . app.celery_app.run_pipeline
+

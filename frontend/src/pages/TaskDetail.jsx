@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query'
 import { formatDistanceToNow } from 'date-fns'
-import { ArrowLeft, CheckCircle2, FileDown, RefreshCcw, Repeat2 } from 'lucide-react'
+import { ArrowLeft, CheckCircle2, FileDown, RefreshCcw, Repeat2, ShieldCheck } from 'lucide-react'
 import { useCallback } from 'react'
 import toast from 'react-hot-toast'
 import { Link, useNavigate, useParams } from 'react-router-dom'
@@ -104,18 +104,18 @@ export default function TaskDetail() {
     <section className="space-y-6">
       <div className="flex flex-col gap-4 border-b border-line pb-6 lg:flex-row lg:items-end lg:justify-between">
         <div>
-          <Link className="inline-flex items-center gap-2 text-sm font-semibold text-steel" to="/tasks">
+          <Link className="inline-flex items-center gap-2 text-sm font-medium text-steel" to="/tasks">
             <ArrowLeft size={15} />
             Back to history
           </Link>
           <div className="mt-4 flex min-w-0 flex-wrap items-center gap-3">
-            <h2 className="min-w-0 max-w-full break-words text-3xl font-semibold">{task.title}</h2>
-            <span className={`rounded px-3 py-1 text-xs font-semibold uppercase ${statusClass(status)}`}>
+            <h2 className="min-w-0 max-w-full break-words text-3xl font-normal">{task.title}</h2>
+            <span className={`status-pill ${statusClass(status)}`}>
               {status}
             </span>
           </div>
           <p className="mt-2 max-w-3xl break-words text-sm leading-6 text-steel">{task.description}</p>
-          <p className="mt-2 text-xs font-semibold uppercase tracking-[0.14em] text-steel">
+          <p className="mt-2 text-xs font-medium uppercase tracking-[0.14em] text-steel">
             Created {formatDistanceToNow(new Date(task.created_at), { addSuffix: true })} · Type{' '}
             {task.task_type || task.task_type_hint}
           </p>
@@ -123,7 +123,7 @@ export default function TaskDetail() {
 
         <div className="flex flex-wrap gap-2">
           <button
-            className="inline-flex items-center justify-center gap-2 rounded border border-line bg-white px-4 py-2 text-sm font-semibold text-ink"
+            className="action-secondary"
             type="button"
             onClick={() => taskQuery.refetch()}
           >
@@ -131,7 +131,7 @@ export default function TaskDetail() {
             Refresh
           </button>
           <button
-            className="inline-flex items-center justify-center gap-2 rounded border border-line bg-white px-4 py-2 text-sm font-semibold text-ink"
+            className="action-secondary"
             type="button"
             onClick={handleExport}
           >
@@ -139,7 +139,7 @@ export default function TaskDetail() {
             Export
           </button>
           <button
-            className="inline-flex items-center justify-center gap-2 rounded bg-signal px-4 py-2 text-sm font-semibold text-white disabled:opacity-60"
+            className="action-primary"
             type="button"
             disabled={rerunMutation.isPending}
             onClick={handleReplay}
@@ -151,20 +151,14 @@ export default function TaskDetail() {
       </div>
 
       {isShowcaseMode && (
-        <section className="border border-line bg-panel p-5">
-          <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">
-            How to read this
-          </p>
-          <h3 className="mt-2 text-xl font-semibold">This is the audit trail for the automation</h3>
-          <p className="mt-2 max-w-3xl text-sm leading-6 text-steel">
-            The platform does more than return an answer. It records the path from messy request to
-            validated business output so a human can inspect, export, and replay the work.
-          </p>
+        <section className="surface-soft p-5">
+          <p className="eyebrow">Audit room</p>
+          <h3 className="mt-2 text-xl font-normal">Business answer, technical evidence.</h3>
           <div className="mt-4 flex flex-wrap gap-2">
             {pipelineSteps.map((step) => (
               <span
                 key={step}
-                className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3 py-1 text-xs font-semibold text-ink"
+                className="inline-flex items-center gap-2 rounded-full border border-line bg-white px-3 py-1 text-xs font-medium text-ink"
               >
                 <CheckCircle2 className="text-signal" size={14} />
                 {step}
@@ -175,25 +169,43 @@ export default function TaskDetail() {
       )}
 
       <div className="grid gap-4 md:grid-cols-4">
-        <div className="border border-line bg-white p-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-steel">Connection</p>
-          <p className="mt-2 truncate text-lg font-semibold capitalize">
+        <div className="surface p-4">
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-steel">Connection</p>
+          <p className="metric-value mt-2 truncate text-lg capitalize">
             {isShowcaseMode ? 'showcase' : connectionState}
           </p>
         </div>
-        <div className="border border-line bg-white p-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-steel">Retries</p>
-          <p className="mt-2 text-lg font-semibold">{task.retry_count}</p>
+        <div className="surface p-4">
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-steel">Retries</p>
+          <p className="metric-value mt-2 text-lg">{task.retry_count}</p>
         </div>
-        <div className="border border-line bg-white p-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-steel">Duration</p>
-          <p className="mt-2 text-lg font-semibold">{task.duration_ms || 0} ms</p>
+        <div className="surface p-4">
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-steel">Duration</p>
+          <p className="metric-value mt-2 text-lg">{task.duration_ms || 0} ms</p>
         </div>
-        <div className="border border-line bg-white p-4">
-          <p className="text-xs font-semibold uppercase tracking-[0.14em] text-steel">Cost</p>
-          <p className="mt-2 text-lg font-semibold">${Number(task.cost_usd || 0).toFixed(4)}</p>
+        <div className="surface p-4">
+          <p className="text-xs font-medium uppercase tracking-[0.14em] text-steel">Cost</p>
+          <p className="metric-value mt-2 text-lg">${Number(task.cost_usd || 0).toFixed(4)}</p>
         </div>
       </div>
+
+      <section className="surface grid gap-4 p-5 lg:grid-cols-[240px_1fr]">
+        <div>
+          <div className="flex items-center gap-2">
+            <ShieldCheck className="text-signal" size={18} />
+            <p className="eyebrow">Governance</p>
+          </div>
+          <h3 className="mt-2 text-lg font-medium">Human review checkpoints</h3>
+        </div>
+        <div className="grid gap-3 md:grid-cols-3">
+          {['Trace captured', 'Validation schema applied', 'Replay/export available'].map((item) => (
+            <div key={item} className="rounded-xl border border-line bg-panel/70 p-3 text-sm font-medium">
+              <CheckCircle2 className="mb-3 text-signal" size={17} />
+              {item}
+            </div>
+          ))}
+        </div>
+      </section>
 
       <AgentGraph events={traceEvents} taskStatus={status} />
       <ValidationErrors errors={validationErrors} />

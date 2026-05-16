@@ -1,0 +1,77 @@
+
+> frontend@0.0.0 dev
+> vite --host 0.0.0.0 --port 5173
+
+
+  [32m[1mVITE[22m v5.4.21[39m  [2mready in [0m[1m522[22m[2m[0m ms[22m
+
+  [32m➜[39m  [1mLocal[22m:   [36mhttp://localhost:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://169.254.83.107:[1m5173[22m/[39m
+  [32m➜[39m  [1mNetwork[22m: [36mhttp://192.168.0.104:[1m5173[22m/[39m
+[2m[32m  ➜[39m[22m[2m  press [22m[1mh + enter[22m[2m to show help[22m
+[2m2:46:38 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m2:46:38 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mtailwind.config.js[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/Login.jsx, /src/pages/Settings.jsx, /src/pages/Register.jsx, /src/pages/TaskDetail.jsx, /src/pages/NewTask.jsx, /src/pages/TaskHistory.jsx, /src/pages/Dashboard.jsx[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/NewTask.jsx, /src/pages/Dashboard.jsx, /src/pages/TaskDetail.jsx, /src/pages/TaskHistory.jsx[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/api/showcaseApi.test.js[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/TaskDetail.jsx, /src/pages/NewTask.jsx, /src/pages/TaskHistory.jsx, /src/pages/Dashboard.jsx[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AgentGraph/AgentGraph.jsx, /src/index.css[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/ExecutionTrace/ExecutionTrace.jsx, /src/index.css[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/OutputPanel/OutputPanel.jsx[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/components/OutputPanel/outputFormatters.test.js[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/OutputPanel/OutputPanel.jsx, /src/index.css[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/ValidationErrors/ValidationErrors.jsx, /src/index.css[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/ProtectedRoute.jsx, /src/index.css[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/Login.jsx, /src/components/ProtectedRoute.jsx, /src/pages/TaskDetail.jsx, /src/pages/NewTask.jsx, /src/pages/Dashboard.jsx, /src/pages/Settings.jsx, /src/pages/Register.jsx, /src/pages/TaskHistory.jsx[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/Login.jsx, /src/pages/Settings.jsx, /src/pages/Register.jsx[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Dashboard.jsx, /src/index.css[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/TaskDetail.jsx[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/ProtectedRoute.jsx, /src/pages/Login.jsx, /src/pages/Settings.jsx, /src/pages/Register.jsx, /src/pages/TaskDetail.jsx, /src/pages/NewTask.jsx, /src/pages/TaskHistory.jsx, /src/pages/Dashboard.jsx[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.jsx, /src/index.css[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/NewTask.jsx, /src/index.css[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.jsx, /src/index.css[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Settings.jsx, /src/index.css[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/TaskDetail.jsx, /src/index.css[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/TaskHistory.jsx, /src/index.css[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/Settings.jsx, /src/pages/NewTask.jsx, /src/pages/Login.jsx, /src/pages/Register.jsx, /src/pages/TaskDetail.jsx, /src/pages/TaskHistory.jsx, /src/pages/Dashboard.jsx[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/main.jsx[22m
+[2m2:46:49 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/router.jsx[22m
+[2m2:47:54 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m2:47:54 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Dashboard.jsx, /src/index.css[22m
+[2m2:47:54 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/NewTask.jsx, /src/index.css[22m
+[2m2:47:54 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/TaskDetail.jsx, /src/index.css[22m
+[2m2:47:54 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AgentGraph/AgentGraph.jsx, /src/index.css[22m
+[2m2:47:55 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/ExecutionTrace/ExecutionTrace.jsx, /src/index.css[22m
+[2m2:47:55 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/OutputPanel/OutputPanel.jsx, /src/index.css[22m
+[2m2:48:27 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Login.jsx, /src/index.css[22m
+[2m2:48:27 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Register.jsx, /src/index.css[22m
+[2m2:48:27 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/TaskHistory.jsx, /src/index.css[22m
+[2m2:48:27 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Settings.jsx, /src/index.css[22m
+[2m2:48:27 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/ValidationErrors/ValidationErrors.jsx, /src/index.css[22m
+[2m2:48:27 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/AgentGraph/AgentGraph.jsx, /src/index.css[22m
+[2m2:48:27 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/ExecutionTrace/ExecutionTrace.jsx, /src/index.css[22m
+[2m2:48:27 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/OutputPanel/OutputPanel.jsx, /src/index.css[22m
+[2m2:49:05 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m2:49:05 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Dashboard.jsx, /src/index.css[22m
+[2m2:49:05 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/NewTask.jsx, /src/index.css[22m
+[2m2:49:05 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/TaskHistory.jsx, /src/index.css[22m
+[2m2:49:05 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/OutputPanel/OutputPanel.jsx, /src/index.css[22m
+[2m2:49:05 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/components/ValidationErrors/ValidationErrors.jsx, /src/index.css[22m
+[2m2:49:41 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m3:20:12 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/router.jsx[22m
+[2m3:25:03 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/api/showcaseApi.test.js[22m
+[2m3:25:38 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/NewTask.jsx, /src/pages/Dashboard.jsx, /src/pages/TaskDetail.jsx, /src/pages/TaskHistory.jsx[22m
+[2m3:35:20 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Dashboard.jsx, /src/index.css[22m
+[2m3:35:53 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m3:36:19 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m3:36:26 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2mtailwind.config.js[22m
+[2m3:36:56 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Dashboard.jsx, /src/index.css[22m
+[2m3:37:27 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css[22m
+[2m3:37:36 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/NewTask.jsx, /src/index.css[22m
+[2m3:37:42 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/TaskDetail.jsx, /src/index.css[22m
+[2m3:44:28 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/App.jsx, /src/index.css[22m
+[2m3:47:14 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/components/OutputPanel/OutputPanel.jsx[22m
+[2m3:53:05 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/pages/Dashboard.jsx, /src/index.css[22m
+[2m3:53:23 AM[22m [36m[1m[vite][22m[39m [32mhmr update [39m[2m/src/index.css, /src/pages/NewTask.jsx, /src/pages/Dashboard.jsx, /src/pages/TaskDetail.jsx, /src/pages/TaskHistory.jsx[22m
+[2m3:53:32 AM[22m [36m[1m[vite][22m[39m [32mpage reload [39m[2msrc/api/showcaseApi.test.js[22m

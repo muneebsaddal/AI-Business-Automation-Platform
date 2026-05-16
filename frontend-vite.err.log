@@ -1,0 +1,150 @@
+[2m2:46:38 AM[22m [31m[1m[vite][22m[39m [31mInternal server error: [postcss] C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css:78:5: The `bg-panel/80` class does not exist. If `bg-panel/80` is a custom class, make sure it is defined within a `@layer` directive.[39m
+  Plugin: [35mvite:css[39m
+  File: [36mC:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css[39m:78:4
+[33m  76 |  
+  77 |    .surface-soft {
+  78 |      @apply rounded-xl border border-line bg-panel/80;
+     |      ^
+  79 |    }
+  80 |  [39m
+      at Input.error (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\input.js:135:16)
+      at AtRule.error (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\node.js:146:32)
+      at processApply (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:380:29)
+      at C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:551:9
+      at C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\processTailwindFeatures.js:55:50
+      at async plugins (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\plugin.js:38:17)
+      at async LazyResult.runAsync (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\lazy-result.js:293:11)
+      at async compileCSS (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36898:21)
+      at async TransformPluginContext.transform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36171:11)
+      at async PluginContainer.transform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+[2m2:46:38 AM[22m [31m[1m[vite][22m[39m [31mInternal server error: [postcss] C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css:78:5: The `bg-panel/80` class does not exist. If `bg-panel/80` is a custom class, make sure it is defined within a `@layer` directive.[39m
+  Plugin: [35mvite:css[39m
+  File: [36mC:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css[39m:78:4
+[33m  76 |  
+  77 |    .surface-soft {
+  78 |      @apply rounded-xl border border-line bg-panel/80;
+     |      ^
+  79 |    }
+  80 |  [39m
+      at Input.error (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\input.js:135:16)
+      at AtRule.error (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\node.js:146:32)
+      at processApply (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:380:29)
+      at C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:551:9
+      at C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\processTailwindFeatures.js:55:50
+      at async plugins (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\plugin.js:38:17)
+      at async LazyResult.runAsync (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\lazy-result.js:293:11)
+      at async compileCSS (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36898:21)
+      at async TransformPluginContext.transform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36171:11)
+      at async PluginContainer.transform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+[2m2:46:39 AM[22m [31m[1m[vite][22m[39m Pre-transform error: [postcss] C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css:78:5: The `bg-panel/80` class does not exist. If `bg-panel/80` is a custom class, make sure it is defined within a `@layer` directive.
+[2m2:46:39 AM[22m [31m[1m[vite][22m[39m [31mInternal server error: [postcss] C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css:78:5: The `bg-panel/80` class does not exist. If `bg-panel/80` is a custom class, make sure it is defined within a `@layer` directive.[39m
+  Plugin: [35mvite:css[39m
+  File: [36mC:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css[39m:78:4
+[33m  76 |  
+  77 |    .surface-soft {
+  78 |      @apply rounded-xl border border-line bg-panel/80;
+     |      ^
+  79 |    }
+  80 |  [39m
+      at Input.error (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\input.js:135:16)
+      at AtRule.error (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\node.js:146:32)
+      at processApply (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:380:29)
+      at C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:551:9
+      at C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\processTailwindFeatures.js:55:50
+      at async plugins (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\plugin.js:38:17)
+      at async LazyResult.runAsync (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\lazy-result.js:293:11)
+      at async compileCSS (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36898:21)
+      at async TransformPluginContext.transform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36171:11)
+      at async PluginContainer.transform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+      at async viteTransformMiddleware (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2m2:46:40 AM[22m [31m[1m[vite][22m[39m [31mInternal server error: [postcss] C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css:78:5: The `bg-panel/80` class does not exist. If `bg-panel/80` is a custom class, make sure it is defined within a `@layer` directive.[39m
+  Plugin: [35mvite:css[39m
+  File: [36mC:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css[39m:78:4
+[33m  76 |  
+  77 |    .surface-soft {
+  78 |      @apply rounded-xl border border-line bg-panel/80;
+     |      ^
+  79 |    }
+  80 |  [39m
+      at Input.error (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\input.js:135:16)
+      at AtRule.error (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\node.js:146:32)
+      at processApply (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:380:29)
+      at C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:551:9
+      at C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\processTailwindFeatures.js:55:50
+      at async plugins (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\plugin.js:38:17)
+      at async LazyResult.runAsync (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\lazy-result.js:293:11)
+      at async compileCSS (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36898:21)
+      at async TransformPluginContext.transform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36171:11)
+      at async PluginContainer.transform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+      at async viteTransformMiddleware (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2m2:46:49 AM[22m [31m[1m[vite][22m[39m Pre-transform error: [postcss] C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css:78:5: The `bg-panel/80` class does not exist. If `bg-panel/80` is a custom class, make sure it is defined within a `@layer` directive.
+[2m2:46:49 AM[22m [31m[1m[vite][22m[39m Pre-transform error: [postcss] C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css:78:5: The `bg-panel/80` class does not exist. If `bg-panel/80` is a custom class, make sure it is defined within a `@layer` directive.
+[2m2:46:49 AM[22m [31m[1m[vite][22m[39m Pre-transform error: [postcss] C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css:78:5: The `bg-panel/80` class does not exist. If `bg-panel/80` is a custom class, make sure it is defined within a `@layer` directive.
+[2m2:46:50 AM[22m [31m[1m[vite][22m[39m [31mInternal server error: [postcss] C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css:78:5: The `bg-panel/80` class does not exist. If `bg-panel/80` is a custom class, make sure it is defined within a `@layer` directive.[39m
+  Plugin: [35mvite:css[39m
+  File: [36mC:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css[39m:78:4
+[33m  76 |  
+  77 |    .surface-soft {
+  78 |      @apply rounded-xl border border-line bg-panel/80;
+     |      ^
+  79 |    }
+  80 |  [39m
+      at Input.error (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\input.js:135:16)
+      at AtRule.error (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\node.js:146:32)
+      at processApply (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:380:29)
+      at C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:551:9
+      at C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\processTailwindFeatures.js:55:50
+      at async plugins (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\plugin.js:38:17)
+      at async LazyResult.runAsync (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\lazy-result.js:293:11)
+      at async compileCSS (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36898:21)
+      at async TransformPluginContext.transform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36171:11)
+      at async PluginContainer.transform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+      at async viteTransformMiddleware (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2m2:46:50 AM[22m [31m[1m[vite][22m[39m [31mInternal server error: [postcss] C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css:78:5: The `bg-panel/80` class does not exist. If `bg-panel/80` is a custom class, make sure it is defined within a `@layer` directive.[39m
+  Plugin: [35mvite:css[39m
+  File: [36mC:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css[39m:78:4
+[33m  76 |  
+  77 |    .surface-soft {
+  78 |      @apply rounded-xl border border-line bg-panel/80;
+     |      ^
+  79 |    }
+  80 |  [39m
+      at Input.error (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\input.js:135:16)
+      at AtRule.error (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\node.js:146:32)
+      at processApply (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:380:29)
+      at C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:551:9
+      at C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\processTailwindFeatures.js:55:50
+      at async plugins (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\plugin.js:38:17)
+      at async LazyResult.runAsync (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\lazy-result.js:293:11)
+      at async compileCSS (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36898:21)
+      at async TransformPluginContext.transform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36171:11)
+      at async PluginContainer.transform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+      at async viteTransformMiddleware (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)
+[2m2:47:55 AM[22m [31m[1m[vite][22m[39m Pre-transform error: [postcss] C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css:78:5: The `bg-panel/80` class does not exist. If `bg-panel/80` is a custom class, make sure it is defined within a `@layer` directive.
+[2m2:47:55 AM[22m [31m[1m[vite][22m[39m [31mInternal server error: [postcss] C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css:78:5: The `bg-panel/80` class does not exist. If `bg-panel/80` is a custom class, make sure it is defined within a `@layer` directive.[39m
+  Plugin: [35mvite:css[39m
+  File: [36mC:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/src/index.css[39m:78:4
+[33m  76 |  
+  77 |    .surface-soft {
+  78 |      @apply rounded-xl border border-line bg-panel/80;
+     |      ^
+  79 |    }
+  80 |  [39m
+      at Input.error (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\input.js:135:16)
+      at AtRule.error (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\node.js:146:32)
+      at processApply (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:380:29)
+      at C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\lib\expandApplyAtRules.js:551:9
+      at C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\processTailwindFeatures.js:55:50
+      at async plugins (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\tailwindcss\lib\plugin.js:38:17)
+      at async LazyResult.runAsync (C:\Users\munee\Documents\development_workspace\personal_projects\ai_business_automation_platform\frontend\node_modules\postcss\lib\lazy-result.js:293:11)
+      at async compileCSS (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36898:21)
+      at async TransformPluginContext.transform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:36171:11)
+      at async PluginContainer.transform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:49099:18)
+      at async loadAndTransform (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:51978:27)
+      at async viteTransformMiddleware (file:///C:/Users/munee/Documents/development_workspace/personal_projects/ai_business_automation_platform/frontend/node_modules/vite/dist/node/chunks/dep-BK3b2jBa.js:62106:24)

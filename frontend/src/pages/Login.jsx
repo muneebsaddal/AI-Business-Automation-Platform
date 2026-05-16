@@ -41,10 +41,10 @@ export default function Login() {
   }
 
   return (
-    <main className="grid min-h-screen place-items-center bg-paper px-6">
-      <section className="w-full max-w-md border border-line bg-white p-8 shadow-panel">
-        <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">Sign in</p>
-        <h1 className="mt-3 text-3xl font-semibold text-ink">AI Automation Platform</h1>
+    <main className="page-shell grid min-h-screen place-items-center px-6">
+      <section className="surface w-full max-w-md p-8">
+        <p className="eyebrow">Sign in</p>
+        <h1 className="mt-3 text-3xl font-normal text-ink">Agent Orchestrator</h1>
         <p className="mt-3 text-sm leading-6 text-steel">
           {isShowcaseMode
             ? 'Open the portfolio demo and explore the agent workflow without a backend server.'
@@ -55,7 +55,7 @@ export default function Login() {
           <label className="block">
             <span className="text-sm font-medium text-ink">Email</span>
             <input
-              className="mt-2 w-full rounded border border-line bg-paper px-3 py-2 text-ink outline-none focus:border-signal"
+              className="input-field mt-2"
               type="email"
               autoComplete="email"
               {...register('email')}
@@ -66,7 +66,7 @@ export default function Login() {
           <label className="block">
             <span className="text-sm font-medium text-ink">Password</span>
             <input
-              className="mt-2 w-full rounded border border-line bg-paper px-3 py-2 text-ink outline-none focus:border-signal"
+              className="input-field mt-2"
               type="password"
               autoComplete="current-password"
               {...register('password')}
@@ -77,14 +77,14 @@ export default function Login() {
           </label>
 
           {errors.root && (
-            <div className="flex gap-2 rounded border border-ember/30 bg-ember/10 p-3 text-sm text-ember">
+            <div className="flex gap-2 rounded-lg border border-ember/30 bg-ember/10 p-3 text-sm text-ember">
               <AlertCircle size={17} />
               {errors.root.message}
             </div>
           )}
 
           <button
-            className="inline-flex w-full items-center justify-center gap-2 rounded bg-signal px-4 py-2.5 text-sm font-semibold text-white disabled:opacity-60"
+            className="action-primary w-full"
             type="submit"
             disabled={isLoading}
           >
@@ -94,7 +94,7 @@ export default function Login() {
 
         <p className="mt-6 text-sm text-steel">
           Need an account?{' '}
-          <Link className="font-semibold text-ink underline" to="/register">
+          <Link className="font-medium text-ink underline" to="/register">
             Register
           </Link>
         </p>

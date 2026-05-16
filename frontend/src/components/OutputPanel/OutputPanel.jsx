@@ -7,8 +7,8 @@ import { formatBusinessOutput } from './outputFormatters'
 function ResultSection({ section }) {
   if (!section.items?.length) return null
   return (
-    <div className="min-w-0 border border-line bg-white p-4">
-      <h4 className="break-words text-sm font-semibold">{section.title}</h4>
+    <div className="min-w-0 rounded-xl border border-line bg-white p-4">
+      <h4 className="break-words text-sm font-medium">{section.title}</h4>
       <ul className="mt-3 space-y-2 text-sm leading-6 text-steel">
         {section.items.map((item) => (
           <li key={item} className="flex min-w-0 gap-2">
@@ -23,11 +23,11 @@ function ResultSection({ section }) {
 
 function MetricCard({ metric }) {
   return (
-    <div className="min-w-0 border border-line bg-white p-3">
-      <p className="break-words text-[11px] font-semibold uppercase tracking-[0.12em] text-steel">
+    <div className="min-w-0 rounded-xl border border-line bg-white p-3">
+      <p className="break-words text-[11px] font-medium uppercase tracking-[0.12em] text-steel">
         {metric.label}
       </p>
-      <p className="mt-2 break-words text-lg font-semibold leading-tight">{metric.value}</p>
+      <p className="mt-2 break-words text-lg font-medium leading-tight">{metric.value}</p>
     </div>
   )
 }
@@ -43,12 +43,12 @@ export default function OutputPanel({ output }) {
   }
 
   return (
-    <section className="min-w-0 overflow-hidden border border-line bg-white shadow-panel">
-      <div className="border-t-4 border-signal p-5">
+    <section className="surface min-w-0 overflow-hidden">
+      <div className="p-5">
         <div className="flex min-w-0 flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div className="min-w-0">
-            <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">Result</p>
-            <h3 className="mt-1 break-words text-xl font-semibold">Business-readable output</h3>
+            <p className="text-sm font-medium uppercase tracking-[0.14em] text-signal">Result</p>
+            <h3 className="mt-1 break-words text-xl font-normal">Business-readable output</h3>
             <p className="mt-2 text-sm leading-6 text-steel">
               The raw JSON is still available, but the default view explains what the automation
               found and what to do next.
@@ -57,8 +57,8 @@ export default function OutputPanel({ output }) {
           <div className="grid w-full shrink-0 grid-cols-2 gap-2 sm:w-auto">
             <button
               className={[
-                'inline-flex items-center justify-center gap-2 rounded border px-3 py-2 text-sm font-semibold',
-                view === 'summary' ? 'border-signal bg-panel text-signal' : 'border-line bg-white',
+                'inline-flex items-center justify-center gap-2 rounded border px-3 py-2 text-sm font-medium',
+                view === 'summary' ? 'border-signal/40 bg-signal/10 text-signal' : 'border-line bg-white',
               ].join(' ')}
               type="button"
               onClick={() => setView('summary')}
@@ -68,8 +68,8 @@ export default function OutputPanel({ output }) {
             </button>
             <button
               className={[
-                'inline-flex items-center justify-center gap-2 rounded border px-3 py-2 text-sm font-semibold',
-                view === 'json' ? 'border-signal bg-panel text-signal' : 'border-line bg-white',
+                'inline-flex items-center justify-center gap-2 rounded border px-3 py-2 text-sm font-medium',
+                view === 'json' ? 'border-signal/40 bg-signal/10 text-signal' : 'border-line bg-white',
               ].join(' ')}
               type="button"
               onClick={() => setView('json')}
@@ -82,11 +82,11 @@ export default function OutputPanel({ output }) {
 
         {view === 'summary' ? (
           <div className="mt-5 min-w-0 space-y-4">
-            <div className="min-w-0 border border-line bg-panel p-4">
-              <p className="break-words text-xs font-semibold uppercase tracking-[0.16em] text-signal">
+            <div className="min-w-0 rounded-xl border border-line bg-panel/70 p-4">
+              <p className="break-words text-xs font-medium uppercase tracking-[0.16em] text-signal">
                 {result.eyebrow}
               </p>
-              <h4 className="mt-2 break-words text-xl font-semibold leading-tight">{result.headline}</h4>
+              <h4 className="mt-2 break-words text-xl font-normal leading-tight">{result.headline}</h4>
               <p className="mt-3 text-sm leading-7 text-steel">{result.summary}</p>
             </div>
 
@@ -99,11 +99,11 @@ export default function OutputPanel({ output }) {
             {result.details.length > 0 && (
               <div className="grid min-w-0 gap-3 sm:grid-cols-2">
                 {result.details.map((detail) => (
-                  <div key={detail.label} className="min-w-0 border border-line bg-white p-3">
-                    <p className="break-words text-[11px] font-semibold uppercase tracking-[0.12em] text-steel">
+                  <div key={detail.label} className="min-w-0 rounded-xl border border-line bg-white p-3">
+                    <p className="break-words text-[11px] font-medium uppercase tracking-[0.12em] text-steel">
                       {detail.label}
                     </p>
-                    <p className="mt-2 break-words text-sm font-semibold">{detail.value}</p>
+                    <p className="mt-2 break-words text-sm font-medium">{detail.value}</p>
                   </div>
                 ))}
               </div>
@@ -119,7 +119,7 @@ export default function OutputPanel({ output }) {
           <div className="mt-5">
             <div className="mb-3 flex justify-end">
               <button
-                className="inline-flex items-center justify-center gap-2 rounded border border-line bg-white px-3 py-2 text-sm font-semibold text-ink"
+                className="inline-flex items-center justify-center gap-2 rounded border border-line bg-white px-3 py-2 text-sm font-medium text-ink"
                 type="button"
                 onClick={copyOutput}
               >
@@ -127,7 +127,7 @@ export default function OutputPanel({ output }) {
                 Copy JSON
               </button>
             </div>
-            <pre className="max-h-[420px] max-w-full overflow-auto whitespace-pre-wrap break-words border border-line bg-paper p-4 text-xs leading-5 text-ink">
+            <pre className="max-h-[420px] max-w-full overflow-auto whitespace-pre-wrap break-words rounded-xl border border-line bg-paper p-4 text-xs leading-5 text-ink">
               {text}
             </pre>
           </div>

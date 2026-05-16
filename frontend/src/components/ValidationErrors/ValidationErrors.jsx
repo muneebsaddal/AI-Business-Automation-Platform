@@ -2,9 +2,9 @@ export default function ValidationErrors({ errors = [] }) {
   if (!errors.length) return null
 
   return (
-    <section className="border border-ember/40 bg-ember/10 p-5">
-      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-ember">Validation</p>
-      <h3 className="mt-1 text-xl font-semibold">Field-level issues</h3>
+    <section className="rounded-xl border border-ember/40 bg-ember/10 p-5">
+      <p className="eyebrow text-ember">Validation</p>
+      <h3 className="mt-1 text-xl font-normal">Field-level issues</h3>
       <div className="mt-4 overflow-auto">
         <table className="w-full min-w-[640px] border-collapse text-left text-sm">
           <thead>
@@ -30,4 +30,3 @@ export default function ValidationErrors({ errors = [] }) {
     </section>
   )
 }
-

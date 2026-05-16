@@ -36,15 +36,16 @@ export default function ExecutionTrace({ events = [] }) {
   const endRef = useRef(null)
 
   useEffect(() => {
-    endRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+    const container = endRef.current?.parentElement
+    if (container) {
+      container.scrollTo({ top: container.scrollHeight, behavior: 'smooth' })
+    }
   }, [events])
 
   return (
-    <section className="min-w-0 border border-line bg-white p-5 shadow-panel">
-      <p className="text-sm font-semibold uppercase tracking-[0.18em] text-signal">
-        Automation path
-      </p>
-      <h3 className="mt-1 text-xl font-semibold">What happened step by step</h3>
+    <section className="surface min-w-0 p-5">
+      <p className="eyebrow">Automation path</p>
+      <h3 className="mt-1 text-xl font-normal">What happened step by step</h3>
       <p className="mt-2 text-sm leading-6 text-steel">
         This is the readable audit trail. Open technical event data only when you want to inspect
         the exact payload.
@@ -55,7 +56,7 @@ export default function ExecutionTrace({ events = [] }) {
           <p className="text-sm leading-6 text-steel">Waiting for live agent events...</p>
         )}
         {events.map((event, index) => (
-          <article key={`${event.event}-${index}`} className="min-w-0 border border-line bg-panel p-4">
+          <article key={`${event.event}-${index}`} className="min-w-0 rounded-xl border border-line bg-panel/70 p-4">
             <div className="flex items-start gap-3">
               <div className="mt-0.5">
                 <EventIcon event={event} />
@@ -63,16 +64,16 @@ export default function ExecutionTrace({ events = [] }) {
               <div className="min-w-0 flex-1">
                 <div className="flex items-start justify-between gap-3">
                   <div>
-                    <p className="text-sm font-semibold">{eventTitle(event)}</p>
+                    <p className="text-sm font-medium">{eventTitle(event)}</p>
                     <p className="mt-1 text-sm leading-6 text-steel">{eventSummary(event)}</p>
                   </div>
-                  <span className="shrink-0 rounded-full bg-white px-2 py-1 text-xs font-semibold text-steel">
+                  <span className="shrink-0 rounded-full bg-white px-2 py-1 font-mono text-xs font-medium text-steel">
                     {index + 1}
                   </span>
                 </div>
 
                 <details className="mt-3 group">
-                  <summary className="flex cursor-pointer list-none items-center gap-2 text-xs font-semibold uppercase tracking-[0.12em] text-signal">
+                  <summary className="flex cursor-pointer list-none items-center gap-2 text-xs font-medium uppercase tracking-[0.12em] text-signal">
                     <ChevronDown className="transition group-open:rotate-180" size={14} />
                     Technical event
                   </summary>
