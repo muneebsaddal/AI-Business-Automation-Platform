@@ -1,5 +1,5 @@
 const STORAGE_KEY = 'ai_ops_showcase_tasks'
-const STORAGE_VERSION = 2
+const STORAGE_VERSION = 3
 
 export const showcaseTemplates = [
   {
@@ -100,73 +100,6 @@ const seededTasks = [
   { ...showcaseTemplates[1], minutesAgo: 44 },
   { ...showcaseTemplates[2], minutesAgo: 86 },
   { ...showcaseTemplates[3], minutesAgo: 128 },
-  {
-    title: 'Score two agency operations leads',
-    description:
-      'Compare two inbound agency leads and recommend which should get a technical demo this week based on urgency, fit, budget signal, and workflow pain.',
-    task_type_hint: 'lead',
-    minutesAgo: 180,
-  },
-  {
-    title: 'Check vendor onboarding packet for missing details',
-    description:
-      'Review a vendor onboarding packet and identify missing tax, security, billing, and account-owner details before the finance team approves it.',
-    task_type_hint: 'onboard',
-    minutesAgo: 230,
-  },
-  {
-    title: 'Analyze payment terms in a draft statement of work',
-    description:
-      'Extract payment milestones, late-fee exposure, acceptance criteria, and ambiguous delivery terms from a draft SOW.',
-    task_type_hint: 'contract',
-    minutesAgo: 310,
-  },
-  {
-    title: 'Escalate unclear enterprise lead handoff',
-    description:
-      'Qualify an enterprise lead where the budget and decision maker are unclear, but the customer mentioned urgent integration issues and requested pricing.',
-    task_type_hint: 'lead',
-    status: 'escalated',
-    minutesAgo: 390,
-    validation_errors: [
-      { field: 'decision_maker', message: 'Decision maker was not explicit in the request.' },
-      { field: 'budget_usd', message: 'Budget signal was too vague for automatic routing.' },
-    ],
-  },
-  {
-    title: 'Recover stalled implementation handoff',
-    description:
-      'Convert a stalled implementation handoff into next steps for customer success, engineering, billing, and the account owner.',
-    task_type_hint: 'custom',
-    minutesAgo: 460,
-  },
-  {
-    title: 'Review cancellation clause for operations risk',
-    description:
-      'Review a cancellation clause and identify operational notice periods, refund exposure, and clauses that need legal review.',
-    task_type_hint: 'contract',
-    minutesAgo: 525,
-  },
-  {
-    title: 'Plan kickoff for BrightPath Analytics',
-    description:
-      'Create a kickoff plan for BrightPath Analytics covering access requests, data sources, approval cadence, and first automation milestone.',
-    task_type_hint: 'onboard',
-    minutesAgo: 610,
-  },
-  {
-    title: 'Parse incomplete support escalation notes',
-    description:
-      'Turn incomplete support escalation notes into an action plan. The notes omit account ID, owner, and customer priority.',
-    task_type_hint: 'custom',
-    status: 'failed',
-    retry_count: 2,
-    minutesAgo: 720,
-    validation_errors: [
-      { field: 'account_id', message: 'Required identifier missing after retry.' },
-      { field: 'priority', message: 'Priority could not be inferred safely.' },
-    ],
-  },
 ]
 
 export function getRecommendedShowcaseTemplate() {
@@ -307,7 +240,6 @@ function readStoredTasks() {
   if (typeof localStorage === 'undefined') return null
   const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) || 'null')
   if (stored?.version === STORAGE_VERSION && Array.isArray(stored.tasks)) return stored.tasks
-  if (Array.isArray(stored) && stored.length >= 10) return stored
   return null
 }
 
